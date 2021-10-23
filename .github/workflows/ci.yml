@@ -3,7 +3,7 @@ name: Rust
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
   schedule:
     - cron: '50 7 * * *'
