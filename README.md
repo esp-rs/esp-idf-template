@@ -4,7 +4,7 @@ A "Hello, world!" STD binary crate for the ESP32[XX] and ESP-IDF.
 
 This is the crate you get when running `cargo new rust-esp32-std-mini`, but augmented with extra configuration so that it does build for the ESP32[XX] with ESP-IDF and STD support.
 
-![CI](https://github.com/github/ivmarkov/rust-esp32-std-mini/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/ivmarkov/rust-esp32-std-mini/actions/workflows/ci.yml/badge.svg)
 
 ## Build
 
