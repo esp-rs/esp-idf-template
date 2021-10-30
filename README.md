@@ -22,7 +22,7 @@ If you don't have `rustup` installed yet, follow the instructions on the [rustup
 ### Rust & Clang - for RiscV32 MCUs (ESP32-C3)
 
 - You **can** target the ESP32-C3 with the Espressif toolchains just fine, but this MCU is also supported by the stock compilers
-- Just use the stock nightly Rust compiler, and a recent, stock Clang (as in Clang 11+)
+- So alternatively - just use the stock nightly Rust compiler, and a recent, stock Clang (as in Clang 11+)
 
 To install the nightly Rust compiler toolchain:
 ```sh
