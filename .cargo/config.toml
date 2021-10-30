@@ -1,9 +1,9 @@
 [build]
 # Uncomment the relevant target for your chip here (ESP32, ESP32-S2, ESP32-S3 or ESP32-C3)
-target = "xtensa-esp32-espidf"
-#target = "xtensa-esp32s2-espidf"
-#target = "xtensa-esp32s3-espidf"
-#target = "riscv32imc-esp-espidf"
+{% if mcu != "esp32" %}#{% endif %}target = "xtensa-esp32-espidf"
+{% if mcu != "esp32s2" %}#{% endif %}target = "xtensa-esp32s2-espidf"
+{% if mcu != "esp32s3" %}#{% endif %}target = "xtensa-esp32s3-espidf"
+{% if mcu != "esp32c3" %}#{% endif %}target = "riscv32imc-esp-espidf"
 
 [target.xtensa-esp32-espidf]
 linker = "ldproxy"
@@ -28,17 +28,19 @@ configurable-env = true # No longer necessary since 1.56, as it was stabilized: 
 extra-link-arg = true   # No longer necessary since 1.56, as it was stabilized: https://github.com/rust-lang/cargo/blob/master/src/cargo/core/features.rs#L695
 
 [env]
-ESP_IDF_SYS_GLOB_BASE = { value = ".", relative = true }
-#ESP_IDF_VERSION = { value = "master" } # Uncomment this and enable the esp-idf-sys "native" build feature to build against ESP-IDF master
-
+# === PIO builder ===
 # These configurations will pick up your custom "sdkconfig.release", "sdkconfig.debug" or "sdkconfig.defaults[.*]" files
 # that you might put in the root of the project
 # The easiest way to generate a full "sdkconfig[.release|debug]" configuration (as opposed to manually enabling only the necessary flags via "sdkconfig.defaults[.*]"
 # is by running "cargo pio espidf menuconfig"
+ESP_IDF_SYS_GLOB_BASE = { value = ".", relative = true }
 ESP_IDF_SYS_GLOB_0 = { value = "/sdkconfig.*" }
 
+# === Native builder ===
 # Same thing but for the native build. Currently the native and PIO builds disagree how sdkconfig configuration should be passed to the ESP-IDF build
 # See https://github.com/esp-rs/esp-idf-sys/issues/10#issuecomment-919022205
-#ESP_IDF_SDKCONFIG = { value = "./sdkconfig.release", relative = true }
-#ESP_IDF_SDKCONFIG = { value = "./sdkconfig.debug", relative = true }
+ESP_IDF_SDKCONFIG = { value = "./sdkconfig", relative = true }
 ESP_IDF_SDKCONFIG_DEFAULTS = { value = "./sdkconfig.defaults", relative = true }
+
+# Enables the esp-idf-sys "native" build feature to build against ESP-IDF master
+{% if espidfver != "master" %}#{% endif %}ESP_IDF_VERSION = { value = "master" }

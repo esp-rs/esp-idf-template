@@ -1,13 +1,9 @@
 [package]
-name = "rust-esp32-std-mini"
+name = "{{project-name}}"
 version = "0.1.0"
-authors = ["ivmarkov"]
+authors = ["{{authors}}"]
 edition = "2018"
-categories = ["embedded", "hardware-support"]
-keywords = ["embedded", "sys", "idf", "esp-idf", "esp32"]
-description = "A \"Hello, world!\" binary crate for the ESP32[XX] and ESP-IDF."
-repository = "https://github.com/ivmarkov/rust-esp32-std-mini"
-license = "MIT OR Apache-2.0"
+rust = "1.55"
 
 [features]
 native = ["esp-idf-sys/native"]

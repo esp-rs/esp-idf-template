@@ -1,0 +1,7 @@
+[toolchain]
+{% if toolchain == "esp" %}
+channel = "esp"
+{% endif %}
+{% if toolchain == "nightly" %}
+channel = "nightly"
+{% endif %}

@@ -1,39 +1,85 @@
-# Rust on ESP32 STD "Hello, World" app
+# Rust on ESP32 STD "Hello, World" template
 
-A "Hello, world!" STD binary crate for the ESP32[XX] and ESP-IDF.
+A "Hello, world!" template of a STD binary crate for the ESP32[XX] and ESP-IDF.
 
-This is the crate you get when running `cargo new rust-esp32-std-mini`, but augmented with extra configuration so that it does build for the ESP32[XX] with ESP-IDF and STD support.
+This is the crate you get when running `cargo new`, but augmented with extra configuration so that it does build for the ESP32[XX] with ESP-IDF and STD support.
 
 ![CI](https://github.com/ivmarkov/rust-esp32-std-mini/actions/workflows/ci.yml/badge.svg)
 
+  ## Prerequisites
+
+### Rustup
+
+If you don't have `rustup` installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
+
+### Rust & Clang - for Xtensa MCUs (ESP32, ESP32-S2 and ESP32-S3)
+
+- Install the [Rust Espressif compiler toolchain and the Espressif LLVM Clang toolchain](https://github.com/esp-rs/rust-build)
+- This is necessary, because support for the Xtensa architecture (ESP32 / ESP32-S2 / ESP32-S3) is not upstreamed in LLVM yet
+- Make sure that you DON'T have a system Clang installed as well, because even if you have the Espressif one first on your `$PATH`, Bindgen will still pick the system one
+  - A workaround that does not require uninstalling the system Clang is to do `export LIBCLANG_PATH=<path to the Espressif Clang lib directory>` prior to continuing the build process
+
+### Rust & Clang - for RiscV32 MCUs (ESP32-C3)
+
+- You **can** target the ESP32-C3 with the Espressif toolchains just fine, but this MCU is also supported by the stock compilers
+- Just use the stock nightly Rust compiler, and a recent, stock Clang (as in Clang 11+)
+
+To install the nightly Rust compiler toolchain:
+```sh
+rustup install nightly
+rustup component add rust-src --toolchain nightly
+```
+
+Installing a recent Clang compiler is OS-specific. The [Clang Getting Started page](https://clang.llvm.org/get_started.html) contains useful guidelines.
+
+### Cargo Sub-Commands
+
+```sh
+cargo install cargo-generate
+cargo install ldproxy
+cargo install espflash
+cargo install espmonitor
+```
+
+## Generate the project
+
+```sh
+cargo generate --vcs none --git https://github.com/ivmarkov/rust-esp32-std-template
+```
+
 ## Build
 
-- Install the [Rust Espressif compiler fork and the Espressif LLVM Clang fork](https://github.com/esp-rs/rust) using either pre-built binaries or follow the directions to build your own;
-  - This is necessary, because support for the Xtensa architecture (ESP32 / ESP32-S2 / ESP32-S3) is not upstreamed in LLVM yet
-- Switch to the `esp` toolchain from the pre-built binaries: `rustup default esp`
-  - **NOTE:** For ESP32-C3 - which runs a RiscV32 chip - you can just use the stock nightly Rust compiler, and a recent, stock Clang (as in Clang 11+)
-  - (You can do this by issuing `rustup install nightly` and then `rustup default nightly` instead of installing/building the Rust & Clang ESP forks and switching to their `esp` toolchain as advised above)
-- If using the custom Espressif Clang, make sure that you DON'T have a system Clang installed as well, because even if you have the Espressif one first on your `$PATH`, Bindgen will still pick the system one
-  - A workaround that does not require uninstalling the system Clang is to do `export LIBCLANG_PATH=<path to the Espressif Clang lib directory>` prior to continuing the build process
-- `cargo install ldproxy`
-- Clone this repo: `git clone https://github.com/ivmarkov/rust-esp32-std-mini`
-- Enter it: `cd rust-esp32-std-mini`
-- To configure the demo for your particular board, please uncomment the relevant [Rust target for your board](https://github.com/ivmarkov/rust-esp32-std-mini/blob/main/.cargo/config.toml#L2) and comment the others. Alternatively, just append the `--target <target>` flag to all `cargo build` lines below.
-- Build: `cargo build` or `cargo build --release`
+To build using the default PlatformIO builder just use:
+```sh
+cargo build
+```
+
+To build using the ESP-IDF native builder, use:
+```sh
+cargo build --features native
+```
 
 ## Flash
 
-- `cargo install espflash`
-- `espflash /dev/ttyUSB0 target/[xtensa-esp32-espidf|xtensa-esp32s2-espidf|xtensa-esp32s3-espidf|riscv32imc-esp-espidf]/debug/rust-esp32-std-mini`
+In the root of the generated project:
+
+```sh
+espflash /dev/ttyUSB0 target/[xtensa-esp32-espidf|xtensa-esp32s2-espidf|xtensa-esp32s3-espidf|riscv32imc-esp-espidf]/debug/<your-project-name>
+```
+
 - Replace `dev/ttyUSB0` above with the USB port where you've connected the board
+- Replace `<your-project-name>` with the name of the generated project
 
 ## Monitor
 
-- `cargo install espmonitor`
-- `espmonitor /dev/ttyUSB0`
+```sh
+espmonitor /dev/ttyUSB0
+```
+
 - Replace `dev/ttyUSB0` above with the USB port where you've connected the board
 
-- The monitor should output more or less the following:
+
+The monitor should output more or less the following:
 ```
 Opening /dev/tty.usbserial-0001 with speed 115200
 Resetting device... done

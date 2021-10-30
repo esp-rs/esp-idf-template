@@ -1,0 +1,31 @@
+[template]
+cargo_generate_version = ">=0.10.0"
+ignore = [
+    ".git",
+    ".github",
+    "README.md",
+]
+
+[placeholders.mcu]
+type = "string"
+prompt = "MCU"
+choices = ["esp32", "esp32s2", "esp32s3", "esp32c3"]
+default = "esp32"
+
+[placeholders.toolchain]
+type = "string"
+prompt = "Rust toolchain (beware: nightly works only for esp32c3!)"
+choices = ["esp", "nightly"]
+default = "esp"
+
+[placeholders.builder]
+type = "string"
+prompt = "Builder"
+choices = ["pio", "native"]
+default = "pio"
+
+[placeholders.espidfver]
+type = "string"
+prompt = "ESP-IDF version (applicable only to the native builder)"
+choices = ["stable", "master"]
+default = "stable"
