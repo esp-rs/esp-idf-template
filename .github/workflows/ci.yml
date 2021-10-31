@@ -33,10 +33,10 @@ jobs:
       - name: Build | Compile
         run: cd test; cargo build
       - name: Generate no_std
-        run: cargo generate --git https://github.com/ivmarkov/rust-esp32-std-template --name test --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=stable
+        run: cargo generate --git https://github.com/ivmarkov/rust-esp32-std-template --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=master
       - name: Build | Fmt Check
-        run: cd test; cargo fmt -- --check
+        run: cd testnostd; cargo fmt -- --check
       - name: Build | Clippy
-        run: cd test; cargo clippy --no-deps
+        run: cd testnostd; cargo clippy --no-deps
       - name: Build | Compile
-        run: cd test; cargo build
+        run: cd testnostd; cargo build --features native
