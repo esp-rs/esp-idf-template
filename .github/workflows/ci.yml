@@ -25,7 +25,15 @@ jobs:
       - name: Setup | ldproxy
         run: cargo install ldproxy
       - name: Generate
-        run: cargo generate --git https://github.com/ivmarkov/rust-esp32-std-template --name test --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d espidfver=stable
+        run: cargo generate --git https://github.com/ivmarkov/rust-esp32-std-template --name test --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=true -d espidfver=stable
+      - name: Build | Fmt Check
+        run: cd test; cargo fmt -- --check
+      - name: Build | Clippy
+        run: cd test; cargo clippy --no-deps
+      - name: Build | Compile
+        run: cd test; cargo build
+      - name: Generate no_std
+        run: cargo generate --git https://github.com/ivmarkov/rust-esp32-std-template --name test --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=stable
       - name: Build | Fmt Check
         run: cd test; cargo fmt -- --check
       - name: Build | Clippy

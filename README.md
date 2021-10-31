@@ -1,10 +1,10 @@
-# Rust on ESP32 STD "Hello, World" template
+# Rust on ESP-IDF "Hello, World" template
 
-A "Hello, world!" template of a STD binary crate for the ESP32[XX] and ESP-IDF.
+A "Hello, world!" template of a Rust binary crate for the ESP-IDF framework.
 
-This is the crate you get when running `cargo new`, but augmented with extra configuration so that it does build for the ESP32[XX] with ESP-IDF and STD support.
+This is the crate you get when running `cargo new`, but augmented with extra configuration so that it does build for the ESP32[XX] with ESP-IDF and (by default) with STD support.
 
-![CI](https://github.com/ivmarkov/rust-esp32-std-mini/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/ivmarkov/esp-idf-template/actions/workflows/ci.yml/badge.svg)
 
   ## Prerequisites
 
@@ -44,7 +44,7 @@ cargo install espmonitor
 ## Generate the project
 
 ```sh
-cargo generate --vcs none --git https://github.com/ivmarkov/rust-esp32-std-template
+cargo generate --vcs none --git https://github.com/ivmarkov/esp-idf-template
 ```
 
 ## Build
