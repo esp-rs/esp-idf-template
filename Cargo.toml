@@ -1,6 +1,6 @@
 [package]
 name = "{{project-name}}"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["{{authors}}"]
 edition = "2018"
 resolver = "2"
@@ -9,9 +9,9 @@ resolver = "2"
 native = ["esp-idf-sys/native"]
 
 [dependencies]
-{% if std %}esp-idf-sys = { version = "0.24.2", features = ["binstart"] }
+{% if std %}esp-idf-sys = { version = "0.24.3", features = ["binstart"] }
 {% else %}log = { version = "0.4", default-features = false }
-esp-idf-sys = { version = "0.24.2", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
+esp-idf-sys = { version = "0.24.3", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
 esp-idf-svc = { version = "0.28", default-features = false, features = ["alloc"] }{% endif %}
 
 [build-dependencies]
