@@ -30,7 +30,7 @@ Installing a recent Clang compiler is OS-specific. The [Clang Getting Started pa
 
 ### Install Python3
 
-You need a Python 3.6.8 or later installed on your machine. Install it from the package distro of your OS, or download and install [from the official Python site](https://www.python.org/downloads/).
+You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install [from the official Python site](https://www.python.org/downloads/).
 
 ### Install PlatformIO
 
