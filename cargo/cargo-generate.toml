@@ -4,7 +4,9 @@ ignore = [
     ".git",
     ".github",
     "README.md",
+    "cmake",
 ]
+description1 = "My description"
 
 [placeholders]
 mcu = { type = "string", prompt = "MCU", choices = ["esp32", "esp32s2", "esp32s3", "esp32c3"], default = "esp32" }

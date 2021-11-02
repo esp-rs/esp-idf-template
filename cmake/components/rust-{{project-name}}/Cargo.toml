@@ -1,0 +1,19 @@
+[package]
+name = "rust-{{project-name}}"
+version = "0.1.0"
+authors = ["{{authors}}"]
+edition = "2018"
+resolver = "2"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+{% if std %}esp-idf-sys = { version = "0.24.3", features = ["native"] }
+{% else %}log = { version = "0.4", default-features = false }
+esp-idf-sys = { version = "0.24.3", default-features = false, features = ["native", "panic_handler", "alloc_handler"] }
+esp-idf-svc = { version = "0.28.1", default-features = false, features = ["alloc"] }{% endif %}
+
+[build-dependencies]
+embuild = "0.25"
+anyhow = "1"

@@ -1,0 +1,6 @@
+[template]
+cargo_generate_version = ">=0.10.0"
+
+[placeholders]
+toolchain = { type = "string", prompt = "Rust toolchain (beware: nightly works only for esp32c3!)", choices = ["esp", "nightly"], default = "esp" }
+std = { type = "bool", prompt = "STD support", default = true }

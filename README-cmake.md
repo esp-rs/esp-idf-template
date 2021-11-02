@@ -1,14 +1,6 @@
-# Rust on ESP-IDF "Hello, World" template
+# Rust on ESP-IDF "Hello, World" CMake template
 
-A "Hello, world!" template of a Rust binary crate for the ESP-IDF framework.
-
-This is the crate you get when running `cargo new`, but augmented with extra configuration so that it does build for the ESP32[XX] with ESP-IDF and (by default) with STD support.
-
-Or if you rather
-* ... want to mix Rust and C/C++ in a traditional ESP-IDF `idf.py` CMake project - [follow these instructions](README-cmake.md)
-* ... want to mix Rust and C/C++ with PlatformIO - [follow these instructions](README-pio.md)
-
-![CI](https://github.com/ivmarkov/esp-idf-template/actions/workflows/ci.yml/badge.svg)
+A "Hello, world!" template of a mixed Rust/C ESP-IDF project driven by `idf.py` and CMake.
 
 ## Prerequisites
 
@@ -40,51 +32,57 @@ Installing a recent Clang compiler is OS-specific. The [Clang Getting Started pa
 
 You need a Python 3.6.8 or later installed on your machine. Install it from the package distro of your OS, or download and install [from the official Python site](https://www.python.org/downloads/).
 
-### Install Cargo Sub-Commands
+### Install ESP-IDF SDK & Tooling
+
+When using `idf.py` and CMake driven ESP-IDF projects, you need to [install the ESP-IDF SDK and its tooling manually](https://docs.espressif.com/projects/esp-idf/en/v4.3.1/esp32/get-started/index.html).
+
+Simple installation for Linux & MacOS:
+```sh
+git clone https://github.com/espressif/esp-idf
+git -C esp-idf checkout release/v4.4
+esp-idf/install.sh
+. esp-idf/export.sh
+```
+
+Simple installation for Windows:
+```sh
+git clone https://github.com/espressif/esp-idf
+git -C esp-idf checkout release/v4.4
+esp-idf\install
+esp-idf\export
+```
+
+### Install Cargo Generate
 
 ```sh
 cargo install cargo-generate
-cargo install ldproxy
-cargo install espflash
-cargo install espmonitor
 ```
 
 ## Generate the project
 
 ```sh
-cargo generate --vcs none --git https://github.com/ivmarkov/esp-idf-template cargo
+cargo generate --vcs none --git https://github.com/ivmarkov/esp-idf-template cmake
 ```
 
 ## Build
 
-To build using the default PlatformIO builder just use:
 ```sh
-cd <your-project-name>
-cargo build
-```
-
-- Replace `<your-project-name>` with the name of the generated project
-
-To build using the ESP-IDF native builder, use:
-```sh
-cargo build --features native
+idf.py set-target [esp32|esp32s2|esp32s3|esp32c3]
+idf.py build
 ```
 
 ## Flash
 
-In the root of the generated project:
-
 ```sh
-espflash /dev/ttyUSB0 target/[xtensa-esp32-espidf|xtensa-esp32s2-espidf|xtensa-esp32s3-espidf|riscv32imc-esp-espidf]/debug/<your-project-name>
+idf.py -p /dev/ttyUSB0 flash
 ```
 
 - Replace `dev/ttyUSB0` above with the USB port where you've connected the board
-- Replace `<your-project-name>` with the name of the generated project
 
 ## Monitor
 
 ```sh
-espmonitor /dev/ttyUSB0
+idf.py -p /dev/ttyUSB0 monitor
 ```
 
 - Replace `dev/ttyUSB0` above with the USB port where you've connected the board
@@ -128,62 +126,3 @@ I (272) cpu_start: Starting scheduler on PRO CPU.
 I (0) cpu_start: Starting scheduler on APP CPU.
 Hello, world!
 ```
-
-# CMake template
-
-## Prerequisites
-
-### Rustup, Rust and Clang
-
-Follow the instructions [here]().
-
-### Cargo Sub-Commands
-
-```sh
-cargo install cargo-generate
-```
-
-# PlatformIO template
-
-## Prerequisites
-
-### Rustup, Rust and Clang
-
-Follow the instructions [here]().
-
-### PlatformIO
-
-Install the [PlatformIO CLI](https://platformio.org/install/cli), or the full [IDE experience](https://platformio.org/install/ide).
-
-### Cargo Sub-Commands
-
-```sh
-cargo install cargo-pio
-```
-
-## Generate the project
-
-```sh
-cargo pio new <your-project-name> --platform espressif32 --framework espidf [--board <your-board-name>]
-```
-
-## Build
-
-From the command line:
-```sh
-pio build
-```
-
-.. or using the PlatformIO IDE, as usual.
-
-## Flash
-
-From the command line:
-```sh
-pio update
-```
-
-.. or using the PlatformIO IDE, as usual (command "update").
-
-## Monitor
-
