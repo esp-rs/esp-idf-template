@@ -67,9 +67,12 @@ cargo generate --vcs none --git https://github.com/ivmarkov/esp-idf-template cma
 ## Build
 
 ```sh
+cd <your-project-name>
 idf.py set-target [esp32|esp32s2|esp32s3|esp32c3]
 idf.py build
 ```
+
+- Replace `<your-project-name>` with the name of the generated project
 
 ## Flash
 
