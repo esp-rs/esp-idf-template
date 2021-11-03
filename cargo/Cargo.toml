@@ -5,6 +5,13 @@ authors = ["{{authors}}"]
 edition = "2018"
 resolver = "2"
 
+[profile.release]
+debug = true # Symbols are nice and they don't increase the size on Flash
+opt-level = "z"
+
+[profile.dev]
+opt-level = "s"
+
 [features]
 native = ["esp-idf-sys/native"]
 
