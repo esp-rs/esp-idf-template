@@ -24,19 +24,29 @@ jobs:
         run: cargo install cargo-generate
       - name: Setup | ldproxy
         run: cargo install ldproxy
-      - name: Generate
+      - name: (STD, PIO) Generate
         run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name test --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=true -d espidfver=stable
-      - name: Build | Fmt Check
+      - name: (STD, PIO) Build | Fmt Check
         run: cd test; cargo fmt -- --check
-      - name: Build | Clippy
+      - name: (STD, PIO) Build | Clippy
         run: cd test; cargo clippy --no-deps
-      - name: Build | Compile
+      - name: (STD, PIO) Build | Compile
         run: cd test; cargo build
-      - name: Generate no_std
+      - name: (NOSTD, NATIVE) Generate
         run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=master
-      - name: Build | Fmt Check
+      - name: (NOSTD, NATIVE) Build | Fmt Check
         run: cd testnostd; cargo fmt -- --check
-      - name: Build | Clippy
+      - name: (NOSTD, NATIVE) Build | Clippy
         run: cd testnostd; cargo clippy --no-deps
-      - name: Build | Compile
+      - name: (NOSTD, NATIVE) Build | Compile
         run: cd testnostd; cargo build --features native
+      - name: (STD, CMake) Generate
+        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true
+      - name: (STD, CMake) ESP-IDF | Checkout
+        run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout release/v4.4
+      - name: (STD, CMake) ESP-IDF | Install Tooling
+        run: esp-idf/install.sh
+      - name: (STD, CMake) Build | Set Target
+        run: . esp-idf/export.sh; cd testidf; idf.py set-target esp32c3
+      - name: (STD, CMake) Build | Compile
+        run: . esp-idf/export.sh; cd testidf; idf.py build
