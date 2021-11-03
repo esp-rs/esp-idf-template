@@ -76,7 +76,7 @@ ExternalProject_Add(
 )
 
 add_prebuilt_library(library_rust_{{crate_name}} "${RUST_STATIC_LIBRARY}" PRIV_REQUIRES "${RUST_DEPS}")
-add_dependencies(library_rust_{{crate_name}} project_{{crate_name}})
+add_dependencies(library_rust_{{crate_name}} project_rust_{{crate_name}})
 
 target_include_directories(${COMPONENT_LIB} PUBLIC "${RUST_INCLUDE_DIR}")
 target_link_libraries(${COMPONENT_LIB} PRIVATE library_rust_{{crate_name}})
