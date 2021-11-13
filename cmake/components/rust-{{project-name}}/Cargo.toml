@@ -9,11 +9,11 @@ resolver = "2"
 crate-type = ["staticlib"]
 
 [profile.release]
-debug = true # Symbols are nice and they don't increase the size on Flash
-opt-level = "z"
+opt-level = "s"
 
 [profile.dev]
-opt-level = "s"
+debug = true # Symbols are nice and they don't increase the size on Flash
+opt-level = "z"
 
 [dependencies]
 {% if std %}esp-idf-sys = { version = "0.24.6", features = ["native"] }
