@@ -16,10 +16,10 @@ opt-level = "z"
 native = ["esp-idf-sys/native"]
 
 [dependencies]
-{% if std %}esp-idf-sys = { version = "0.24.6", features = ["binstart"] }
+{% if std %}esp-idf-sys = { version = "0.25", features = ["binstart"] }
 {% else %}log = { version = "0.4", default-features = false }
-esp-idf-sys = { version = "0.24.6", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
-esp-idf-svc = { version = "0.29.1", default-features = false, features = ["alloc"] }{% endif %}
+esp-idf-sys = { version = "0.25", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
+esp-idf-svc = { version = "0.30", default-features = false, features = ["alloc"] }{% endif %}
 
 [build-dependencies]
 embuild = "0.25"
