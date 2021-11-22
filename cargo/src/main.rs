@@ -2,8 +2,8 @@
 #![no_main]
 
 use esp_idf_svc;
-{% endunless %}#[allow(unused_imports)]
-use esp_idf_sys; // If using the `binstart` feature of `esp-idf-sys`, always keep this module imported
+{% endunless %}
+use esp_idf_sys as _; // If using the `binstart` feature of `esp-idf-sys`, always keep this module imported
 
 {% unless std %}use log::*;
 
