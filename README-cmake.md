@@ -61,7 +61,7 @@ cargo install cargo-generate
 ## Generate the project
 
 ```sh
-cargo generate --vcs none --git https://github.com/ivmarkov/esp-idf-template cmake
+cargo generate --vcs none --git https://github.com/esp-rs/esp-idf-template cmake
 ```
 
 ## Build

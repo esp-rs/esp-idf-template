@@ -8,7 +8,7 @@ Or if you rather
 * ... want to mix Rust and C/C++ in a traditional ESP-IDF `idf.py` CMake project - [follow these instructions](README-cmake.md)
 * ... want to mix Rust and C/C++ with PlatformIO - [follow these instructions](README-pio.md)
 
-![CI](https://github.com/ivmarkov/esp-idf-template/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci.yml/badge.svg)
 
 ## Prerequisites
 
@@ -52,7 +52,7 @@ cargo install espmonitor
 ## Generate the project
 
 ```sh
-cargo generate --vcs none --git https://github.com/ivmarkov/esp-idf-template cargo
+cargo generate --vcs none --git https://github.com/esp-rs/esp-idf-template cargo
 ```
 
 ## Build
