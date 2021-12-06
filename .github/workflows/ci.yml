@@ -29,7 +29,7 @@ jobs:
       - name: (STD, PIO) Build | Fmt Check
         run: cd test; cargo fmt -- --check
       - name: (STD, PIO) Build | Clippy
-        run: cd test; cargo clippy --no-deps
+        run: cd test; cargo clippy --no-deps -- -Dwarnings
       - name: (STD, PIO) Build | Compile
         run: cd test; cargo build
       - name: (NOSTD, NATIVE) Generate
@@ -37,7 +37,7 @@ jobs:
       - name: (NOSTD, NATIVE) Build | Fmt Check
         run: cd testnostd; cargo fmt -- --check
       - name: (NOSTD, NATIVE) Build | Clippy
-        run: cd testnostd; cargo clippy --no-deps
+        run: cd testnostd; cargo clippy --no-deps -- -Dwarnings
       - name: (NOSTD, NATIVE) Build | Compile
         run: cd testnostd; cargo build --features native
       - name: (STD, CMake) Generate
