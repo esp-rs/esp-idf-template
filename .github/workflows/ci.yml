@@ -32,13 +32,13 @@ jobs:
         run: cd test; cargo clippy --no-deps -- -Dwarnings
       - name: (STD, PIO) Build | Compile
         run: cd test; cargo build
-      - name: (NOSTD, NATIVE) Generate
+      - name: (NOSTD, NATIVE, V5.0) Generate
         run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=master
-      - name: (NOSTD, NATIVE) Build | Fmt Check
+      - name: (NOSTD, NATIVE, V5.0) Build | Fmt Check
         run: cd testnostd; cargo fmt -- --check
-      - name: (NOSTD, NATIVE) Build | Clippy
+      - name: (NOSTD, NATIVE, V5.0) Build | Clippy
         run: cd testnostd; cargo clippy --no-deps -- -Dwarnings
-      - name: (NOSTD, NATIVE) Build | Compile
+      - name: (NOSTD, NATIVE, V5.0) Build | Compile
         run: cd testnostd; cargo build --features native
       - name: (STD, CMake) Generate
         run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true
