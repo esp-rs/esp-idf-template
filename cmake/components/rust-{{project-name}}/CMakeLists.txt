@@ -1,4 +1,4 @@
-# If this component depends on other components, enumerate those in the double-quotes below, separated by spaces
+# If this component depends on other components - be it ESP-IDF or project-specific ones - enumerate those in the double-quotes below, separated by spaces
 # Note that pthread should always be there, or else STD will not work
 set(RUST_DEPS "pthread")
 # Here's a non-minimal, reasonable set of ESP-IDF components that one might want enabled for Rust:
