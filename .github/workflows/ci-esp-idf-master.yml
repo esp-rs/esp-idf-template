@@ -1,0 +1,40 @@
+name: CIEspIdfMaster
+
+on:
+  schedule:
+    - cron: '50 8 * * *'
+
+jobs:
+  compile:
+    name: Compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup | Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          components: rustfmt, clippy
+      - name: Setup | Std
+        run: rustup component add rust-src --toolchain nightly
+      - name: Setup | cargo-generate
+        run: cargo install cargo-generate
+      - name: Setup | ldproxy
+        run: cargo install ldproxy
+      - name: (NOSTD, NATIVE, V5.0) Generate
+        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=master
+      - name: (NOSTD, NATIVE, V5.0) Build | Fmt Check
+        run: cd testnostd; cargo fmt -- --check
+      - name: (NOSTD, NATIVE, V5.0) Build | Clippy
+        run: cd testnostd; cargo clippy --no-deps -- -Dwarnings
+      - name: (NOSTD, NATIVE, V5.0) Build | Compile
+        run: cd testnostd; cargo build --features native
+      - name: (STD, CMake, V5.0) Generate
+        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true
+      - name: (STD, CMake, V5.0) ESP-IDF | Checkout
+        run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout master
+      - name: (STD, CMake, V5.0) ESP-IDF | Install Tooling
+        run: esp-idf/install.sh
+      - name: (STD, CMake, V5.0) Build | Set Target
+        run: . esp-idf/export.sh; cd testidf; idf.py set-target esp32c3
+      - name: (STD, CMake, V5.0) Build | Compile
+        run: . esp-idf/export.sh; cd testidf; idf.py build

@@ -32,21 +32,21 @@ jobs:
         run: cd test; cargo clippy --no-deps -- -Dwarnings
       - name: (STD, PIO) Build | Compile
         run: cd test; cargo build
-      - name: (NOSTD, NATIVE, V5.0) Generate
-        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=master
-      - name: (NOSTD, NATIVE, V5.0) Build | Fmt Check
+      - name: (NOSTD, NATIVE, V4.4) Generate
+        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=upcoming
+      - name: (NOSTD, NATIVE, V4.4) Build | Fmt Check
         run: cd testnostd; cargo fmt -- --check
-      - name: (NOSTD, NATIVE, V5.0) Build | Clippy
+      - name: (NOSTD, NATIVE, V4.4) Build | Clippy
         run: cd testnostd; cargo clippy --no-deps -- -Dwarnings
-      - name: (NOSTD, NATIVE, V5.0) Build | Compile
+      - name: (NOSTD, NATIVE, V4.4) Build | Compile
         run: cd testnostd; cargo build --features native
-      - name: (STD, CMake) Generate
+      - name: (STD, CMake, V4.4) Generate
         run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true
-      - name: (STD, CMake) ESP-IDF | Checkout
+      - name: (STD, CMake, V4.4) ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout release/v4.4
-      - name: (STD, CMake) ESP-IDF | Install Tooling
+      - name: (STD, CMake, V4.4) ESP-IDF | Install Tooling
         run: esp-idf/install.sh
-      - name: (STD, CMake) Build | Set Target
+      - name: (STD, CMake, V4.4) Build | Set Target
         run: . esp-idf/export.sh; cd testidf; idf.py set-target esp32c3
-      - name: (STD, CMake) Build | Compile
+      - name: (STD, CMake, V4.4) Build | Compile
         run: . esp-idf/export.sh; cd testidf; idf.py build
