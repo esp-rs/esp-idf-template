@@ -48,6 +48,7 @@ set(RUST_STATIC_LIBRARY "${CARGO_TARGET_DIR}/${RUST_TARGET}/${CARGO_BUILD_TYPE}/
 #set_source_files_properties("${RUST_INCLUDE_HEADER}" PROPERTIES GENERATED true)
 
 idf_build_get_property(sdkconfig SDKCONFIG)
+idf_build_get_property(idf_path IDF_PATH)
 
 ExternalProject_Add(
     project_rust_{{crate_name}}
@@ -60,6 +61,7 @@ ExternalProject_Add(
         CARGO_CMAKE_BUILD_INCLUDES=$<TARGET_PROPERTY:${COMPONENT_LIB},INCLUDE_DIRECTORIES>
         CARGO_CMAKE_BUILD_LINK_LIBRARIES=$<TARGET_PROPERTY:${COMPONENT_LIB},LINK_LIBRARIES>
         CARGO_CMAKE_BUILD_SDKCONFIG=${sdkconfig}
+        CARGO_CMAKE_BUILD_ESP_IDF=${idf_path}
         CARGO_CMAKE_BUILD_COMPILER=${CMAKE_C_COMPILER}
         cargo build --target ${RUST_TARGET} --target-dir ${CARGO_TARGET_DIR} ${CARGO_BUILD_ARG} ${CARGO_BUILD_STD_ARG}
     INSTALL_COMMAND ""
