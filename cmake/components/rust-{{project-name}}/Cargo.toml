@@ -16,10 +16,10 @@ debug = true # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
 
 [dependencies]
-{% if std %}esp-idf-sys = { version = "0.30.6", features = ["native"] }
+{% if std %}esp-idf-sys = { version = "0.31", features = ["native"] }
 {% else %}log = { version = "0.4", default-features = false }
-esp-idf-sys = { version = "0.30.6", default-features = false, features = ["native", "panic_handler", "alloc_handler"] }
-esp-idf-svc = { version = "0.37.2", default-features = false, features = ["alloc"] }{% endif %}
+esp-idf-sys = { version = "0.31", default-features = false, features = ["native", "panic_handler", "alloc_handler"] }
+esp-idf-svc = { version = "0.38.2", default-features = false, features = ["alloc"] }{% endif %}
 
 [build-dependencies]
 embuild = "0.28"
