@@ -12,4 +12,4 @@ description1 = "My description"
 mcu = { type = "string", prompt = "MCU", choices = ["esp32", "esp32s2", "esp32s3", "esp32c3"], default = "esp32" }
 toolchain = { type = "string", prompt = "Rust toolchain (beware: nightly works only for esp32c3!)", choices = ["esp", "nightly"], default = "esp" }
 std = { type = "bool", prompt = "STD support", default = true }
-espidfver = { type = "string", prompt = "ESP-IDF native build version (v4.3.2 = previous stable, v4.4 = stable, v5.0 = development; NOTE: applicable only with `cargo build --features native`)", choices = ["v4.3.2", "v4.4", "v5.0"], default = "v4.3.2" }
+espidfver = { type = "string", prompt = "ESP-IDF native build version (v4.3.2 = previous stable, v4.4 = stable, v5.0 = development; NOTE: applicable only with `cargo build --features native`)", choices = ["v4.4", "v4.3.2", "v5.0"], default = "v4.4" }
