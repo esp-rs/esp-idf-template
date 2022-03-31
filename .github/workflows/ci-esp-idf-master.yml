@@ -32,7 +32,7 @@ jobs:
       - name: (NOSTD, NATIVE, V5.0) Build | Clippy
         run: cd testnostd; cargo clippy --no-deps -- -Dwarnings
       - name: (NOSTD, NATIVE, V5.0) Build | Compile
-        run: cd testnostd; cargo build --features native
+        run: cd testnostd; cargo build
       - name: (STD, CMake, V5.0) Generate
         run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v5.0
       - name: (STD, CMake, V5.0) ESP-IDF | Checkout
