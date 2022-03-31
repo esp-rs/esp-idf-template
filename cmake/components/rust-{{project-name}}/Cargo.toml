@@ -19,7 +19,7 @@ opt-level = "z"
 {% if std %}esp-idf-sys = { version = "0.31", features = ["native"] }
 {% else %}log = { version = "0.4", default-features = false }
 esp-idf-sys = { version = "0.31", default-features = false, features = ["native", "panic_handler", "alloc_handler"] }
-esp-idf-svc = { version = "0.38.2", default-features = false, features = ["alloc"] }{% endif %}
+esp-idf-svc = { version = "0.39", default-features = false, features = ["alloc"] }{% endif %}
 
 [build-dependencies]
 embuild = "0.28"

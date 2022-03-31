@@ -24,7 +24,7 @@ rustflags = ["-C", "default-linker-libraries"]
 [unstable]
 {% if std %}
 build-std = ["std", "panic_abort"]{% else %}build-std = ["core", "alloc", "panic_abort"]{% endif %}
-{% if espidfver != "v4.3.2" %}#{% endif %}build-std-features = ["panic_immediate_abort"] # required for older esp-idf versions without a realpath implementation
+{% if espidfver != "v4.3.2" %}#{% endif %}build-std-features = ["panic_immediate_abort"] # Required for older ESP-IDF versions without a realpath implementation
 
 [env]
 # Note: these variables are not used when using pio builder
