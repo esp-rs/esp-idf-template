@@ -26,7 +26,7 @@ jobs:
       - name: Setup | ldproxy
         run: cargo install ldproxy
       - name: (NOSTD, NATIVE, V5.0) Generate
-        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=v5.0
+        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=mainline
       - name: (NOSTD, NATIVE, V5.0) Build | Fmt Check
         run: cd testnostd; cargo fmt -- --check
       - name: (NOSTD, NATIVE, V5.0) Build | Clippy
@@ -34,7 +34,7 @@ jobs:
       - name: (NOSTD, NATIVE, V5.0) Build | Compile
         run: cd testnostd; cargo build
       - name: (STD, CMake, V5.0) Generate
-        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v5.0
+        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=mainline
       - name: (STD, CMake, V5.0) ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout master
       - name: (STD, CMake, V5.0) ESP-IDF | Install Tooling

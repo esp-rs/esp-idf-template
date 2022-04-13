@@ -30,5 +30,5 @@ build-std = ["std", "panic_abort"]{% else %}build-std = ["core", "alloc", "panic
 # Note: these variables are not used when using pio builder
 # Enables the esp-idf-sys "native" build feature (`cargo build --features native`) to build against ESP-IDF stable (v4.4)
 {% if espidfver != "v4.4" %}#{% endif %}ESP_IDF_VERSION = { value = "branch:release/v4.4" }
-# Enables the esp-idf-sys "native" build feature (`cargo build --features native`) to build against ESP-IDF master (v5.0)
-{% if espidfver != "v5.0" %}#{% endif %}ESP_IDF_VERSION = { value = "master" }
+# Enables the esp-idf-sys "native" build feature (`cargo build --features native`) to build against ESP-IDF master (mainline)
+{% if espidfver != "mainline" %}#{% endif %}ESP_IDF_VERSION = { value = "master" }
