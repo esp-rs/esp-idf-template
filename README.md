@@ -57,7 +57,7 @@ cargo generate --vcs none --git https://github.com/esp-rs/esp-idf-template cargo
 
 ## Build
 
-To build using the default PlatformIO builder just use:
+To build using the default ESP-IDF native builder just use:
 ```sh
 cd <your-project-name>
 cargo build
@@ -65,9 +65,9 @@ cargo build
 
 - Replace `<your-project-name>` with the name of the generated project
 
-To build using the ESP-IDF native builder, use:
+To build using the PlatformIO builder, use:
 ```sh
-cargo build --features native
+cargo build --features pio
 ```
 
 ## Flash
