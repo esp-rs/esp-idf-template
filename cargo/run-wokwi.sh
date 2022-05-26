@@ -27,9 +27,9 @@ fi
 
 export ESP_ARCH=
 {%- if mcu == "esp32c3" -%}
-riscv32imac-unknown-none-elf
+riscv32imc-esp-espidf
 {%- else -%}
-xtensa-{{ mcu }}-none-elf
+xtensa-{{ mcu }}-espidf
 {%- endif %}
 
 # TODO: Update with your Wokwi Project
