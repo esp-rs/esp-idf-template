@@ -13,3 +13,7 @@ mcu = { type = "string", prompt = "MCU", choices = ["esp32", "esp32s2", "esp32s3
 toolchain = { type = "string", prompt = "Rust toolchain (beware: nightly works only for esp32c3!)", choices = ["esp", "nightly"], default = "esp" }
 std = { type = "bool", prompt = "STD support", default = true }
 espidfver = { type = "string", prompt = "ESP-IDF native build version (v4.3.2 = previous stable, v4.4 = stable, mainline = UNSTABLE)", choices = ["v4.4", "v4.3.2", "mainline"], default = "v4.4" }
+devcontainer = { type = "bool", prompt = "Configure project to use Devcontainers (VS Code, GitHub Codespaces and Gitpod)?", default = false }
+
+[conditional.'devcontainer == false']
+ignore = [".devcontainer/", ".gitpod.Dockerfile", ".gitpod.yml", ".vscode/launch.json", ".vscode/tasks.json", ".dockerignore", "build.sh", "run-wokwi.sh", "flash.sh"]
