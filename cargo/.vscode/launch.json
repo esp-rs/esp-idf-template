@@ -5,18 +5,19 @@
       "type": "gdb",
       "request": "attach",
       "name": "Wokwi Debug",
-      /// TODO: Fix paths
+      "executable":
       {%- if mcu == "esp32c3" -%}
-      "executable": "${workspaceFolder}/target/riscv32imac-unknown-none-elf/debug/{{ crate_name }}",
+      "${workspaceFolder}/target/riscv32imac-unknown-none-elf/debug/{{ crate_name }}",
       {%- else -%}
-      "executable": "${workspaceFolder}/target/target.xtensa-{{ mcu }}-none-elf/debug/{{ crate_name }}",
+      "${workspaceFolder}/target/target.xtensa-{{ mcu }}-none-elf/debug/{{ crate_name }}",
       {%- endif %}
       "target": "localhost:9333",
       "remote": true,
+      "gdbpath":
       {%- if mcu == "esp32c3" -%}
-      "gdbpath": "/home/${input:user}/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch3-8.4.0/riscv32-esp-elf/bin/",
+      "/home/${input:user}/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch3-8.4.0/riscv32-esp-elf/bin/",
       {%- else -%}
-      "gdbpath": "/home/${input:user}/.espressif/tools/xtensa-{{ mcu }}-elf/esp-2021r2-patch3-8.4.0/xtensa-{{ mcu }}-elf/bin/xtensa-{{ mcu }}-elf-gdb",
+      "/home/${input:user}/.espressif/tools/xtensa-{{ mcu }}-elf/esp-2021r2-patch3-8.4.0/xtensa-{{ mcu }}-elf/bin/xtensa-{{ mcu }}-elf-gdb",
       {%- endif %}
       "cwd": "${workspaceRoot}",
       "stopAtConnect": true,
