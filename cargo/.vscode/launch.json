@@ -15,7 +15,7 @@
       "remote": true,
       "gdbpath":
       {%- if mcu == "esp32c3" -%}
-      "/home/${input:user}/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch3-8.4.0/riscv32-esp-elf/bin/",
+      "/home/${input:user}/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch3-8.4.0/riscv32-esp-elf/bin/riscv32-esp-elf-gdb",
       {%- else -%}
       "/home/${input:user}/.espressif/tools/xtensa-{{ mcu }}-elf/esp-2021r2-patch3-8.4.0/xtensa-{{ mcu }}-elf/bin/xtensa-{{ mcu }}-elf-gdb",
       {%- endif %}
