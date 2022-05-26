@@ -5,10 +5,11 @@
     "args": {
       "CONTAINER_USER": "esp",
       "CONTAINER_GROUP": "esp",
+      "ESP_IDF_VERSION":
       {%- if espidfver == "mainline" -%}
-      "ESP_IDF_VERSION": "master",
+      "master",
       {%- else -%}
-      "ESP_IDF_VERSION": "release/v4.4",
+      "release/v4.4",
       {%- endif %}
       "ESP_BOARD": "{{ mcu }}"
     }
