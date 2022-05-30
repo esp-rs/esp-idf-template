@@ -11,7 +11,7 @@ Or if you rather
 ![CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci.yml/badge.svg)
 
 ## Dev Containers
-When using [cargo-generate], there will be a question regarding Dev Containers support,
+When using `cargo` template, there will be a question regarding Dev Containers support,
 if we say `yes` we will have instant support for:
 -  [Gitpod](https://gitpod.io/)
    - ["Open in Gitpod" button](https://www.gitpod.io/docs/getting-started#open-in-gitpod-button)
