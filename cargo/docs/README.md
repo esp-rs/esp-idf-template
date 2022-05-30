@@ -60,7 +60,9 @@ simulating in Wokwi is also added.
 
 
 ### Wokwi Simulation
-
+When using a custom Wokwi project, please change the `WOKWI_PROJECT_ID` in
+`run-wokwi.sh`. If no project id is specified, a DevKit for {{ mcu }} will be
+used.
 > **Warning**
 >
 >  ESP32-S3 is not available in Wokwi
