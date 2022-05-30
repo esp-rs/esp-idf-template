@@ -1,4 +1,3 @@
-# image: sergiogasquez/esp-rs-env:base
 image:
   file: .gitpod.Dockerfile
 tasks:
