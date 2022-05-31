@@ -24,4 +24,4 @@ riscv32imc-esp-espidf
 xtensa-{{ mcu }}-espidf
 {%- endif %}
 
-web-flash --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
+web-flash --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ project-name }}

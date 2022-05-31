@@ -35,7 +35,7 @@ xtensa-{{ mcu }}-espidf
 # TODO: Update with your Wokwi Project
 export WOKWI_PROJECT_ID=""
 if [ "${WOKWI_PROJECT_ID}" == "" ]; then
-    wokwi-server --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
+    wokwi-server --chip {{ mcu }} target/${ESP_ARCH}/${BUILD_MODE}/{{ project-name }}
 else
-    wokwi-server --chip {{ mcu }} --id ${WOKWI_PROJECT_ID} target/${ESP_ARCH}/${BUILD_MODE}/{{ crate_name }}
+    wokwi-server --chip {{ mcu }} --id ${WOKWI_PROJECT_ID} target/${ESP_ARCH}/${BUILD_MODE}/{{ project-name }}
 fi
