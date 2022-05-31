@@ -15,6 +15,10 @@ This repository offers Dev Containers supports for:
 > the project needs to be published in a GitHub repository and the user needs
 > to be part of the Codespaces beta or have the project under an organization.
 
+If using VS Code or GitHub Codespaces, you can pull the image instead of building it
+from the Dockerfile by selecting the `image` property instead of `build` in
+`.devcontainer/devcontainer.json`.
+
 When using Dev Containers, some tooling to facilitate building, flashing and
 simulating in Wokwi is also added.
 ### Build

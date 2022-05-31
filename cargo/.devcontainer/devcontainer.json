@@ -1,5 +1,10 @@
 {
   "name": "{{ crate_name }}",
+  {%- if espidfver == "mainline" -%}
+  // "image": "docker.io/espressif/idf-rust:{{ mcu }}_master_1.61.0.0",
+  {%- else -%}
+  // "image": "docker.io/espressif/idf-rust:{{ mcu }}_v4.4_1.61.0.0",
+  {%- endif %}
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
