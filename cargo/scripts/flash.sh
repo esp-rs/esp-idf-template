@@ -5,11 +5,11 @@ set -e
 BUILD_MODE=""
 case "$1" in
     ""|"release")
-        bash build.sh
+        bash scripts/build.sh
         BUILD_MODE="release"
         ;;
     "debug")
-        bash build.sh debug
+        bash scripts/build.sh debug
         BUILD_MODE="debug"
         ;;
     *)

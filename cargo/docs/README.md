@@ -25,7 +25,7 @@ simulating in Wokwi is also added.
 - Terminal approach:
 
     ```
-    ./build.sh  [debug | release]
+    scripts/build.sh  [debug | release]
     ```
     > If no argument is passed, `release` will be used as default
 
@@ -52,7 +52,7 @@ simulating in Wokwi is also added.
   - Using `flash.sh` script:
 
     ```
-    ./flash.sh [debug | release]
+    scripts/flash.sh [debug | release]
     ```
     > If no argument is passed, `release` will be used as default
 
@@ -74,7 +74,7 @@ used.
 - Terminal approach:
 
     ```
-    ./run-wokwi.sh [debug | release]
+    scripts/run-wokwi.sh [debug | release]
     ```
     > If no argument is passed, `release` will be used as default
 

@@ -4,7 +4,7 @@
     {
       "label": "Build",
       "type": "shell",
-      "command": "./build.sh ${input:buildMode}",
+      "command": "scripts/build.sh ${input:buildMode}",
       "options": {
         "cwd": "${workspaceFolder}"
       },
@@ -16,7 +16,7 @@
     {
       "label": "Build & Flash",
       "type": "shell",
-      "command": "./flash.sh ${input:buildMode}",
+      "command": "scripts/flash.sh ${input:buildMode}",
       "options": {
         "cwd": "${workspaceFolder}"
       },
@@ -28,7 +28,7 @@
     {
       "label": "Build & Run Wokwi",
       "type": "shell",
-      "command": "./run-wokwi.sh ${input:buildMode}",
+      "command": "scripts/run-wokwi.sh ${input:buildMode}",
       "options": {
         "cwd": "${workspaceFolder}"
       },
