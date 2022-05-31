@@ -18,7 +18,7 @@ ARG INSTALL_RUST_TOOLCHAIN=install-rust-toolchain.sh
 
 # Install dependencies
 RUN sudo install-packages git curl gcc ninja-build libudev-dev libpython2.7 \
-    python3 python3-pip libusb-1.0-0 libssl-dev pkg-config libtinfo5 clang
+    python3 python3-pip python3-venv libusb-1.0-0 libssl-dev pkg-config libtinfo5 clang
 # Set User
 USER ${CONTAINER_USER}
 WORKDIR /home/${CONTAINER_USER}
