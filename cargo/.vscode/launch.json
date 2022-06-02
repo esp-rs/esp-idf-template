@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "gdb",
+      "request": "attach",
+      "name": "Wokwi Debug",
+      "executable":
+      {%- if mcu == "esp32c3" -%}
+      "${workspaceFolder}/target/riscv32imc-esp-espidf/debug/{{ crate_name }}",
+      {%- else -%}
+      "${workspaceFolder}/target/target.xtensa-{{ mcu }}-espidf/debug/{{ crate_name }}",
+      {%- endif %}
+      "target": "localhost:9333",
+      "remote": true,
+      "gdbpath":
+      {%- if mcu == "esp32c3" -%}
+      "/home/${input:user}/.espressif/tools/riscv32-esp-elf/esp-2021r2-patch3-8.4.0/riscv32-esp-elf/bin/riscv32-esp-elf-gdb",
+      {%- else -%}
+      "/home/${input:user}/.espressif/tools/xtensa-{{ mcu }}-elf/esp-2021r2-patch3-8.4.0/xtensa-{{ mcu }}-elf/bin/xtensa-{{ mcu }}-elf-gdb",
+      {%- endif %}
+      "cwd": "${workspaceRoot}",
+      "stopAtConnect": true,
+      "valuesFormatting": "parseText"
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pickString",
+      "id": "user",
+      "description": "Select the user: esp for VsCode and Codespaces and gitpod for Gitpod:",
+      "options": [
+        "esp",
+        "gitpod"
+      ],
+      "default": "esp"
+    }
+  ]
+}

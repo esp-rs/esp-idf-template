@@ -1,0 +1,55 @@
+{
+  "name": "{{ crate_name }}",
+  // Select between image and build propieties to pull or build the image.
+  // "image": "docker.io/espressif/idf-rust:{{ mcu }}
+  {%- if espidfver == "mainline" -%}
+  _master_1.61.0.0",
+  {%- else -%}
+  _v4.4_1.61.0.0",
+  {%- endif %}
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "CONTAINER_USER": "esp",
+      "CONTAINER_GROUP": "esp",
+      "ESP_IDF_VERSION":
+      {%- if espidfver == "mainline" -%}
+      "master",
+      {%- else -%}
+      "release/v4.4",
+      {%- endif %}
+      "ESP_BOARD": "{{ mcu }}"
+    }
+  },
+  "settings": {
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnType": true,
+    "lldb.executable": "/usr/bin/lldb",
+    "files.watcherExclude": {
+      "**/target/**": true
+    },
+    "rust-analyzer.checkOnSave.command": "clippy",
+    "rust-analyzer.checkOnSave.allTargets": false,
+    "[rust]": {
+      "editor.defaultFormatter": "rust-lang.rust-analyzer"
+    }
+  },
+  "extensions": [
+    "rust-lang.rust-analyzer",
+    "tamasfe.even-better-toml",
+    "serayuzgur.crates",
+    "mutantdino.resourcemonitor",
+    "yzhang.markdown-all-in-one",
+    "webfreak.debug",
+    "actboy168.tasks"
+  ],
+  "forwardPorts": [
+    9012,
+    9333,
+    8000
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/esp/{{ crate_name }},type=bind,consistency=cached",
+  "workspaceFolder": "/home/esp/{{ crate_name }}"
+}

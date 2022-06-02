@@ -1,0 +1,23 @@
+image:
+  file: .gitpod.Dockerfile
+tasks:
+ - name: Setup environment variables for Rust and ESP-IDF
+   command: |
+     source /home/gitpod/export-esp.sh
+vscode:
+  extensions:
+    - matklad.rust-analyzer
+    - tamasfe.even-better-toml
+    - anwar.resourcemonitor
+    - yzhang.markdown-all-in-one
+    - webfreak.debug
+    - actboy168.tasks
+    - serayuzgur.crates
+ports:
+  - port: 9012
+    visibility: public
+  - port: 9333
+    visibility: public
+  - port: 8000
+    visibility: public
+    onOpen: open-browser
