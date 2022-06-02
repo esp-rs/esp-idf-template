@@ -26,7 +26,7 @@ jobs:
       - name: Setup | ldproxy
         run: cargo install ldproxy
       - name: (NOSTD, NATIVE, V5.0) Generate
-        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=mainline
+        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=false -d espidfver=mainline  -d devcontainer=false
       - name: (NOSTD, NATIVE, V5.0) Build | Fmt Check
         run: cd testnostd; cargo fmt -- --check
       - name: (NOSTD, NATIVE, V5.0) Build | Clippy
