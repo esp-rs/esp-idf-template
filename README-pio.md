@@ -45,7 +45,7 @@ cargo install cargo-pio
 ## Generate the project
 
 ```sh
-cargo pio new <your-project-name> --platforms espressif32 --framework espidf [--board <your-board-name>]
+cargo pio new <your-project-name> --platform espressif32 --frameworks espidf [--board <your-board-name>]
 ```
 
 You can see supported boards by typing
