@@ -37,7 +37,7 @@ RUN chmod a+x ${INSTALL_RUST_TOOLCHAIN} \
     --esp-idf-version "${ESP_IDF_VERSION}" \
     --minified-esp-idf "YES" \
     --build-target "${ESP_BOARD}" \
-    && rustup component add clippy
+    && rustup component add clippy rustfmt
 
 # Activate ESP environment
 RUN echo "source /home/${CONTAINER_USER}/export-esp.sh" >> ~/.bashrc
