@@ -17,7 +17,8 @@ This repository offers Dev Containers supports for:
 
 If using VS Code or GitHub Codespaces, you can pull the image instead of building it
 from the Dockerfile by selecting the `image` property instead of `build` in
-`.devcontainer/devcontainer.json`.
+`.devcontainer/devcontainer.json`. Further customization of the Dev Container can
+be achived, see [.devcontainer.json reference](https://code.visualstudio.com/docs/remote/devcontainerjson-reference).
 
 When using Dev Containers, some tooling to facilitate building, flashing and
 simulating in Wokwi is also added.
