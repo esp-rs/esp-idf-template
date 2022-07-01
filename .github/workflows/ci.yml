@@ -60,12 +60,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        board: ['esp32', 'esp32s2', 'esp32s3']
+        board: ['esp32', 'esp32s2', 'esp32s3', 'esp32c3']
     steps:
       - name: Setup | cargo-generate
         run: cargo install cargo-generate
-      - name: Generate
+      - name: Generate Project - Xtensa Targets
+        if: ${{  matrix.board == 'esp32' }} || ${{  matrix.board == 'esp32s2' }} || ${{  matrix.board == 'esp32s3' }}
         run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=true -d espidfver=v4.4 -d devcontainer=true
+      - name: Generate Project - RiscV Targets
+        if: ${{  matrix.board == 'esp32c3' }}
+        run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=true -d espidfver=v4.4 -d devcontainer=true
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.board }}
