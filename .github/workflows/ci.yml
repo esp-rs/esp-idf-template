@@ -55,7 +55,7 @@ jobs:
         run: . esp-idf/export.sh; cd testidf; idf.py set-target esp32c3
       - name: (STD, CMake, V4.4) Build | Compile
         run: . esp-idf/export.sh; cd testidf; idf.py build
-  compile-check:
+  devcontainer-check:
     name: Compile Xtensa targets using the generated Dockerfile
     runs-on: ubuntu-latest
     strategy:
