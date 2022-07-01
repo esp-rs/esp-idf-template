@@ -65,7 +65,7 @@ jobs:
       - name: Setup | cargo-generate
         run: cargo install cargo-generate
       - name: Generate
-        run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=true -d espidfver=v4.3.2 -d devcontainer=false
+        run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=true -d espidfver=v4.4 -d devcontainer=true
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.board }}
