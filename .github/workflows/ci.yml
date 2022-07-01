@@ -65,10 +65,10 @@ jobs:
       - name: Setup | cargo-generate
         run: cargo install cargo-generate
       - name: Generate Project - Xtensa Targets
-        if: ${{  matrix.board == 'esp32' }} || ${{  matrix.board == 'esp32s2' }} || ${{  matrix.board == 'esp32s3' }}
+        if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3'
         run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=true -d espidfver=v4.4 -d devcontainer=true
       - name: Generate Project - RiscV Targets
-        if: ${{  matrix.board == 'esp32c3' }}
+        if: matrix.board == 'esp32c3'
         run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=true -d espidfver=v4.4 -d devcontainer=true
       - name: Update ownership
         run: |
