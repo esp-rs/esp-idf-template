@@ -13,7 +13,7 @@ env:
 
 jobs:
   compile:
-    name: Compile
+    name: Build | Clippy | Fmt Check (esp32c3)
     runs-on: ubuntu-latest
     steps:
       - name: Setup | Rust
@@ -56,7 +56,7 @@ jobs:
       - name: (STD, CMake, V4.4) Build | Compile
         run: . esp-idf/export.sh; cd testidf; idf.py build
   devcontainer-check:
-    name: Compile Xtensa targets using the generated Dockerfile
+    name: Build using the generated Dockerfile
     runs-on: ubuntu-latest
     strategy:
       matrix:
