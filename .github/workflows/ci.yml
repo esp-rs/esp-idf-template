@@ -63,8 +63,11 @@ jobs:
         board: ['esp32', 'esp32s2', 'esp32s3', 'esp32c3']
         std: ['true', 'false']
     steps:
-      - name: Setup | cargo-generate
-        run: cargo install cargo-generate
+      - name: Install cargo-generate
+        run: |
+          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-v0.15.2-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
+          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
+          chmod u+x /home/runner/.cargo/bin/cargo-generate
       - name: Generate Project - Xtensa Targets
         if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3'
         run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
