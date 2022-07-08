@@ -32,12 +32,15 @@ ADD --chown=${CONTAINER_USER}:${CONTAINER_GROUP} \
 
 RUN chmod a+x ${INSTALL_RUST_TOOLCHAIN} \
     && ./${INSTALL_RUST_TOOLCHAIN} \
-    --extra-crates "ldproxy cargo-espflash wokwi-server web-flash" \
+    --extra-crates "ldproxy cargo-espflash web-flash" \
     --clear-cache "YES" --export-file /home/${CONTAINER_USER}/export-esp.sh \
     --esp-idf-version "${ESP_IDF_VERSION}" \
     --minified-esp-idf "YES" \
     --build-target "${ESP_BOARD}" \
     && rustup component add clippy rustfmt
+
+# Install wokwi-server
+RUN RUSTFLAGS="--cfg tokio_unstable" cargo install wokwi-server --git https://github.com/MabezDev/wokwi-server --locked
 
 # Activate ESP environment
 RUN echo "source /home/${CONTAINER_USER}/export-esp.sh" >> ~/.bashrc
