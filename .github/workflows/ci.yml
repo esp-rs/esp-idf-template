@@ -59,6 +59,7 @@ jobs:
     name: Build using the generated Dockerfile
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         board: ['esp32', 'esp32s2', 'esp32s3', 'esp32c3']
         std: ['true', 'false']
