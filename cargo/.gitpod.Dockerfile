@@ -6,7 +6,7 @@ ENV LANG=C.UTF-8
 # ARGS
 ARG CONTAINER_USER=gitpod
 ARG CONTAINER_GROUP=gitpod
-ARG TOOLCHAIN_VERSION=1.61.0.0
+ARG TOOLCHAIN_VERSION=1.62.0.0
 ARG ESP_IDF_VERSION=
 {%- if espidfver == "mainline" -%}
 "master"
@@ -31,7 +31,7 @@ ADD --chown=${CONTAINER_USER}:${CONTAINER_GROUP} \
 RUN chmod a+x ${INSTALL_RUST_TOOLCHAIN} \
     && ./${INSTALL_RUST_TOOLCHAIN} \
     --extra-crates "ldproxy cargo-espflash wokwi-server web-flash" \
-    --clear-cache "YES" --export-file /home/${CONTAINER_USER}/export-esp.sh \
+    --export-file /home/${CONTAINER_USER}/export-esp.sh \
     --esp-idf-version "${ESP_IDF_VERSION}" \
     --minified-esp-idf "YES" \
     --build-target "${ESP_BOARD}" \
