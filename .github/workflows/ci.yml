@@ -29,14 +29,14 @@ jobs:
         run: cargo install cargo-generate
       - name: Setup | ldproxy
         run: cargo install ldproxy
-      - name: (STD, PIO, V4.3.2) Generate
-        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=true -d espidfver=v4.3.2 -d devcontainer=false
-      - name: (STD, PIO, V4.3.2) Build | Fmt Check
-        run: cd test; cargo fmt -- --check
-      - name: (STD, PIO, V4.3.2) Build | Clippy
-        run: cd test; cargo clippy --features pio --no-deps -- -Dwarnings
-      - name: (STD, PIO, V4.3.2) Build | Compile
-        run: cd test; cargo build --features pio
+      # - name: (STD, PIO, V4.3.2) Generate
+      #   run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=true -d espidfver=v4.3.2 -d devcontainer=false
+      # - name: (STD, PIO, V4.3.2) Build | Fmt Check
+      #   run: cd test; cargo fmt -- --check
+      # - name: (STD, PIO, V4.3.2) Build | Clippy
+      #   run: cd test; cargo clippy --features pio --no-deps -- -Dwarnings
+      # - name: (STD, PIO, V4.3.2) Build | Compile
+      #   run: cd test; cargo build --features pio
       - name: (NOSTD, NATIVE, V4.4) Generate
         run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
       - name: (NOSTD, NATIVE, V4.4) Build | Fmt Check
