@@ -13,7 +13,7 @@ env:
 
 jobs:
   compile:
-    name: Compile
+    name: Build | Clippy | Fmt Check (esp32c3)
     runs-on: ubuntu-latest
     steps:
       - name: Setup | Rust
@@ -29,14 +29,14 @@ jobs:
         run: cargo install cargo-generate
       - name: Setup | ldproxy
         run: cargo install ldproxy
-      - name: (STD, PIO, V4.3.2) Generate
-        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=true -d espidfver=v4.3.2 -d devcontainer=false
-      - name: (STD, PIO, V4.3.2) Build | Fmt Check
-        run: cd test; cargo fmt -- --check
-      - name: (STD, PIO, V4.3.2) Build | Clippy
-        run: cd test; cargo clippy --features pio --no-deps -- -Dwarnings
-      - name: (STD, PIO, V4.3.2) Build | Compile
-        run: cd test; cargo build --features pio
+      # - name: (STD, PIO, V4.3.2) Generate
+      #   run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test --vcs none --silent -d mcu=esp32c3 -d toolchain=nightly -d std=true -d espidfver=v4.3.2 -d devcontainer=false
+      # - name: (STD, PIO, V4.3.2) Build | Fmt Check
+      #   run: cd test; cargo fmt -- --check
+      # - name: (STD, PIO, V4.3.2) Build | Clippy
+      #   run: cd test; cargo clippy --features pio --no-deps -- -Dwarnings
+      # - name: (STD, PIO, V4.3.2) Build | Compile
+      #   run: cd test; cargo build --features pio
       - name: (NOSTD, NATIVE, V4.4) Generate
         run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
       - name: (NOSTD, NATIVE, V4.4) Build | Fmt Check
@@ -46,7 +46,7 @@ jobs:
       - name: (NOSTD, NATIVE, V4.4) Build | Compile
         run: cd testnostd; cargo build
       - name: (STD, CMake, V4.4) Generate
-        run: cargo generate --git https://github.com/ivmarkov/esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
+        run: cargo generate --git https://github.com/esp-rs/esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
       - name: (STD, CMake, V4.4) ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout release/v4.4
       - name: (STD, CMake, V4.4) ESP-IDF | Install Tooling
@@ -55,3 +55,41 @@ jobs:
         run: . esp-idf/export.sh; cd testidf; idf.py set-target esp32c3
       - name: (STD, CMake, V4.4) Build | Compile
         run: . esp-idf/export.sh; cd testidf; idf.py build
+  devcontainer-check:
+    name: Build using the generated Dockerfile
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        board: ['esp32', 'esp32s2', 'esp32s3', 'esp32c3']
+        std: ['true', 'false']
+    steps:
+      - name: Install cargo-generate
+        run: |
+          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-v0.15.2-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
+          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
+          chmod u+x /home/runner/.cargo/bin/cargo-generate
+      - name: Generate Project - Xtensa Targets
+        if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3'
+        run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
+      - name: Generate Project - RiscV Targets
+        if: matrix.board == 'esp32c3'
+        run: cargo generate --git https://github.com/esp-rs/esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
+      - name: Update ownership
+        run: |
+          sudo chown 1000:1000 -R test-${{ matrix.board }}
+      - uses: docker/build-push-action@v2
+        with:
+          context: .
+          tags: test-${{ matrix.board }}:latest
+          build-args: ESP_BOARD=${{ matrix.board }}
+          file: test-${{ matrix.board }}/.devcontainer/Dockerfile
+          push: false
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+            image: test-${{ matrix.board }}:latest
+            options: -u esp -v ${{ github.workspace }}/test-${{ matrix.board }}:/home/esp/test-${{ matrix.board }}
+            run: |
+              cd /home/esp/test-${{ matrix.board }}
+              bash -c 'source /home/esp/export-esp.sh && cargo build'
