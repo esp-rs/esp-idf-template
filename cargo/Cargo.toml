@@ -19,7 +19,7 @@ pio = ["esp-idf-sys/pio"]
 {% if std %}esp-idf-sys = { version = "0.31.6", features = ["binstart"] }
 {% else %}log = { version = "0.4", default-features = false }
 esp-idf-sys = { version = "0.31.6", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
-esp-idf-svc = { git = "https://github.com/esp-rs/esp-idf-svc.git", default-features = false, features = ["alloc"] }{% endif %}
+esp-idf-svc = { version = "0.42", default-features = false, features = ["alloc"] }{% endif %}
 
 [build-dependencies]
 embuild = "0.29"
