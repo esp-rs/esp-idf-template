@@ -81,15 +81,15 @@ jobs:
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
       - name: Generate Project - Xtensa Targets (PR)
-        if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3' && github.event_name == 'pull_request'
+        if: (matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3') && github.event_name == 'pull_request'
         run: cargo generate --git https://github.com/SergioGasquez/esp-idf-template --branch ${{ github.head_ref }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
       - name: Generate Project - Xtensa Targets
-        if: matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3' && github.event_name != 'pull_request'
+        if: (matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3') && github.event_name != 'pull_request'
         run: cargo generate --git https://github.com/SergioGasquez/esp-idf-template --branch ${{ github.ref_name }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
       - name: Generate Project - RiscV Targets (PR)
         if: matrix.board == 'esp32c3' && github.event_name == 'pull_request'
         run: cargo generate --git https://github.com/SergioGasquez/esp-idf-template --branch ${{ github.head_ref }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
-      - name: Generate Project - RiscV Targets (PR)
+      - name: Generate Project - RiscV Targets
         if: matrix.board == 'esp32c3' && github.event_name != 'pull_request'
         run: cargo generate --git https://github.com/SergioGasquez/esp-idf-template --branch ${{ github.ref_name }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
       - name: Update ownership
