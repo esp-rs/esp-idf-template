@@ -37,7 +37,7 @@ jobs:
         run: cargo install ldproxy
       # - name: (STD, PIO, V4.3.2) Generate (PR)
       #   if: ${{ github.event_name == 'pull_request' }}
-      #   run: cargo generate --git https://github.com/${{ github.repository }} --branch ${{ github.head_ref }} cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=true -d espidfver=v4.3.2 -d devcontainer=false
+      #   run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=true -d espidfver=v4.3.2 -d devcontainer=false
        # - name: (STD, PIO, V4.3.2) Generate
       #   if: ${{ github.event_name != 'pull_request' }}
       #   run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=true -d espidfver=v4.3.2 -d devcontainer=false
@@ -49,7 +49,7 @@ jobs:
       #   run: cd test; cargo build --features pio
       - name: (NOSTD, NATIVE, V4.4) Generate (PR)
         if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/${{ github.repository }} --branch ${{ github.head_ref }} cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
+        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
       - name: (NOSTD, NATIVE, V4.4) Generate
         if: ${{ github.event_name != 'pull_request' }}
         run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
@@ -61,7 +61,7 @@ jobs:
         run: cd testnostd; cargo build
       - name: (STD, CMake, V4.4) Generate (PR)
         if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/${{ github.repository }} --branch ${{ github.head_ref }} cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
+        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
       - name: (STD, CMake, V4.4) Generate
         if: ${{ github.event_name != 'pull_request' }}
         run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
@@ -94,13 +94,13 @@ jobs:
         run: cargo install cargo-generate
       - name: Generate Project - Xtensa Targets (PR)
         if: (matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3') && github.event_name == 'pull_request'
-        run: cargo generate --git https://github.com/${{ github.repository }} --branch ${{ github.head_ref }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
+        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
       - name: Generate Project - Xtensa Targets
         if: (matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3') && github.event_name != 'pull_request'
         run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
       - name: Generate Project - RiscV Targets (PR)
         if: matrix.board == 'esp32c3' && github.event_name == 'pull_request'
-        run: cargo generate --git https://github.com/${{ github.repository }} --branch ${{ github.head_ref }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
+        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
       - name: Generate Project - RiscV Targets
         if: matrix.board == 'esp32c3' && github.event_name != 'pull_request'
         run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
