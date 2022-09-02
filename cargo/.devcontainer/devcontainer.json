@@ -24,7 +24,7 @@
   "settings": {
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnSaveMode": "file",
     "editor.formatOnType": true,
     "lldb.executable": "/usr/bin/lldb",
     "files.watcherExclude": {
