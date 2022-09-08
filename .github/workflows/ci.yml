@@ -38,7 +38,7 @@ jobs:
         continue-on-error: true
         run: |
           sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldpoxy.zip"
-          unzip "/home/runner/.cargo/bin/cargo-generate.zip" -d /home/runner/.cargo/bin/
+          unzip "/home/runner/.cargo/bin/ldproxy.zip" -d /home/runner/.cargo/bin/
           chmod u+x /home/runner/.cargo/bin/ldproxy
       - name: Setup | ldproxy
         if: steps.ldproxy-binary.outcome != 'success'
