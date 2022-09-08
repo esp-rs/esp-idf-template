@@ -23,17 +23,25 @@ jobs:
         run: rustup component add rust-src --toolchain ${{ env.rust_toolchain }}-x86_64-unknown-linux-gnu
       - name: Setup | Default to nightly
         run: rustup default ${{ env.rust_toolchain }}
-      - name: Setup | cargo-generate (binaries)
-        id: binaries
+      - name: Setup | cargo-generate (binary)
+        id: cargo-generate-binary
         continue-on-error: true
         run: |
           sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
       - name: Setup | cargo-generate (cargo)
-        if: steps.binaries.outcome != 'success'
+        if: steps.cargo-generate-binary.outcome != 'success'
         run: cargo install cargo-generate
+      - name: Setup | ldpoxy (binary)
+        id: ldproxy-binary
+        continue-on-error: true
+        run: |
+          sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldpoxy.zip"
+          unzip "/home/runner/.cargo/bin/cargo-generate.zip" -d /home/runner/.cargo/bin/
+          chmod u+x /home/runner/.cargo/bin/ldproxy
       - name: Setup | ldproxy
+        if: steps.ldproxy-binary.outcome != 'success'
         run: cargo install ldproxy
       # - name: (STD, PIO, V4.3.2) Generate (PR)
       #   if: ${{ github.event_name == 'pull_request' }}
