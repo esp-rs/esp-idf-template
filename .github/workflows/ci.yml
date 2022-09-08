@@ -68,7 +68,7 @@ jobs:
       - name: (NOSTD, NATIVE, V4.4) Build | Compile
         run: cd testnostd; cargo build
       - name: (NOSTD, NATIVE, V4.4) Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name testidf --vcs none --silent -d std=true -d espidfver=v4.4
       - name: (STD, CMake, V4.4) ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout release/v4.4
       - name: (STD, CMake, V4.4) ESP-IDF | Install Tooling
