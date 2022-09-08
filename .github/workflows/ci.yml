@@ -47,24 +47,20 @@ jobs:
       #   run: cd test; cargo clippy --features pio --no-deps -- -Dwarnings
       # - name: (STD, PIO, V4.3.2) Build | Compile
       #   run: cd test; cargo build --features pio
-      - name: (NOSTD, NATIVE, V4.4) Generate (PR)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
+      - uses: Swatinem/rust-cache@v1
+      - uses: actions/checkout@v3
+        with:
+          path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: (NOSTD, NATIVE, V4.4) Generate
-        if: ${{ github.event_name != 'pull_request' }}
-        run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
       - name: (NOSTD, NATIVE, V4.4) Build | Fmt Check
         run: cd testnostd; cargo fmt -- --check
       - name: (NOSTD, NATIVE, V4.4) Build | Clippy
         run: cd testnostd; cargo clippy --no-deps -- -Dwarnings
       - name: (NOSTD, NATIVE, V4.4) Build | Compile
         run: cd testnostd; cargo build
-      - name: (STD, CMake, V4.4) Generate (PR)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
-      - name: (STD, CMake, V4.4) Generate
-        if: ${{ github.event_name != 'pull_request' }}
-        run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
+      - name: (NOSTD, NATIVE, V4.4) Generate
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
       - name: (STD, CMake, V4.4) ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout release/v4.4
       - name: (STD, CMake, V4.4) ESP-IDF | Install Tooling
