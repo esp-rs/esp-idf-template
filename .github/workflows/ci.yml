@@ -19,6 +19,7 @@ jobs:
         with:
           toolchain: ${{ env.rust_toolchain }}
           components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
       - name: Setup | Std
         run: rustup component add rust-src --toolchain ${{ env.rust_toolchain }}-x86_64-unknown-linux-gnu
       - name: Setup | Default to nightly
@@ -86,6 +87,8 @@ jobs:
         board: ["esp32", "esp32s2", "esp32s3", "esp32c3"]
         std: ["true", "false"]
     steps:
+      - run: rustup toolchain install stable --profile minimal
+      - uses: Swatinem/rust-cache@v2
       - name: Install cargo-generate via binaries
         id: binaries
         continue-on-error: true
