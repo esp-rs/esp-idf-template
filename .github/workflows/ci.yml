@@ -34,7 +34,7 @@ jobs:
       - name: Setup | cargo-generate (cargo)
         if: steps.cargo-generate-binary.outcome != 'success'
         run: cargo install cargo-generate
-      - name: Setup | ldpoxy (binary)
+      - name: Setup | ldproxy (binary)
         id: ldproxy-binary
         continue-on-error: true
         run: |
