@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: '50 7 * * *'
+    - cron: "50 7 * * *"
 
 env:
   rust_toolchain: nightly
@@ -19,26 +19,35 @@ jobs:
         with:
           toolchain: ${{ env.rust_toolchain }}
           components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
       - name: Setup | Std
         run: rustup component add rust-src --toolchain ${{ env.rust_toolchain }}-x86_64-unknown-linux-gnu
       - name: Setup | Default to nightly
         run: rustup default ${{ env.rust_toolchain }}
-      - name: Setup | cargo-generate (binaries)
-        id: binaries
+      - name: Setup | cargo-generate (binary)
+        id: cargo-generate-binary
         continue-on-error: true
         run: |
           sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
-      - name:  Setup | cargo-generate (cargo)
-        if: steps.binaries.outcome != 'success'
+      - name: Setup | cargo-generate (cargo)
+        if: steps.cargo-generate-binary.outcome != 'success'
         run: cargo install cargo-generate
+      - name: Setup | ldproxy (binary)
+        id: ldproxy-binary
+        continue-on-error: true
+        run: |
+          sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
+          unzip "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
+          chmod u+x /home/runner/.cargo/bin/ldproxy
       - name: Setup | ldproxy
+        if: steps.ldproxy-binary.outcome != 'success'
         run: cargo install ldproxy
       # - name: (STD, PIO, V4.3.2) Generate (PR)
       #   if: ${{ github.event_name == 'pull_request' }}
       #   run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=true -d espidfver=v4.3.2 -d devcontainer=false
-       # - name: (STD, PIO, V4.3.2) Generate
+      # - name: (STD, PIO, V4.3.2) Generate
       #   if: ${{ github.event_name != 'pull_request' }}
       #   run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=true -d espidfver=v4.3.2 -d devcontainer=false
       # - name: (STD, PIO, V4.3.2) Build | Fmt Check
@@ -47,24 +56,20 @@ jobs:
       #   run: cd test; cargo clippy --features pio --no-deps -- -Dwarnings
       # - name: (STD, PIO, V4.3.2) Build | Compile
       #   run: cd test; cargo build --features pio
-      - name: (NOSTD, NATIVE, V4.4) Generate (PR)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
+      - uses: Swatinem/rust-cache@v1
+      - uses: actions/checkout@v3
+        with:
+          path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: (NOSTD, NATIVE, V4.4) Generate
-        if: ${{ github.event_name != 'pull_request' }}
-        run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
       - name: (NOSTD, NATIVE, V4.4) Build | Fmt Check
         run: cd testnostd; cargo fmt -- --check
       - name: (NOSTD, NATIVE, V4.4) Build | Clippy
         run: cd testnostd; cargo clippy --no-deps -- -Dwarnings
       - name: (NOSTD, NATIVE, V4.4) Build | Compile
         run: cd testnostd; cargo build
-      - name: (STD, CMake, V4.4) Generate (PR)
-        if: ${{ github.event_name == 'pull_request' }}
-        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
-      - name: (STD, CMake, V4.4) Generate
-        if: ${{ github.event_name != 'pull_request' }}
-        run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
+      - name: (NOSTD, NATIVE, V4.4) Generate
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=v4.4
       - name: (STD, CMake, V4.4) ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout release/v4.4
       - name: (STD, CMake, V4.4) ESP-IDF | Install Tooling
@@ -79,9 +84,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        board: ['esp32', 'esp32s2', 'esp32s3', 'esp32c3']
-        std: ['true', 'false']
+        board: ["esp32", "esp32s2", "esp32s3", "esp32c3"]
+        std: ["true", "false"]
     steps:
+      - run: rustup toolchain install stable --profile minimal
+      - uses: Swatinem/rust-cache@v2
       - name: Install cargo-generate via binaries
         id: binaries
         continue-on-error: true
@@ -92,18 +99,12 @@ jobs:
       - name: Install cargo-generate via cargo
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
-      - name: Generate Project - Xtensa Targets (PR)
-        if: (matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3') && github.event_name == 'pull_request'
-        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
-      - name: Generate Project - Xtensa Targets
-        if: (matrix.board == 'esp32' || matrix.board == 'esp32s2' || matrix.board == 'esp32s3') && github.event_name != 'pull_request'
-        run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=esp -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
-      - name: Generate Project - RiscV Targets (PR)
-        if: matrix.board == 'esp32c3' && github.event_name == 'pull_request'
-        run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
-      - name: Generate Project - RiscV Targets
-        if: matrix.board == 'esp32c3' && github.event_name != 'pull_request'
-        run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }} -d toolchain=nightly -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
+      - uses: Swatinem/rust-cache@v1
+      - uses: actions/checkout@v3
+        with:
+          path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
+      - name: Generate Project
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }}  -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.board }}
@@ -117,8 +118,8 @@ jobs:
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
-            image: test-${{ matrix.board }}:latest
-            options: -u esp -v ${{ github.workspace }}/test-${{ matrix.board }}:/home/esp/test-${{ matrix.board }}
-            run: |
-              cd /home/esp/test-${{ matrix.board }}
-              bash -c 'source /home/esp/export-esp.sh && cargo build'
+          image: test-${{ matrix.board }}:latest
+          options: -u esp -v ${{ github.workspace }}/test-${{ matrix.board }}:/home/esp/test-${{ matrix.board }}
+          run: |
+            cd /home/esp/test-${{ matrix.board }}
+            bash -c 'source /home/esp/export-esp.sh && cargo build'

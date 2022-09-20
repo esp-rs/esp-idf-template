@@ -3,9 +3,9 @@
   // Select between image and build propieties to pull or build the image.
   // "image": "docker.io/espressif/idf-rust:{{ mcu }}
   {%- if espidfver == "mainline" -%}
-  _master_1.62.1.0",
+  _master_1.63.0.2",
   {%- else -%}
-  _v4.4_1.62.1.0",
+  _v4.4_1.63.0.2",
   {%- endif %}
   "build": {
     "dockerfile": "Dockerfile",
@@ -24,7 +24,7 @@
   "settings": {
     "editor.formatOnPaste": true,
     "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnSaveMode": "file",
     "editor.formatOnType": true,
     "lldb.executable": "/usr/bin/lldb",
     "files.watcherExclude": {
