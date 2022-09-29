@@ -3,9 +3,9 @@
   // Select between image and build propieties to pull or build the image.
   // "image": "docker.io/espressif/idf-rust:{{ mcu }}
   {%- if espidfver == "mainline" -%}
-  _master_1.63.0.2",
+  _master_1.64.0.0",
   {%- else -%}
-  _v4.4_1.63.0.2",
+  _v4.4_1.64.0.0",
   {%- endif %}
   "build": {
     "dockerfile": "Dockerfile",
