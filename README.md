@@ -22,14 +22,7 @@ To generate a project using this template:
      -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
      -  [Gitpod](https://www.gitpod.io)
     Dev Containers also have integration with [Wokwi simulator](https://wokwi.com/) and allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server).
-* CMake-first apporach:
-   ```sh
-   cargo generate https://github.com/esp-rs/esp-idf-template cmake
-   ```
-  After running the command, there will be a few prompts:
-  - `Project Name`: Name of the crate.
-  - `Rust toolchain`: Selects the `channel` in the [toolchain file](https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file) to use. Select `nightly` for ESP32-C3 and `esp` for the other targets.
-  - `STD support`: When `true`, adds support for [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, we will use [Rust Core Library](https://doc.rust-lang.org/core/index.html).
+
 
 Or if you rather
 * ... want to mix Rust and C/C++ in a traditional ESP-IDF `idf.py` CMake project - [follow these instructions](README-cmake.md)
