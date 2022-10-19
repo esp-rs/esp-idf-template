@@ -5,23 +5,22 @@ A "Hello, world!" template, to use with [cargo-generate](https://github.com/carg
 This is the crate you get when running `cargo new`, but augmented with extra configuration so that it does build for the ESP32[XX] with ESP-IDF and (by default) with STD support.
 
 To generate a project using this template:
-* Cargo-first approach:
-  ```sh
-  cargo generate https://github.com/esp-rs/esp-idf-template cargo
-  ```
-  After running the command, there will be a few prompts:
-  - `Project Name`: Name of the crate.
-  - `Which MCU to target?`: SoC model.
-  - `STD support`: When `true`, adds support for [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, we will use [Rust Core Library](https://doc.rust-lang.org/core/index.html).
-  - `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
-    - [`v.4.4`](https://github.com/espressif/esp-idf/tree/release/v4.4): Stable
-    - [`v.4.3.2`](https://github.com/espressif/esp-idf/tree/v4.3.2): Previous stable
-    - [`mainline`](https://github.com/espressif/esp-idf/tree/master): **Unstable**
-  - `Dev Containers support?`: Adds support for:
-     -  [VS Code Dev Containers](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
-     -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
-     -  [Gitpod](https://www.gitpod.io)
-    Dev Containers also have integration with [Wokwi simulator](https://wokwi.com/) and allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server).
+```sh
+cargo generate https://github.com/esp-rs/esp-idf-template cargo
+```
+After running the command, there will be a few prompts:
+- `Project Name`: Name of the crate.
+- `Which MCU to target?`: SoC model.
+- `STD support`: When `true`, adds support for [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, we will use [Rust Core Library](https://doc.rust-lang.org/core/index.html).
+- `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
+  - [`v.4.4`](https://github.com/espressif/esp-idf/tree/release/v4.4): Stable
+  - [`v.4.3.2`](https://github.com/espressif/esp-idf/tree/v4.3.2): Previous stable
+  - [`mainline`](https://github.com/espressif/esp-idf/tree/master): **Unstable**
+- `Dev Containers support?`: Adds support for:
+    -  [VS Code Dev Containers](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
+    -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
+    -  [Gitpod](https://www.gitpod.io)
+  Dev Containers also have integration with [Wokwi simulator](https://wokwi.com/) and allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server).
 
 
 Or if you rather
