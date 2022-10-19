@@ -4,6 +4,10 @@ A "Hello, world!" template, to use with [cargo-generate](https://github.com/carg
 
 This is the crate you get when running `cargo new`, but augmented with extra configuration so that it does build for the ESP32[XX] with ESP-IDF and (by default) with STD support.
 
+Or if you rather
+* ... want to mix Rust and C/C++ in a traditional ESP-IDF `idf.py` CMake project - [follow these instructions](README-cmake.md)
+* ... want to mix Rust and C/C++ with PlatformIO - [follow these instructions](README-pio.md)
+
 To generate a project using this template:
 ```sh
 cargo generate https://github.com/esp-rs/esp-idf-template cargo
@@ -21,11 +25,6 @@ After running the command, there will be a few prompts:
     -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
     -  [Gitpod](https://www.gitpod.io)
   Dev Containers also have integration with [Wokwi simulator](https://wokwi.com/) and allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server).
-
-
-Or if you rather
-* ... want to mix Rust and C/C++ in a traditional ESP-IDF `idf.py` CMake project - [follow these instructions](README-cmake.md)
-* ... want to mix Rust and C/C++ with PlatformIO - [follow these instructions](README-pio.md)
 
 ![CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci.yml/badge.svg)
 
