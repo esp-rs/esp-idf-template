@@ -63,6 +63,10 @@ cargo install cargo-generate
 ```sh
 cargo generate --vcs none --git https://github.com/esp-rs/esp-idf-template cmake
 ```
+After running the command, there will be a few prompts:
+  - `Project Name`: Name of the crate.
+  - `Rust toolchain`: Selects the `channel` in the [toolchain file](https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file) to use. Select `nightly` for ESP32-C3 and `esp` for the other targets.
+  - `STD support`: When `true`, adds support for [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, we will use [Rust Core Library](https://doc.rust-lang.org/core/index.html).
 
 ## Build
 
