@@ -4,3 +4,8 @@ cargo_generate_version = ">=0.10.0"
 [placeholders]
 toolchain = { type = "string", prompt = "Rust toolchain (beware: nightly works only for esp32c3!)", choices = ["esp", "nightly"], default = "esp" }
 std = { type = "bool", prompt = "STD support", default = true }
+espidfver = { type = "string", prompt = "ESP-IDF native build version (v4.3.2 = previous stable, v4.4 = stable, mainline = UNSTABLE)", choices = [
+    "v4.4",
+    "v4.3.2",
+    "mainline",
+], default = "v4.4" }

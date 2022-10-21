@@ -30,12 +30,6 @@ else()
     set(CARGO_BUILD_ARG "--release")
 endif()
 
-{% if std %}
-set(CARGO_BUILD_STD_ARG -Zbuild-std=std,panic_abort -Zbuild-std-features=panic_immediate_abort)
-{% else %}
-set(CARGO_BUILD_STD_ARG -Zbuild-std=core,alloc,panic_abort -Zbuild-std-features=panic_immediate_abort)
-{% endif %}
-
 set(CARGO_PROJECT_DIR "${CMAKE_CURRENT_LIST_DIR}")
 set(CARGO_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 set(CARGO_TARGET_DIR "${CARGO_BUILD_DIR}/target")
@@ -63,7 +57,7 @@ ExternalProject_Add(
         CARGO_CMAKE_BUILD_SDKCONFIG=${sdkconfig}
         CARGO_CMAKE_BUILD_ESP_IDF=${idf_path}
         CARGO_CMAKE_BUILD_COMPILER=${CMAKE_C_COMPILER}
-        cargo build --target ${RUST_TARGET} --target-dir ${CARGO_TARGET_DIR} ${CARGO_BUILD_ARG} ${CARGO_BUILD_STD_ARG}
+        cargo build --target ${RUST_TARGET} --target-dir ${CARGO_TARGET_DIR} ${CARGO_BUILD_ARG}
     INSTALL_COMMAND ""
     BUILD_ALWAYS TRUE
     TMP_DIR "${CARGO_BUILD_DIR}/tmp"
