@@ -4,6 +4,7 @@
 {% if mcu != "esp32s2" %}#{% endif %}target = "xtensa-esp32s2-espidf"
 {% if mcu != "esp32s3" %}#{% endif %}target = "xtensa-esp32s3-espidf"
 {% if mcu != "esp32c3" %}#{% endif %}target = "riscv32imc-esp-espidf"
+{% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for esp-idf v5: https://github.com/esp-rs/rust/issues/110
 
 [target.xtensa-esp32-espidf]
 linker = "ldproxy"
