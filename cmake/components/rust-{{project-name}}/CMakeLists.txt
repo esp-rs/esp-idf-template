@@ -36,6 +36,10 @@ set(CARGO_BUILD_STD_ARG -Zbuild-std=std,panic_abort -Zbuild-std-features=panic_i
 set(CARGO_BUILD_STD_ARG -Zbuild-std=core,alloc,panic_abort -Zbuild-std-features=panic_immediate_abort)
 {% endif %}
 
+if(IDF_VERSION_MAJOR GREATER "4")
+set(ESP_RUSTFLAGS "--cfg espidf_time64")
+endif()
+
 set(CARGO_PROJECT_DIR "${CMAKE_CURRENT_LIST_DIR}")
 set(CARGO_BUILD_DIR "${CMAKE_CURRENT_BINARY_DIR}")
 set(CARGO_TARGET_DIR "${CARGO_BUILD_DIR}/target")
@@ -63,6 +67,7 @@ ExternalProject_Add(
         CARGO_CMAKE_BUILD_SDKCONFIG=${sdkconfig}
         CARGO_CMAKE_BUILD_ESP_IDF=${idf_path}
         CARGO_CMAKE_BUILD_COMPILER=${CMAKE_C_COMPILER}
+        RUSTFLAGS=${ESP_RUSTFLAGS}
         cargo build --target ${RUST_TARGET} --target-dir ${CARGO_TARGET_DIR} ${CARGO_BUILD_ARG} ${CARGO_BUILD_STD_ARG}
     INSTALL_COMMAND ""
     BUILD_ALWAYS TRUE
