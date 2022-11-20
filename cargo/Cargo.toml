@@ -16,11 +16,11 @@ opt-level = "z"
 pio = ["esp-idf-sys/pio"]
 
 [dependencies]
-{% if std %}esp-idf-sys = { version = "0.31.9", features = ["binstart"] }
+{% if std %}esp-idf-sys = { version = "0.31.11", features = ["binstart"] }
 {% else %}log = { version = "0.4", default-features = false }
-esp-idf-sys = { version = "0.31.6", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
-esp-idf-svc = { version = "0.42", default-features = false, features = ["alloc"] }{% endif %}
+esp-idf-sys = { version = "0.31.11", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
+esp-idf-svc = { version = "0.43.1", default-features = false, features = ["alloc"] }{% endif %}
 
 [build-dependencies]
-embuild = "0.30"
+embuild = "0.30.4"
 anyhow = "1"
