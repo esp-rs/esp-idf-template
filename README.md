@@ -64,7 +64,6 @@ You need a Python 3.7 or later installed on your machine. Install it from the pa
 cargo install cargo-generate
 cargo install ldproxy
 cargo install espflash
-cargo install espmonitor
 ```
 
 ## Generate the project
@@ -102,7 +101,7 @@ espflash /dev/ttyUSB0 target/[xtensa-esp32-espidf|xtensa-esp32s2-espidf|xtensa-e
 ## Monitor
 
 ```sh
-espmonitor /dev/ttyUSB0
+espflash serial-monitor /dev/ttyUSB0
 ```
 
 - Replace `dev/ttyUSB0` above with the USB port where you've connected the board
