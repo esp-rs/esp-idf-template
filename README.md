@@ -30,33 +30,25 @@ After running the command, there will be a few prompts:
 
 ## Prerequisites
 
-### Install Rustup
-
-If you don't have `rustup` installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
-
-### Install Rust & Clang - for Xtensa MCUs (ESP32, ESP32-S2 and ESP32-S3)
-
-- Install the [Rust Espressif compiler toolchain and the Espressif LLVM Clang toolchain](https://github.com/esp-rs/rust-build)
-- This is necessary because support for the Xtensa architecture (ESP32 / ESP32-S2 / ESP32-S3) is not upstreamed in LLVM yet
-- Make sure that you DON'T have a system Clang installed as well because even if you have the Espressif one first on your `$PATH`, Bindgen will still pick the system one
-  - A workaround that does not require uninstalling the system Clang is to `export LIBCLANG_PATH=<path to the Espressif Clang lib directory>` prior to continuing the build process
-
-### Install Rust & Clang - for RiscV32 MCUs (ESP32-C3)
-
-- You **can** target the ESP32-C3 with the Espressif toolchains just fine, but this MCU is also supported by the stock compilers
-- So alternatively - just use the stock nightly Rust compiler, and a recent, stock Clang (as in Clang 11+)
-
-To install the nightly Rust compiler toolchain:
-```sh
-rustup install nightly
-rustup component add rust-src --toolchain nightly
-```
-
-Installing a recent Clang compiler is OS-specific. The [Clang Getting Started page](https://clang.llvm.org/get_started.html) contains useful guidelines.
-
 ### Install Python3
 
 You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install it [from the official Python site](https://www.python.org/downloads/).
+
+### Install Rust for Espressif SoCs
+To install the requirements to develop Rust applications for Espressif SoCs (for both Xtensa and RISC-V targets):
+```sh
+cargo install espup
+espup install
+# Unix
+. $HOME/export-esp.sh
+# Windows
+%USERPROFILE%\export-esp.ps1
+```
+> **Warning**
+>
+> Make sure you source the generated export file, as shown above, in every terminal before building any application as it contains the required environment variables.
+
+See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/book/installation/installation.html) for more details.
 
 ### Install Cargo Sub-Commands
 
