@@ -64,19 +64,43 @@ You need a Python 3.7 or later installed on your machine. Install it from the pa
 cargo install cargo-generate
 cargo install ldproxy
 cargo install espflash
+cargo install cargo-espflash
 ```
+> **Note**
+> If you are running macOS or Linux then libuv must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
+> ```
+> # macOS
+> brew install libuv
+> # Debian/Ubuntu/etc.
+> apt-get install libuv-dev
+> # Fedora
+> dnf install systemd-devel
+> ```
+> Also, the `espflash` and `cargo-espflash` commands shown below, assume that version `2.0` or
+> greater.
 
 ## Generate the project
 
 ```sh
 cargo generate --vcs none --git https://github.com/esp-rs/esp-idf-template cargo
+cd <your-project-name>
 ```
+
+## Build and Flash
+`cargo-espflash` allows to build the project and flash it to your device:
+```sh
+cargo espflash flash /dev/ttyUSB0
+```
+- Replace `dev/ttyUSB0` above with the USB port where you've connected the board. If you do not
+specify any USB port, `cargo-espflash` will print a list of the recognized USB ports for you to select
+the desired port.
+- You can include the `--monitor` argument to the `cargo-espflash` command to open a serial monitor after flashing the device.
+- For more details on [`cargo-espflash` usage see the README](https://github.com/esp-rs/espflash/tree/main/cargo-espflash#usage)
 
 ## Build
 
 To build using the default ESP-IDF native builder just use:
 ```sh
-cd <your-project-name>
 cargo build
 ```
 
@@ -92,19 +116,30 @@ cargo build --features pio
 In the root of the generated project:
 
 ```sh
-espflash /dev/ttyUSB0 target/[xtensa-esp32-espidf|xtensa-esp32s2-espidf|xtensa-esp32s3-espidf|riscv32imc-esp-espidf]/debug/<your-project-name>
+espflash flash /dev/ttyUSB0 target/[xtensa-esp32-espidf|xtensa-esp32s2-espidf|xtensa-esp32s3-espidf|riscv32imc-esp-espidf]/debug/<your-project-name>
 ```
 
-- Replace `dev/ttyUSB0` above with the USB port where you've connected the board
+- Replace `dev/ttyUSB0` above with the USB port where you've connected the board. If you do not
+specify any USB port, `espflash` will print a list of the recognized USB ports for you to select
+the desired port.
 - Replace `<your-project-name>` with the name of the generated project
+- You can include the `--monitor` argument to the `espflash` command to open a serial monitor after flashing the device.
+- For more details on [`espflash` usage see the README](https://github.com/esp-rs/espflash/tree/main/espflash#usage)
 
 ## Monitor
-
+Both `espflash` and `cargo-espflash` allows monitoring a serial port withouth flashing the device:
 ```sh
-espflash serial-monitor /dev/ttyUSB0
+espflash monitor /dev/ttyUSB0
+```
+Or
+```sh
+cargo espflash monitor /dev/ttyUSB0
 ```
 
-- Replace `dev/ttyUSB0` above with the USB port where you've connected the board
+
+- Replace `dev/ttyUSB0` above with the USB port where you've connected the board. If you do not
+specify any USB port, `cargo-espflash`/`espflash` will print a list of the recognized USB ports for you to select
+the desired port.
 
 The monitor should output more or less the following:
 ```
