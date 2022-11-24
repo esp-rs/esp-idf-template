@@ -37,9 +37,9 @@ If you don't have `rustup` installed yet, follow the instructions on the [rustup
 ### Install Rust & Clang - for Xtensa MCUs (ESP32, ESP32-S2 and ESP32-S3)
 
 - Install the [Rust Espressif compiler toolchain and the Espressif LLVM Clang toolchain](https://github.com/esp-rs/rust-build)
-- This is necessary, because support for the Xtensa architecture (ESP32 / ESP32-S2 / ESP32-S3) is not upstreamed in LLVM yet
-- Make sure that you DON'T have a system Clang installed as well, because even if you have the Espressif one first on your `$PATH`, Bindgen will still pick the system one
-  - A workaround that does not require uninstalling the system Clang is to do `export LIBCLANG_PATH=<path to the Espressif Clang lib directory>` prior to continuing the build process
+- This is necessary because support for the Xtensa architecture (ESP32 / ESP32-S2 / ESP32-S3) is not upstreamed in LLVM yet
+- Make sure that you DON'T have a system Clang installed as well because even if you have the Espressif one first on your `$PATH`, Bindgen will still pick the system one
+  - A workaround that does not require uninstalling the system Clang is to `export LIBCLANG_PATH=<path to the Espressif Clang lib directory>` prior to continuing the build process
 
 ### Install Rust & Clang - for RiscV32 MCUs (ESP32-C3)
 
@@ -56,7 +56,7 @@ Installing a recent Clang compiler is OS-specific. The [Clang Getting Started pa
 
 ### Install Python3
 
-You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install [from the official Python site](https://www.python.org/downloads/).
+You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install it [from the official Python site](https://www.python.org/downloads/).
 
 ### Install Cargo Sub-Commands
 
@@ -67,6 +67,7 @@ cargo install espflash
 cargo install cargo-espflash
 ```
 > **Note**
+>
 > If you are running macOS or Linux then libuv must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
 > ```
 > # macOS
@@ -87,7 +88,7 @@ cd <your-project-name>
 ```
 
 ## Build and Flash
-`cargo-espflash` allows to build the project and flash it to your device:
+`cargo-espflash` allows you to build the project and flash it to your device:
 ```sh
 cargo espflash flash /dev/ttyUSB0
 ```
@@ -127,7 +128,7 @@ the desired port.
 - For more details on [`espflash` usage see the README](https://github.com/esp-rs/espflash/tree/main/espflash#usage)
 
 ## Monitor
-Both `espflash` and `cargo-espflash` allows monitoring a serial port withouth flashing the device:
+Both `espflash` and `cargo-espflash` allow monitoring a serial port without flashing the device:
 ```sh
 espflash monitor /dev/ttyUSB0
 ```
