@@ -35,7 +35,13 @@ After running the command, there will be a few prompts:
 You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install it [from the official Python site](https://www.python.org/downloads/).
 
 ### Install Rust for Espressif SoCs
-To install the requirements to develop Rust applications for Espressif SoCs (for both Xtensa and RISC-V targets):
+
+You **can** target the RISC-V targets with the Espressif Rust toolchain just fine, but MCUs with this architecture are also [supported by the nightly compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v). So, if you only want to target RISC-V targets, just use the stock nigthly Rust compiler, a recent, stock Clang (as in Clang 11+) and skip the `espup` installation
+```sh
+rustup toolchain install nightly --component rust-src
+```
+
+To install the required toolchains to develop Rust applications for Espressif SoCs (for both Xtensa and RISC-V targets):
 ```sh
 cargo install espup
 espup install
