@@ -1,4 +1,4 @@
-name: CI
+name: CI_ESP_IDF_master
 
 on:
   push:
