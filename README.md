@@ -1,4 +1,6 @@
 # Rust on ESP-IDF "Hello, World" template
+![CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci.yml/badge.svg)
+
 
 A "Hello, world!" template, to use with [cargo-generate](https://github.com/cargo-generate/cargo-generate), of a Rust binary crate for the ESP-IDF framework.
 
@@ -25,8 +27,6 @@ After running the command, there will be a few prompts:
     -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
     -  [Gitpod](https://www.gitpod.io)
   Dev Containers also have integration with [Wokwi simulator](https://wokwi.com/) and allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server).
-
-![CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci.yml/badge.svg)
 
 ## Prerequisites
 
