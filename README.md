@@ -36,10 +36,13 @@ You need a Python 3.7 or later installed on your machine. Install it from the pa
 
 ### Install Rust for Espressif SoCs
 
-You **can** target the RISC-V targets with the Espressif Rust toolchain just fine, but MCUs with this architecture are also [supported by the nightly compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v). So, if you only want to target RISC-V targets, just use the stock nigthly Rust compiler, a recent, stock Clang (as in Clang 11+) and skip the `espup` installation
-```sh
-rustup toolchain install nightly --component rust-src
-```
+You **can** target the RISC-V targets with the Espressif Rust toolchain just fine, but MCUs with this architecture are also [supported by the nightly compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v). So, if you only want to target RISC-V targets, just use the stock nigthly Rust compiler, a recent, stock Clang (as in Clang 11+) and skip the `espup` installation:
+1. Install `rustup` if you dont have it installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
+2. Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion.
+3. Install `nightly` toolchain with `rust-src` component:
+   ```sh
+   rustup toolchain install nightly --component rust-src
+   ```
 
 To install the required toolchains to develop Rust applications for Espressif SoCs (for both Xtensa and RISC-V targets):
 ```sh
