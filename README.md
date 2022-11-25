@@ -1,4 +1,6 @@
 # Rust on ESP-IDF "Hello, World" template
+![CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci.yml/badge.svg)
+
 
 A "Hello, world!" template, to use with [cargo-generate](https://github.com/cargo-generate/cargo-generate), of a Rust binary crate for the ESP-IDF framework.
 
@@ -26,37 +28,36 @@ After running the command, there will be a few prompts:
     -  [Gitpod](https://www.gitpod.io)
   Dev Containers also have integration with [Wokwi simulator](https://wokwi.com/) and allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server).
 
-![CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci.yml/badge.svg)
-
 ## Prerequisites
-
-### Install Rustup
-
-If you don't have `rustup` installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
-
-### Install Rust & Clang - for Xtensa MCUs (ESP32, ESP32-S2 and ESP32-S3)
-
-- Install the [Rust Espressif compiler toolchain and the Espressif LLVM Clang toolchain](https://github.com/esp-rs/rust-build)
-- This is necessary, because support for the Xtensa architecture (ESP32 / ESP32-S2 / ESP32-S3) is not upstreamed in LLVM yet
-- Make sure that you DON'T have a system Clang installed as well, because even if you have the Espressif one first on your `$PATH`, Bindgen will still pick the system one
-  - A workaround that does not require uninstalling the system Clang is to do `export LIBCLANG_PATH=<path to the Espressif Clang lib directory>` prior to continuing the build process
-
-### Install Rust & Clang - for RiscV32 MCUs (ESP32-C3)
-
-- You **can** target the ESP32-C3 with the Espressif toolchains just fine, but this MCU is also supported by the stock compilers
-- So alternatively - just use the stock nightly Rust compiler, and a recent, stock Clang (as in Clang 11+)
-
-To install the nightly Rust compiler toolchain:
-```sh
-rustup install nightly
-rustup component add rust-src --toolchain nightly
-```
-
-Installing a recent Clang compiler is OS-specific. The [Clang Getting Started page](https://clang.llvm.org/get_started.html) contains useful guidelines.
 
 ### Install Python3
 
-You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install [from the official Python site](https://www.python.org/downloads/).
+You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install it [from the official Python site](https://www.python.org/downloads/).
+
+### Install Rust for Espressif SoCs
+
+You **can** target the RISC-V targets with the Espressif Rust toolchain just fine, but MCUs with this architecture are also [supported by the nightly compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v). So, if you only want to target RISC-V targets, just use the stock nigthly Rust compiler, a recent, stock Clang (as in Clang 11+) and skip the `espup` installation:
+1. Install `rustup` if you dont have it installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
+2. Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion.
+3. Install `nightly` toolchain with `rust-src` component:
+   ```sh
+   rustup toolchain install nightly --component rust-src
+   ```
+
+To install the required toolchains to develop Rust applications for Espressif SoCs (for both Xtensa and RISC-V targets):
+```sh
+cargo install espup
+espup install
+# Unix
+. $HOME/export-esp.sh
+# Windows
+%USERPROFILE%\export-esp.ps1
+```
+> **Warning**
+>
+> Make sure you source the generated export file, as shown above, in every terminal before building any application as it contains the required environment variables.
+
+See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/book/installation/installation.html) for more details.
 
 ### Install Cargo Sub-Commands
 
@@ -64,19 +65,44 @@ You need a Python 3.7 or later installed on your machine. Install it from the pa
 cargo install cargo-generate
 cargo install ldproxy
 cargo install espflash
+cargo install cargo-espflash
 ```
+> **Note**
+>
+> If you are running macOS or Linux then libuv must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
+> ```
+> # macOS
+> brew install libuv
+> # Debian/Ubuntu/etc.
+> apt-get install libuv-dev
+> # Fedora
+> dnf install systemd-devel
+> ```
+> Also, the `espflash` and `cargo-espflash` commands shown below, assume that version `2.0` or
+> greater.
 
 ## Generate the project
 
 ```sh
 cargo generate --vcs none --git https://github.com/esp-rs/esp-idf-template cargo
+cd <your-project-name>
 ```
+
+## Build and Flash
+`cargo-espflash` allows you to build the project and flash it to your device:
+```sh
+cargo espflash flash /dev/ttyUSB0
+```
+- Replace `dev/ttyUSB0` above with the USB port where you've connected the board. If you do not
+specify any USB port, `cargo-espflash` will print a list of the recognized USB ports for you to select
+the desired port.
+- You can include the `--monitor` argument to the `cargo-espflash` command to open a serial monitor after flashing the device.
+- For more details on [`cargo-espflash` usage see the README](https://github.com/esp-rs/espflash/tree/main/cargo-espflash#usage)
 
 ## Build
 
 To build using the default ESP-IDF native builder just use:
 ```sh
-cd <your-project-name>
 cargo build
 ```
 
@@ -92,19 +118,30 @@ cargo build --features pio
 In the root of the generated project:
 
 ```sh
-espflash /dev/ttyUSB0 target/[xtensa-esp32-espidf|xtensa-esp32s2-espidf|xtensa-esp32s3-espidf|riscv32imc-esp-espidf]/debug/<your-project-name>
+espflash flash /dev/ttyUSB0 target/[xtensa-esp32-espidf|xtensa-esp32s2-espidf|xtensa-esp32s3-espidf|riscv32imc-esp-espidf]/debug/<your-project-name>
 ```
 
-- Replace `dev/ttyUSB0` above with the USB port where you've connected the board
+- Replace `dev/ttyUSB0` above with the USB port where you've connected the board. If you do not
+specify any USB port, `espflash` will print a list of the recognized USB ports for you to select
+the desired port.
 - Replace `<your-project-name>` with the name of the generated project
+- You can include the `--monitor` argument to the `espflash` command to open a serial monitor after flashing the device.
+- For more details on [`espflash` usage see the README](https://github.com/esp-rs/espflash/tree/main/espflash#usage)
 
 ## Monitor
-
+Both `espflash` and `cargo-espflash` allow monitoring a serial port without flashing the device:
 ```sh
-espflash serial-monitor /dev/ttyUSB0
+espflash monitor /dev/ttyUSB0
+```
+Or
+```sh
+cargo espflash monitor /dev/ttyUSB0
 ```
 
-- Replace `dev/ttyUSB0` above with the USB port where you've connected the board
+
+- Replace `dev/ttyUSB0` above with the USB port where you've connected the board. If you do not
+specify any USB port, `cargo-espflash`/`espflash` will print a list of the recognized USB ports for you to select
+the desired port.
 
 The monitor should output more or less the following:
 ```
