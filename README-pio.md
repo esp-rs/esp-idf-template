@@ -2,47 +2,9 @@
 
 A "Hello, world!" template generation of a mixed Rust/C project for PlatformIO.
 
-## Prerequisites
-
-### Install Rustup
-
-If you don't have `rustup` installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
-
-### Install Rust & Clang - for Xtensa MCUs (ESP32, ESP32-S2 and ESP32-S3)
-
-- Install the [Rust Espressif compiler toolchain and the Espressif LLVM Clang toolchain](https://github.com/esp-rs/rust-build)
-- This is necessary, because support for the Xtensa architecture (ESP32 / ESP32-S2 / ESP32-S3) is not upstreamed in LLVM yet
-- Make sure that you DON'T have a system Clang installed as well, because even if you have the Espressif one first on your `$PATH`, Bindgen will still pick the system one
-  - A workaround that does not require uninstalling the system Clang is to do `export LIBCLANG_PATH=<path to the Espressif Clang lib directory>` prior to continuing the build process
-
-### Install Rust & Clang - for RiscV32 MCUs (ESP32-C3)
-
-- You **can** target the ESP32-C3 with the Espressif toolchains just fine, but this MCU is also supported by the stock compilers
-- So alternatively - just use the stock nightly Rust compiler, and a recent, stock Clang (as in Clang 11+)
-
-To install the nightly Rust compiler toolchain:
-```sh
-rustup install nightly
-rustup component add rust-src --toolchain nightly
-```
-
-Installing a recent Clang compiler is OS-specific. The [Clang Getting Started page](https://clang.llvm.org/get_started.html) contains useful guidelines.
-
-### Install Python3
-
-You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install [from the official Python site](https://www.python.org/downloads/).
-
-### Install PlatformIO
-
-Install the [PlatformIO CLI](https://platformio.org/install/cli), or the full [IDE experience](https://platformio.org/install/ide).
-
-### Install Cargo Pio (PlatformIO Rust Project Generator)
-
-```sh
-cargo install cargo-pio
-```
-
 ## Generate the project
+
+**Please make sure you have installed all [prerequisites](#prerequisites) first!**
 
 ```sh
 cargo pio new <your-project-name> --platform espressif32 --frameworks espidf [--board <your-board-name>]
@@ -124,3 +86,50 @@ I (272) cpu_start: Starting scheduler on PRO CPU.
 I (0) cpu_start: Starting scheduler on APP CPU.
 Hello, world!
 ```
+
+## Prerequisites
+
+### Install Rust (with `rustup`)
+
+If you don't have `rustup` installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
+
+### Install Cargo Sub-Commands
+
+```sh
+cargo install cargo-generate
+cargo install cargo-pio
+cargo install espup
+```
+
+### Install Rust & Clang toolchains for Espressif SoCs (with `espup`)
+
+```sh
+espup install
+# Unix
+. $HOME/export-esp.sh
+# Windows
+%USERPROFILE%\export-esp.ps1
+```
+> **Warning**
+>
+> Make sure you source the generated export file, as shown above, in every terminal before building any application as it contains the required environment variables.
+
+See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/book/installation/installation.html) for more details.
+
+### Alternative (for RISC-V Espressif SOCs **only**): install & use upstream Rust & Clang
+
+While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`) with the `espup` installer just fine, SOCs with this architecture are also [supported by the nightly Rust compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v) and by recent, stock Clang compilers (as in Clang 11+):
+
+1. Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion. Recent Linux distros come with suitable Clang already.
+2. Install the `nightly` Rust toolchain with the `rust-src` component included:
+   ```sh
+   rustup toolchain install nightly --component rust-src
+   ```
+   
+### Install Python3
+
+You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install it [from the official Python site](https://www.python.org/downloads/).
+
+### Install PlatformIO
+
+Install the [PlatformIO CLI](https://platformio.org/install/cli), or the full [IDE experience](https://platformio.org/install/ide).
