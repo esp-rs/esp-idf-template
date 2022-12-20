@@ -142,9 +142,3 @@ git -C esp-idf checkout release/v4.4
 esp-idf\install
 esp-idf\export
 ```
-
-### Install Cargo Generate
-
-```sh
-cargo install cargo-generate
-```
