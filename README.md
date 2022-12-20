@@ -18,7 +18,7 @@ Or if you rather
 cargo generate https://github.com/esp-rs/esp-idf-template cargo
 ```
 
-The command will prompt you for a few parameters
+The command will display a few prompts:
 - `Project Name`: Name of the crate.
 - `Which MCU to target?`: SoC model, e.g. `esp32`, `esp32s2`, `esp32c3` etc.
 - `STD support`: When `true` (default), adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, a `no_std` [Rust Core Library](https://doc.rust-lang.org/core/index.html) crate would be created.
@@ -109,7 +109,7 @@ Hello, world!
 
 ### Install Rust (with `rustup`)
 
-Install Rustup & Rust by following the instructions on the [rustup.rs site](https://rustup.rs)
+If you don't have `rustup` installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
 
 ### Install Cargo Sub-Commands
 
@@ -122,7 +122,7 @@ cargo install cargo-espflash # Optional
 ```
 > **Note**
 >
-> If you are running macOS or Linux then libuv must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
+> If you are running macOS or Linux then `libuv` must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
 > ```
 > # macOS
 > brew install libuv
