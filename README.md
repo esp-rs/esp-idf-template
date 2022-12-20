@@ -114,7 +114,6 @@ Install Rustup & Rust by following the instructions on the [rustup.rs site](http
 ### Install Rust & Clang toolchains for Espressif SoCs (with `espup`)
 
 ```sh
-cargo install espup
 espup install
 # Unix
 . $HOME/export-esp.sh
@@ -142,6 +141,7 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
 ```sh
 cargo install cargo-generate
 cargo install ldproxy
+cargo install espup
 cargo install espflash
 cargo install cargo-espflash # Optional
 ```
