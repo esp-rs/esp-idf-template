@@ -10,14 +10,18 @@ Or if you rather
 * ... want to mix Rust and C/C++ in a traditional ESP-IDF `idf.py` CMake project - [follow these instructions](README-cmake.md)
 * ... want to mix Rust and C/C++ with PlatformIO - [follow these instructions](README-pio.md)
 
-To generate a project using this template:
+## Generate the project
+
+**Please make sure you have installed all [prerequisites](#prerequisites) first!**
+
 ```sh
 cargo generate https://github.com/esp-rs/esp-idf-template cargo
 ```
-After running the command, there will be a few prompts:
+
+The command will prompt you for a few parameters
 - `Project Name`: Name of the crate.
-- `Which MCU to target?`: SoC model.
-- `STD support`: When `true`, adds support for [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, we will use [Rust Core Library](https://doc.rust-lang.org/core/index.html).
+- `Which MCU to target?`: SoC model, e.g. `esp32`, `esp32s2`, `esp32c3` etc.
+- `STD support`: When `true` (default), adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, a `no_std` [Rust Core Library](https://doc.rust-lang.org/core/index.html) crate would be created.
 - `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
   - [`v.4.4`](https://github.com/espressif/esp-idf/tree/release/v4.4): Stable
   - [`v.4.3.2`](https://github.com/espressif/esp-idf/tree/v4.3.2): Previous stable
@@ -27,66 +31,6 @@ After running the command, there will be a few prompts:
     -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
     -  [Gitpod](https://www.gitpod.io)
   Dev Containers also have integration with [Wokwi simulator](https://wokwi.com/) and allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server).
-
-## Prerequisites
-
-### Install Python3
-
-You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install it [from the official Python site](https://www.python.org/downloads/).
-
-### Install Rust for Espressif SoCs
-
-You **can** target the RISC-V targets with the Espressif Rust toolchain just fine, but MCUs with this architecture are also [supported by the nightly compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v). So, if you only want to target RISC-V targets, just use the stock nigthly Rust compiler, a recent, stock Clang (as in Clang 11+) and skip the `espup` installation:
-1. Install `rustup` if you dont have it installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
-2. Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion.
-3. Install `nightly` toolchain with `rust-src` component:
-   ```sh
-   rustup toolchain install nightly --component rust-src
-   ```
-
-To install the required toolchains to develop Rust applications for Espressif SoCs (for both Xtensa and RISC-V targets):
-```sh
-cargo install espup
-espup install
-# Unix
-. $HOME/export-esp.sh
-# Windows
-%USERPROFILE%\export-esp.ps1
-```
-> **Warning**
->
-> Make sure you source the generated export file, as shown above, in every terminal before building any application as it contains the required environment variables.
-
-See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/book/installation/installation.html) for more details.
-
-### Install Cargo Sub-Commands
-
-```sh
-cargo install cargo-generate
-cargo install ldproxy
-cargo install espflash
-cargo install cargo-espflash
-```
-> **Note**
->
-> If you are running macOS or Linux then libuv must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
-> ```
-> # macOS
-> brew install libuv
-> # Debian/Ubuntu/etc.
-> apt-get install libuv-dev
-> # Fedora
-> dnf install systemd-devel
-> ```
-> Also, the `espflash` and `cargo-espflash` commands shown below, assume that version `2.0` or
-> greater.
-
-## Generate the project
-
-```sh
-cargo generate --vcs none --git https://github.com/esp-rs/esp-idf-template cargo
-cd <your-project-name>
-```
 
 ## Build and Flash
 `cargo-espflash` allows you to build the project and flash it to your device:
@@ -182,3 +126,61 @@ I (272) cpu_start: Starting scheduler on PRO CPU.
 I (0) cpu_start: Starting scheduler on APP CPU.
 Hello, world!
 ```
+
+## Prerequisites
+
+### Install Rust (with `rustup`)
+
+Install Rustup & Rust by following the instructions on the [rustup.rs site](https://rustup.rs)
+
+### Install Rust & Clang toolchains for Espressif SoCs (with `espup`)
+
+```sh
+cargo install espup
+espup install
+# Unix
+. $HOME/export-esp.sh
+# Windows
+%USERPROFILE%\export-esp.ps1
+```
+> **Warning**
+>
+> Make sure you source the generated export file, as shown above, in every terminal before building any application as it contains the required environment variables.
+
+See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/book/installation/installation.html) for more details.
+
+### Alternative (for RISC-V Espressif SOCs **only**): install & use upstream Rust & Clang
+
+While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`) with the `espup` installer just fine, SOCs with this architecture are also [supported by the nightly Rust compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v) and by recent, stock Clang compilers (as in Clang 11+):
+
+1. Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion. Recent Linux distros come with suitable Clang already.
+2. Install the `nightly` Rust toolchain with the `rust-src` component included:
+   ```sh
+   rustup toolchain install nightly --component rust-src
+   ```
+
+### Install Cargo Sub-Commands
+
+```sh
+cargo install cargo-generate
+cargo install ldproxy
+cargo install espflash
+cargo install cargo-espflash
+```
+> **Note**
+>
+> If you are running macOS or Linux then libuv must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
+> ```
+> # macOS
+> brew install libuv
+> # Debian/Ubuntu/etc.
+> apt-get install libuv-dev
+> # Fedora
+> dnf install systemd-devel
+> ```
+> Also, the `espflash` and `cargo-espflash` commands shown below, assume that version `2.0` or
+> greater.
+
+### (Windows-only) Install Python3
+
+You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install it [from the official Python site](https://www.python.org/downloads/).
