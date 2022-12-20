@@ -111,6 +111,29 @@ Hello, world!
 
 Install Rustup & Rust by following the instructions on the [rustup.rs site](https://rustup.rs)
 
+### Install Cargo Sub-Commands
+
+```sh
+cargo install cargo-generate
+cargo install ldproxy
+cargo install espup
+cargo install espflash
+cargo install cargo-espflash # Optional
+```
+> **Note**
+>
+> If you are running macOS or Linux then libuv must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
+> ```
+> # macOS
+> brew install libuv
+> # Debian/Ubuntu/etc.
+> apt-get install libuv-dev
+> # Fedora
+> dnf install systemd-devel
+> ```
+> Also, the `espflash` and `cargo-espflash` commands shown below, assume that version `2.0` or
+> greater.
+
 ### Install Rust & Clang toolchains for Espressif SoCs (with `espup`)
 
 ```sh
@@ -135,30 +158,7 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
    ```sh
    rustup toolchain install nightly --component rust-src
    ```
-
-### Install Cargo Sub-Commands
-
-```sh
-cargo install cargo-generate
-cargo install ldproxy
-cargo install espup
-cargo install espflash
-cargo install cargo-espflash # Optional
-```
-> **Note**
->
-> If you are running macOS or Linux then libuv must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
-> ```
-> # macOS
-> brew install libuv
-> # Debian/Ubuntu/etc.
-> apt-get install libuv-dev
-> # Fedora
-> dnf install systemd-devel
-> ```
-> Also, the `espflash` and `cargo-espflash` commands shown below, assume that version `2.0` or
-> greater.
-
+   
 ### (Windows-only) Install Python3
 
 You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install it [from the official Python site](https://www.python.org/downloads/).
