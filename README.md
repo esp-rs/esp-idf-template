@@ -143,7 +143,7 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
 cargo install cargo-generate
 cargo install ldproxy
 cargo install espflash
-cargo install cargo-espflash
+cargo install cargo-espflash # Optional
 ```
 > **Note**
 >
