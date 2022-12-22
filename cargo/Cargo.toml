@@ -23,4 +23,3 @@ esp-idf-svc = { version = "0.43.1", default-features = false, features = ["alloc
 
 [build-dependencies]
 embuild = "0.30.4"
-anyhow = "1"
