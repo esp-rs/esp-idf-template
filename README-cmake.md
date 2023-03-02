@@ -15,6 +15,10 @@ The command will display a few prompts:
   - `Rust toolchain`: Selects the `channel` in the [toolchain file](https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file) to use. Select `nightly` for ESP32-C3 and `esp` for the other targets.
   - `STD support`: When `true`, adds support for [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, we will use [Rust Core Library](https://doc.rust-lang.org/core/index.html).
 
+## Enable ESP IDF components that you would like to use from Rust
+
+Contrary to the [cargo-first](https://github.com/esp-rs/esp-idf-template/blob/master/README.md) build, the CMake build - by default - runs with very few ESP IDF components enabled for Rust. If you want to enable extra components so that they are usable via their Rust wrappers, you need to list them [here](https://github.com/esp-rs/esp-idf-template/blob/master/cmake/components/rust-%7B%7Bproject-name%7D%7D/CMakeLists.txt#L3) **in your newly-generated project**.
+
 ## Build
 
 ```sh
