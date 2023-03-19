@@ -22,4 +22,4 @@ esp-idf-sys = { version = "0.32.1", default-features = false, features = ["binst
 esp-idf-svc = { version = "0.45.0", default-features = false, features = ["alloc"] }{% endif %}
 
 [build-dependencies]
-embuild = "0.30.4"
+embuild = "0.31.1"
