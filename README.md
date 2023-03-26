@@ -159,6 +159,8 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
    rustup toolchain install nightly --component rust-src
    ```
    
-### (Windows-only) Install Python3
+### Install Python3
 
-You need a Python 3.7 or later installed on your machine. Install it [from the official Python site](https://www.python.org/downloads/).
+You need a Python 3.7 or later installed on your machine. 
+* Linux, Mac OS X: if not preinstalled already, just install it with your package manager
+* Windows: install it e.g. [from the official Python site](https://www.python.org/downloads/).
