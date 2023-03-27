@@ -22,7 +22,12 @@ esp-idf-hal = { version = "0.40.1"}
 esp-idf-svc = { version = "0.45.0"}
 {% endif %} 
 {% if hal == "Yes (all features)" %}
-esp-idf-hal = { version = "0.40.1", features = ["default","embassy-sync","critical-section","edge-executor"]}
+esp-idf-hal = { version = "0.40.1", features = [
+    "default",
+    "embassy-sync",
+    "critical-section",
+    "edge-executor"
+]}
 esp-idf-svc = { version = "0.45.0", features = [
     "std",
     "nightly",
