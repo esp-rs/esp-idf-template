@@ -20,6 +20,9 @@ pio = ["esp-idf-sys/pio"]
 {% else %}log = { version = "0.4.17", default-features = false }
 esp-idf-sys = { version = "0.32.1", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
 esp-idf-svc = { version = "0.45.0", default-features = false, features = ["alloc"] }{% endif %}
-
+{% if hal %}
+esp-idf-hal ={ version = "0.40.1"}
+esp-idf-svc ={ version = "0.45.0"}
+{% endif %} 
 [build-dependencies]
 embuild = "0.31.1"
