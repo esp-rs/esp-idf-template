@@ -11,7 +11,6 @@ mcu = { type = "string", prompt = "MCU", choices = [
     "esp32c3",
 ], default = "esp32" }
 std = { type = "bool", prompt = "STD support", default = true }
-hal = { type = "bool", prompt = "Include esp-idf-hal/svc ?", default = true}
 espidfver = { type = "string", prompt = "ESP-IDF native build version (v4.3.2 = previous stable, v4.4 = stable, mainline = UNSTABLE)", choices = [
     "v4.4",
     "v4.3.2",
@@ -30,3 +29,6 @@ ignore = [
     "docs/",
     "scripts/",
 ]
+
+[conditional.'std == true'.placeholders]
+hal = { type = "bool", prompt = "Include esp-idf-hal/svc ?", default = true}

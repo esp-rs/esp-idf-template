@@ -18,8 +18,8 @@ pio = ["esp-idf-sys/pio"]
 [dependencies]
 {% if std %}esp-idf-sys = { version = "0.32.1", features = ["binstart"] }
 {% if hal %}
-esp-idf-hal ={ version = "0.40.1"}
-esp-idf-svc ={ version = "0.45.0"}
+esp-idf-hal = { version = "0.40.1"}
+esp-idf-svc = { version = "0.45.0"}
 {% endif %} 
 {% else %}log = { version = "0.4.17", default-features = false }
 esp-idf-sys = { version = "0.32.1", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
