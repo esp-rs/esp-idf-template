@@ -7,22 +7,22 @@
 
 [target.xtensa-esp32-espidf]
 linker = "ldproxy"
-runner = "espflash --monitor"
+runner = "espflash flash --monitor"
 {% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
 
 [target.xtensa-esp32s2-espidf]
 linker = "ldproxy"
-runner = "espflash --monitor"
+runner = "espflash flash --monitor"
 {% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
 
 [target.xtensa-esp32s3-espidf]
 linker = "ldproxy"
-runner = "espflash --monitor"
+runner = "espflash flash --monitor"
 {% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
 
 [target.riscv32imc-esp-espidf]
 linker = "ldproxy"
-runner = "espflash --monitor"
+runner = "espflash flash --monitor"
 # Future - necessary for the experimental "native build" of esp-idf-sys with ESP32C3. See also https://github.com/ivmarkov/embuild/issues/16
 # For ESP-IDF 5 add `espidf_time64` and for earlier versions - remove this flag: https://github.com/esp-rs/rust/issues/110
 {% if espidfver != "mainline" %}rustflags = ["-C", "default-linker-libraries"]{% else %}rustflags = ["--cfg", "espidf_time64", "-C", "default-linker-libraries"]{% endif %}
