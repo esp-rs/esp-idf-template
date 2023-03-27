@@ -31,4 +31,8 @@ ignore = [
 ]
 
 [conditional.'std == true'.placeholders]
-hal = { type = "bool", prompt = "Include esp-idf-hal/svc ?", default = true}
+hal = { type = "string", prompt = "Include esp-idf-hal/svc ?", choices = [
+    "No",
+    "Yes (default features)",
+    "Yes (all features)",
+], default = "Yes (default features)"}
