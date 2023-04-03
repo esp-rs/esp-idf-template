@@ -2,14 +2,9 @@
 
 ## Dev Containers
 This repository offers Dev Containers supports for:
--  [Gitpod](https://gitpod.io/)
-   - ["Open in Gitpod" button](https://www.gitpod.io/docs/getting-started#open-in-gitpod-button)
 -  [VS Code Dev Containers](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
 -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
 > **Note**
->
-> In order to use Gitpod the project needs to be published in a GitLab, GitHub,
-> or Bitbucket repository.
 >
 > In [order to use GitHub Codespaces](https://github.com/features/codespaces#faq)
 > the project needs to be published in a GitHub repository and the user needs
@@ -34,7 +29,7 @@ simulating in Wokwi is also added.
 -  UI approach:
 
     The default build task is already set to build the project, and it can be used
-    in VS Code and Gitpod:
+    in VS Code and GitHub Codespaces:
     - From the [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) (`Ctrl-Shift-P` or `Cmd-Shift-P`) run the `Tasks: Run Build Task` command.
     - `Terminal`-> `Run Build Task` in the menu.
     - With `Ctrl-Shift-B` or `Cmd-Shift-B`.
@@ -82,12 +77,9 @@ used.
 - UI approach:
 
     The default test task is already set to build the project, and it can be used
-    in VS Code and Gitpod:
+    in VS Code and GitHub Codespaces:
     - From the [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) (`Ctrl-Shift-P` or `Cmd-Shift-P`) run the `Tasks: Run Test Task` command
     - With `Ctrl-Shift-,` or `Cmd-Shift-,`
-        > **Note**
-        >
-        > This Shortcut is not available in Gitpod by default.
     - From the [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) (`Ctrl-Shift-P` or `Cmd-Shift-P`) run the `Tasks: Run Task` command and
     select `Build & Run Wokwi`.
     - From UI: Press `Build & Run Wokwi` on the left side of the Status Bar.
@@ -118,4 +110,3 @@ Wokwi offers debugging with GDB.
     3. Start Debugging by pressing the Play Button or pressing `F5`
     4. Choose the proper user:
         - `esp` when using VS Code or GitHub Codespaces
-        - `gitpod` when using Gitpod

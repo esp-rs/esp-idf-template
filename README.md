@@ -29,7 +29,6 @@ The command will display a few prompts:
 - `Dev Containers support?`: Adds support for:
     -  [VS Code Dev Containers](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
     -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
-    -  [Gitpod](https://www.gitpod.io)
   Dev Containers also have integration with [Wokwi simulator](https://wokwi.com/) and allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server).
 
 ## Build
@@ -158,9 +157,9 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
    ```sh
    rustup toolchain install nightly --component rust-src
    ```
-   
+
 ### Install Python3
 
-You need a Python 3.7 or later installed on your machine. 
+You need a Python 3.7 or later installed on your machine.
 * Linux, Mac OS X: if not preinstalled already, just install it with your package manager
 * Windows: install it e.g. [from the official Python site](https://www.python.org/downloads/).
