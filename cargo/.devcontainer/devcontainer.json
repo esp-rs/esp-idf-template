@@ -1,23 +1,12 @@
 {
   "name": "{{ crate_name }}",
   // Select between image and build propieties to pull or build the image.
-  // "image": "docker.io/espressif/idf-rust:{{ mcu }}
-  {%- if espidfver == "mainline" -%}
-  _master_1.64.0.0",
-  {%- else -%}
-  _v4.4_1.64.0.0",
-  {%- endif %}
+  // "image": "docker.io/espressif/idf-rust:{{ mcu }}_latest",
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
       "CONTAINER_USER": "esp",
       "CONTAINER_GROUP": "esp",
-      "ESP_IDF_VERSION":
-      {%- if espidfver == "mainline" -%}
-      "master",
-      {%- else -%}
-      "release/v4.4",
-      {%- endif %}
       "ESP_BOARD": "{{ mcu }}"
     }
   },
@@ -42,12 +31,11 @@
     "serayuzgur.crates",
     "mutantdino.resourcemonitor",
     "yzhang.markdown-all-in-one",
-    "webfreak.debug",
+    "ms-vscode.cpptools",
     "actboy168.tasks"
   ],
   "forwardPorts": [
-    9012,
-    9333,
+    3333,
     8000
   ],
   "workspaceMount": "source=${localWorkspaceFolder},target=/home/esp/{{ crate_name }},type=bind,consistency=cached",

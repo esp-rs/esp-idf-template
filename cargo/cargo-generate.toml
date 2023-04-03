@@ -1,7 +1,9 @@
 [template]
 cargo_generate_version = ">=0.10.0"
 ignore = [".git", ".github", "README.md", "cmake"]
-description1 = "My description"
+
+[hooks]
+pre = ["pre-script.rhai"]
 
 [placeholders]
 mcu = { type = "string", prompt = "MCU", choices = [
@@ -16,18 +18,18 @@ espidfver = { type = "string", prompt = "ESP-IDF native build version (v4.3.2 = 
     "v4.3.2",
     "mainline",
 ], default = "v4.4" }
-devcontainer = { type = "bool", prompt = "Configure project to use Dev Containers (VS Code, GitHub Codespaces and Gitpod)? (beware: Dev Containers not available for esp-idf v4.3.2)", default = false }
+devcontainer = { type = "bool", prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)? (beware: Dev Containers not available for esp-idf v4.3.2)", default = false }
 
 [conditional.'devcontainer == false']
 ignore = [
     ".devcontainer/",
     ".dockerignore",
-    ".gitpod.Dockerfile",
-    ".gitpod.yml",
     ".vscode/launch.json",
     ".vscode/tasks.json",
     "docs/",
     "scripts/",
+    "diagram.json",
+    "wokwi.toml",
 ]
 
 [conditional.'std == true'.placeholders]
@@ -35,4 +37,4 @@ hal = { type = "string", prompt = "Include esp-idf-hal/svc ?", choices = [
     "No",
     "Yes (default features)",
     "Yes (all features)",
-], default = "Yes (default features)"}
+], default = "Yes (default features)" }
