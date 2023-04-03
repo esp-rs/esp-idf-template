@@ -69,7 +69,7 @@ jobs:
       - name: (NOSTD, NATIVE, master) Build | Compile
         run: cd testnostd; cargo build
       - name: (NOSTD, NATIVE, master) Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=mainline
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name testidf --vcs none --silent -d toolchain=nightly -d std=true -d espidfver=mainline -d hal="Yes (default features)"
       - name: (STD, CMake, master) ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout master
       - name: (STD, CMake, master) ESP-IDF | Install Tooling
@@ -104,7 +104,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate Project
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }}  -d std=${{ matrix.std }} -d espidfver=mainline -d devcontainer=true
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }}  -d std=${{ matrix.std }} -d espidfver=mainline -d devcontainer=true -d hal="Yes (default features)"
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.board }}

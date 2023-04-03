@@ -29,3 +29,10 @@ ignore = [
     "docs/",
     "scripts/",
 ]
+
+[conditional.'std == true'.placeholders]
+hal = { type = "string", prompt = "Include esp-idf-hal/svc ?", choices = [
+    "No",
+    "Yes (default features)",
+    "Yes (all features)",
+], default = "Yes (default features)"}
