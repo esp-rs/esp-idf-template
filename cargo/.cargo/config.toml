@@ -1,37 +1,22 @@
 [build]
 target = "{{ rust_target }}"
-# {{ rust_target }}
-# {{ arch }}
-# {{ gcc_target }}
-# {{ wokwi_board }}
 
-[target.xtensa-esp32-espidf]
+[target.{{ rust_target }}]
 linker = "ldproxy"
-runner = "espflash --monitor" # Select this runner for espflash v1.x.x
+# runner = "espflash --monitor" # Select this runner for espflash v1.x.x
+runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
+{% if espidfver != "mainline" and arch == "xtensa" %}
+rustflags = [
+    "--cfg",
+    "espidf_time64",
+] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
+{% elif espidfver != "mainline" and arch == "riscv" %}
+rustflags = ["-C", "default-linker-libraries"]
+{% elif espidfver == "mainline" and arch == "riscv" %}
+rustflags = ["--cfg", "espidf_time64", "-C", "default-linker-libraries"]
+{% endif %}
 
-{% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110#runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
 
-[target.xtensa-esp32s2-espidf]
-linker = "ldproxy"
-runner = "espflash --monitor" # Select this runner for espflash v1.x.x
-
-{% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110#runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
-
-[target.xtensa-esp32s3-espidf]
-linker = "ldproxy"
-runner = "espflash --monitor" # Select this runner for espflash v1.x.x
-
-{% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110#runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
-
-[target.riscv32imc-esp-espidf]
-linker = "ldproxy"
-runner = "espflash --monitor" # Select this runner for espflash v1.x.x
-
-{% if espidfver != "mainline" %}rustflags = ["-C", "default-linker-libraries"]{% else %}rustflags = ["--cfg", "espidf_time64", "-C", "default-linker-libraries"]{% endif %}
-
-#runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
-# Future - necessary for the experimental "native build" of esp-idf-sys with ESP32C3. See also https://github.com/ivmarkov/embuild/issues/16
-# For ESP-IDF 5 add `espidf_time64` and for earlier versions - remove this flag: https://github.com/esp-rs/rust/issues/110
 [unstable]
 {% if std %}
 build-std = ["std", "panic_abort"]{% else %}build-std = ["core", "alloc", "panic_abort"]{% endif %}
