@@ -19,18 +19,19 @@ espidfver = { type = "string", prompt = "ESP-IDF native build version (v4.3.2 = 
     "mainline",
 ], default = "v4.4" }
 devcontainer = { type = "bool", prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)? (beware: Dev Containers not available for esp-idf v4.3.2)", default = false }
+wokwi = { type = "bool", prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?", default = false }
 
 [conditional.'devcontainer == false']
 ignore = [
     ".devcontainer/",
     ".dockerignore",
-    ".vscode/launch.json",
     ".vscode/tasks.json",
     "docs/",
     "scripts/",
-    "diagram.json",
-    "wokwi.toml",
 ]
+
+[conditional.'wokwi == false']
+ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]
 
 [conditional.'std == true'.placeholders]
 hal = { type = "string", prompt = "Include esp-idf-hal/svc ?", choices = [
