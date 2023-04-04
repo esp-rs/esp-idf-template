@@ -63,7 +63,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: (NOSTD, NATIVE, V4.4) Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name testnostd --vcs none --silent -d mcu=esp32c3 -d std=false -d espidfver=v4.4 -d devcontainer=false -d wokwi=false
       - name: (NOSTD, NATIVE, V4.4) Build | Fmt Check
         run: cd testnostd; cargo fmt -- --check
       - name: (NOSTD, NATIVE, V4.4) Build | Clippy
@@ -106,7 +106,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate Project
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }}  -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true -d hal="Yes (default features)"
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.board }} --vcs none --silent -d mcu=${{ matrix.board }}  -d std=${{ matrix.std }} -d espidfver=v4.4 -d devcontainer=true -d wokwi=false -d hal="Yes (default features)"
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.board }}
