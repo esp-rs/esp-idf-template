@@ -158,6 +158,10 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
    ```sh
    rustup toolchain install nightly --component rust-src
    ```
+3. Switch to using `nightly`:
+   ```sh
+   rustup default nightly
+   ```
    
 ### Install Python3
 
