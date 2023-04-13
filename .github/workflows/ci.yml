@@ -75,7 +75,7 @@ jobs:
       - name: Build | Compile
         run: cd test; cargo build
   cmake-checks:
-    name: CMake Checks (target:${{ matrix.target.board }} std:${{ matrix.std }} esp-idf:${{ matrix.esp-idf.name }})
+    name: CMake Checks (target:${{ matrix.target.board }} std:${{ matrix.std }} esp-idf:${{ matrix.esp-idf.name }} hal:${{ matrix.hal }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
