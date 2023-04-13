@@ -1,4 +1,4 @@
-[build]  
+[build]
 target = "{{ rust_target }}"
 
 [target.{{ rust_target }}]
@@ -6,16 +6,12 @@ linker = "ldproxy"
 # runner = "espflash --monitor" # Select this runner for espflash v1.x.x
 runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
 {% if espidfver != "mainline" and arch == "xtensa" %}
-rustflags = [
-    "--cfg",
-    "espidf_time64",
-] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
-{% elif espidfver != "mainline" and arch == "riscv" %}
+rustflags = [ "--cfg",  "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
+{% elsif espidfver != "mainline" and arch == "riscv" %}
 rustflags = ["-C", "default-linker-libraries"]
-{% elif espidfver == "mainline" and arch == "riscv" %}
+{% elsif espidfver == "mainline" and arch == "riscv" %}
 rustflags = ["--cfg", "espidf_time64", "-C", "default-linker-libraries"]
 {% endif %}
-
 
 [unstable]
 {% if std %}
@@ -28,8 +24,8 @@ build-std = ["core", "alloc", "panic_abort"]
 # Note: these variables are not used when using pio builder (`cargo build --features pio`)
 {% if espidfver == "v4.4" %}
 ESP_IDF_VERSION = "release/v4.4"
-{% elif espidfver == "v5.0" %}
+{% elsif espidfver == "v5.0" %}
 ESP_IDF_VERSION = "release/v5.0"
-{% elif espidfver == "mainline" %}
+{% elsif espidfver == "mainline" %}
 ESP_IDF_VERSION = "master"
 {% endif %}
