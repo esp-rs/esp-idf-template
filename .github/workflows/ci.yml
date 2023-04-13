@@ -146,7 +146,7 @@ jobs:
       - name: Build | Compile
         run: . esp-idf/export.sh; cd testidf; idf.py build
   container-check:
-    name: Container Check (target:${{ matrix.target.board }} esp-idf:${{ matrix.esp-idf.name }})
+    name: Container Check (target:${{ matrix.target }} esp-idf:${{ matrix.esp-idf.name }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
