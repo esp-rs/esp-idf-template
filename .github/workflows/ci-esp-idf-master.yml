@@ -44,18 +44,6 @@ jobs:
       - name: Setup | ldproxy
         if: steps.ldproxy-binary.outcome != 'success'
         run: cargo install ldproxy
-      # - name: (STD, PIO, V4.3.2) Generate (PR)
-      #   if: ${{ github.event_name == 'pull_request' }}
-      #   run: cargo generate --git https://github.com/${{ github.event.pull_request.head.repo.full_name }} --branch ${{ github.head_ref }} cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=true -d espidfver=v4.3.2 -d devcontainer=false
-      # - name: (STD, PIO, V4.3.2) Generate
-      #   if: ${{ github.event_name != 'pull_request' }}
-      #   run: cargo generate --git https://github.com/esp-rs/esp-idf-template --branch ${{ github.ref_name }} cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=true -d espidfver=v4.3.2 -d devcontainer=false
-      # - name: (STD, PIO, V4.3.2) Build | Fmt Check
-      #   run: cd test; cargo fmt -- --check
-      # - name: (STD, PIO, V4.3.2) Build | Clippy
-      #   run: cd test; cargo clippy --features pio --no-deps -- -Dwarnings
-      # - name: (STD, PIO, V4.3.2) Build | Compile
-      #   run: cd test; cargo build --features pio
       - uses: Swatinem/rust-cache@v1
       - uses: actions/checkout@v3
         with:

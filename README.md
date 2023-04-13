@@ -21,15 +21,16 @@ cargo generate https://github.com/esp-rs/esp-idf-template cargo
 The command will display a few prompts:
 - `Project Name`: Name of the crate.
 - `Which MCU to target?`: SoC model, e.g. `esp32`, `esp32s2`, `esp32c3` etc.
-- `STD support`: When `true` (default), adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, a `no_std` [Rust Core Library](https://doc.rust-lang.org/core/index.html) crate would be created.
+- `Enable STD support?`: When `true` (default), adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, a `no_std` [Rust Core Library](https://doc.rust-lang.org/core/index.html) crate would be created.
 - `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
-  - [`v.4.4`](https://github.com/espressif/esp-idf/tree/release/v4.4): Stable
-  - [`v.4.3.2`](https://github.com/espressif/esp-idf/tree/v4.3.2): Previous stable
+  - [`v4.4`](https://github.com/espressif/esp-idf/tree/release/v4.4): Stable
+  - [`v5.0`](https://github.com/espressif/esp-idf/tree/release/v5.0): Stable
   - [`mainline`](https://github.com/espressif/esp-idf/tree/master): **Unstable**
-- `Dev Containers support?`: Adds support for:
+ - `Configure project to support Wokwi simulation with Wokwi VS Code extension?`: Adds support for Wokwi simulation using [VS Code Wokwi extension](https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode).
+- `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
     -  [VS Code Dev Containers](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
     -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
-  Dev Containers also have integration with [Wokwi simulator](https://wokwi.com/) and allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server).
+   Dev Containers also allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server) and have the [VS Code Wokwi extension](https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode) already installed.
 
 ## Build
 

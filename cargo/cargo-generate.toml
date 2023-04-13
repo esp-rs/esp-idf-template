@@ -1,25 +1,42 @@
 [template]
-cargo_generate_version = ">=0.10.0"
+cargo_generate_version = ">=0.15.0"
 ignore = [".git", ".github", "README.md", "cmake"]
 
 [hooks]
 pre = ["pre-script.rhai"]
 
-[placeholders]
-mcu = { type = "string", prompt = "MCU", choices = [
-    "esp32",
-    "esp32s2",
-    "esp32s3",
-    "esp32c3",
-], default = "esp32" }
-std = { type = "bool", prompt = "STD support", default = true }
-espidfver = { type = "string", prompt = "ESP-IDF native build version (v4.3.2 = previous stable, v4.4 = stable, mainline = UNSTABLE)", choices = [
-    "v4.4",
-    "v4.3.2",
-    "mainline",
-], default = "v4.4" }
-devcontainer = { type = "bool", prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)? (beware: Dev Containers not available for esp-idf v4.3.2)", default = false }
-wokwi = { type = "bool", prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?", default = false }
+[placeholders.mcu]
+type = "string"
+prompt = "Which MCU to target?"
+choices = ["esp32", "esp32c3", "esp32s2", "esp32s3"]
+default = "esp32"
+
+[placeholders.std]
+type = "bool"
+prompt = "Enable STD support?"
+default = true
+
+[placeholders.espidfver]
+type = "string"
+prompt = "ESP-IDF version (mainline = UNSTABLE)"
+choices = ["v4.4", "v5.0", "mainline"]
+default = "v4.4"
+
+[placeholders.devcontainer]
+type = "bool"
+prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"
+default = false
+
+[placeholders.wokwi]
+type = "bool"
+prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?"
+default = false
+
+[conditional.'std == true'.placeholders.hal]
+type = "string"
+prompt = "Include esp-idf-hal/esp-idf-svc?"
+choices = ["No", "Yes (default features)", "Yes (all features)"]
+default = "Yes (default features)"
 
 [conditional.'devcontainer == false']
 ignore = [
@@ -32,10 +49,3 @@ ignore = [
 
 [conditional.'wokwi == false']
 ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]
-
-[conditional.'std == true'.placeholders]
-hal = { type = "string", prompt = "Include esp-idf-hal/svc ?", choices = [
-    "No",
-    "Yes (default features)",
-    "Yes (all features)",
-], default = "Yes (default features)" }

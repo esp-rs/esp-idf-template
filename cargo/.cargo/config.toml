@@ -1,4 +1,4 @@
-[build]
+[build]  
 target = "{{ rust_target }}"
 
 [target.{{ rust_target }}]
@@ -19,12 +19,17 @@ rustflags = ["--cfg", "espidf_time64", "-C", "default-linker-libraries"]
 
 [unstable]
 {% if std %}
-build-std = ["std", "panic_abort"]{% else %}build-std = ["core", "alloc", "panic_abort"]{% endif %}
-{% if espidfver != "v4.3.2" %}#{% endif %}build-std-features = ["panic_immediate_abort"] # Required for older ESP-IDF versions without a realpath implementation
+build-std = ["std", "panic_abort"]
+{% else %}
+build-std = ["core", "alloc", "panic_abort"]
+{% endif %}
 
 [env]
-
-{% if espidfver != "v4.4" %}#{% endif %}ESP_IDF_VERSION = "release/v4.4"
-{% if espidfver != "mainline" %}#{% endif %}ESP_IDF_VERSION = "master"# Note: these variables are not used when using pio builder (`cargo build --features pio`)
-# Builds against ESP-IDF stable (v4.4)
-# Builds against ESP-IDF master (mainline)
+# Note: these variables are not used when using pio builder (`cargo build --features pio`)
+{% if espidfver == "v4.4" %}
+ESP_IDF_VERSION = "release/v4.4"
+{% elif espidfver == "v5.0" %}
+ESP_IDF_VERSION = "release/v5.0"
+{% elif espidfver == "mainline" %}
+ESP_IDF_VERSION = "master"
+{% endif %}
