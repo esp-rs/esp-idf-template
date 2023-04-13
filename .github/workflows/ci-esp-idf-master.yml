@@ -15,15 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup | Rust
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ env.rust_toolchain }}
-          components: rustfmt, clippy
+          components: rust-src, rustfmt, clippy
       - uses: Swatinem/rust-cache@v2
-      - name: Setup | Std
-        run: rustup component add rust-src --toolchain ${{ env.rust_toolchain }}-x86_64-unknown-linux-gnu
-      - name: Setup | Default to nightly
-        run: rustup default ${{ env.rust_toolchain }}
       - name: Setup | cargo-generate (binary)
         id: cargo-generate-binary
         continue-on-error: true
@@ -44,7 +40,6 @@ jobs:
       - name: Setup | ldproxy
         if: steps.ldproxy-binary.outcome != 'success'
         run: cargo install ldproxy
-      - uses: Swatinem/rust-cache@v1
       - uses: actions/checkout@v3
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
@@ -96,7 +91,7 @@ jobs:
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.board }}
-      - uses: docker/build-push-action@v2
+      - uses: docker/build-push-action@v4
         with:
           context: .
           tags: test-${{ matrix.board }}:latest
