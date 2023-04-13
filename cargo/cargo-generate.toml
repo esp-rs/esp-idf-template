@@ -1,5 +1,5 @@
 [template]
-cargo_generate_version = ">=0.15.0"
+cargo_generate_version = ">=0.14.0"
 ignore = [".git", ".github", "README.md", "cmake"]
 
 [hooks]
