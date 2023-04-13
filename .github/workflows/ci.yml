@@ -155,10 +155,10 @@ jobs:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate (STD)
         if: matrix.std-config.std == true
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target.board }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false
       - name: Generate (No STD)
         if: matrix.std-config.std == false
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d devcontainer=false -d wokwi=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target.board }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d devcontainer=false -d wokwi=false
       - name: ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout ${{ matrix.esp-idf.version }}
       - name: ESP-IDF | Install Tooling
