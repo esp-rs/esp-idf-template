@@ -36,7 +36,7 @@ jobs:
           components: clippy, rustfmt, rust-src
       - name: Setup | Rust (Xtensa)
         if: matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3'
-        uses: esp-rs/xtensa-toolchain@v1.5
+        uses: SergioGasquez/xtensa-toolchain@fix/ldproxy-condition
         with:
           default: true
           buildtargets: ${{ matrix.target }}
@@ -106,7 +106,7 @@ jobs:
           components: clippy, rustfmt, rust-src
       - name: Setup | Rust (Xtensa)
         if: matrix.target.board == 'esp32' || matrix.target.board == 'esp32s2' || matrix.target.board == 'esp32s3'
-        uses: esp-rs/xtensa-toolchain@v1.5
+        uses: SergioGasquez/xtensa-toolchain@fix/ldproxy-condition
         with:
           default: true
           buildtargets: ${{ matrix.target.board }}
