@@ -12,14 +12,20 @@ env:
 
 jobs:
   cargo-checks:
-    name: Cargo Checks (target:${{ matrix.target }} std:${{ matrix.std }} esp-idf:${{ matrix.esp-idf.name }} hal:${{ matrix.hal }})
+    name: Cargo Checks (target:${{ matrix.target }} std:${{ matrix.std-config.std }} esp-idf:${{ matrix.esp-idf.name }} hal:${{ matrix.std-config.hal }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         target: ["esp32", "esp32s2", "esp32s3", "esp32c3"]
-        std: ["true", "false"]
-        hal: ["No", "Yes (default features)", "Yes (all features)"]
+        std-config:
+          - std: false
+          - std: true
+            hal: "No"
+          - std: true
+            hal: "Yes (default features)"
+          - std: true
+            hal: "Yes (all features)"
         esp-idf:
           - version: release/v4.4
             name: v4.4
@@ -65,8 +71,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
-      - name: Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=${{ matrix.std }} -d espidfver=${{ matrix.esp-idf.name }} -d hal="${{ matrix.hal }}" -d devcontainer=false -d wokwi=false
+      - name: Generate (STD)
+        if: matrix.std-config.std == 'true'
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false
+      - name: Generate (No STD)
+        if: matrix.std-config.std == 'false'
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d devcontainer=false -d wokwi=false
       - name: Build | Fmt Check (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
         run: cd test; cargo fmt -- --check
