@@ -12,7 +12,7 @@ env:
 
 jobs:
   cargo-checks:
-    name: Cargo Checks (target:${{ matrix.target }} std:${{ matrix.std }} esp-idf:${{ matrix.esp-idf.name }})
+    name: Cargo Checks (target:${{ matrix.target }} std:${{ matrix.std }} esp-idf:${{ matrix.esp-idf.name }} hal:${{ matrix.hal }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
