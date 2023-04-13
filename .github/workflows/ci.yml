@@ -28,13 +28,13 @@ jobs:
           - version: master
             name: mainline
     steps:
-      - name: Setup | Rust
+      - name: Setup | Rust (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
         uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: nightly
           components: clippy, rustfmt, rust-src
-      - name: Setup | Rust
+      - name: Setup | Rust (Xtensa)
         if: matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3'
         uses: esp-rs/xtensa-toolchain@v1.5
         with:
@@ -59,7 +59,7 @@ jobs:
           sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
           unzip "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
           chmod u+x /home/runner/.cargo/bin/ldproxy
-      - name: Setup | ldproxy
+      - name: Setup | ldproxy (cargo)
         if: steps.ldproxy-binary.outcome != 'success'
         run: cargo install ldproxy
       - uses: actions/checkout@v3
@@ -98,13 +98,13 @@ jobs:
           - version: master
             name: mainline
     steps:
-      - name: Setup | Rust
+      - name: Setup | Rust (RISC-V)
         if: matrix.target.board != 'esp32' && matrix.target.board != 'esp32s2' && matrix.target.board != 'esp32s3'
         uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: nightly
           components: clippy, rustfmt, rust-src
-      - name: Setup | Rust
+      - name: Setup | Rust (Xtensa)
         if: matrix.target.board == 'esp32' || matrix.target.board == 'esp32s2' || matrix.target.board == 'esp32s3'
         uses: esp-rs/xtensa-toolchain@v1.5
         with:
@@ -129,7 +129,7 @@ jobs:
           sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
           unzip "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
           chmod u+x /home/runner/.cargo/bin/ldproxy
-      - name: Setup | ldproxy
+      - name: Setup | ldproxy (cargo)
         if: steps.ldproxy-binary.outcome != 'success'
         run: cargo install ldproxy
       - uses: actions/checkout@v3
