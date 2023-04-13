@@ -12,7 +12,7 @@ env:
 
 jobs:
   cargo-checks:
-    name: Build | Clippy | Fmt Check (target:${{ matrix.target }} std:${{ matrix.std }} esp-if:${{ matrix.esp-idf.name }})
+    name: Cargo Checks (target:${{ matrix.target }} std:${{ matrix.std }} esp-idf:${{ matrix.esp-idf.name }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -74,7 +74,7 @@ jobs:
       - name: Build | Compile
         run: cd test; cargo build
   cmake-checks:
-    name: Build | Clippy | Fmt Check (target:${{ matrix.target.board }} std:${{ matrix.std }} esp-if:${{ matrix.esp-idf.name }})
+    name: CMake Checks (target:${{ matrix.target.board }} std:${{ matrix.std }} esp-idf:${{ matrix.esp-idf.name }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -145,8 +145,8 @@ jobs:
         run: . esp-idf/export.sh; cd testidf; idf.py set-target ${{ matrix.target.board }}
       - name: Build | Compile
         run: . esp-idf/export.sh; cd testidf; idf.py build
-  devcontainer-check:
-    name: Build using the generated Dockerfile
+  container-check:
+    name: Container Check (target:${{ matrix.target.board }} esp-idf:${{ matrix.esp-idf.name }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -162,14 +162,14 @@ jobs:
     steps:
       - run: rustup toolchain install stable --profile minimal
       - uses: Swatinem/rust-cache@v2
-      - name: Install cargo-generate via binaries
+      - name: Setup | cargo-generate (binary)
         id: binaries
         continue-on-error: true
         run: |
           sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
           tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
           chmod u+x /home/runner/.cargo/bin/cargo-generate
-      - name: Install cargo-generate via cargo
+      - name: Setup | cargo-generate (cargo)
         if: steps.binaries.outcome != 'success'
         run: cargo install cargo-generate
       - uses: Swatinem/rust-cache@v2
@@ -190,7 +190,7 @@ jobs:
             GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
           file: test-${{ matrix.target }}/.devcontainer/Dockerfile
           push: false
-      - name: Run the build process with Docker
+      - name: Build project inside the container
         uses: addnab/docker-run-action@v3
         with:
           image: test-${{ matrix.target }}:latest
