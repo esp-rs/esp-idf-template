@@ -68,6 +68,7 @@ jobs:
       - name: Generate
         run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=esp32c3 -d std=${{ matrix.std }} -d espidfver=${{ matrix.esp-idf.name }} -d hal="${{ matrix.hal }}" -d devcontainer=false -d wokwi=false
       - name: Build | Fmt Check
+        if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
         run: cd test; cargo fmt -- --check
       - name: Build | Clippy
         run: cd test; cargo clippy --no-deps -- -Dwarnings
