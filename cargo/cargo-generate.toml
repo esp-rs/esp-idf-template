@@ -11,23 +11,28 @@ prompt = "Which MCU to target?"
 choices = ["esp32", "esp32c3", "esp32s2", "esp32s3"]
 default = "esp32"
 
-[placeholders.std]
+[placeholders.defaults]
+type = "bool"
+prompt = "Use the default template values?"
+default = true
+
+[conditional.'defaults == false'.placeholders.std]
 type = "bool"
 prompt = "Enable STD support?"
 default = true
 
-[placeholders.espidfver]
+[conditional.'defaults == false'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (mainline = UNSTABLE)"
 choices = ["v4.4", "v5.0", "mainline"]
 default = "v4.4"
 
-[placeholders.devcontainer]
+[conditional.'defaults == false'.placeholders.devcontainer]
 type = "bool"
 prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"
 default = false
 
-[placeholders.wokwi]
+[conditional.'defaults == false'.placeholders.wokwi]
 type = "bool"
 prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?"
 default = false

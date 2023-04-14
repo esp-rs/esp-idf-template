@@ -30,3 +30,13 @@ let target_properties = targets.get(target);
 for key in target_properties.keys() {
     variable::set(key, target_properties.get(key));
 }
+
+let defaults = variable::get("defaults");
+print("defaults: " + defaults);
+if defaults {
+    variable::set("std", true);
+    variable::set("espidfver", "v4.4");
+    variable::set("devcontainer", false);
+    variable::set("wokwi", false);
+    variable::set("hal", "Yes (default features)");
+}
