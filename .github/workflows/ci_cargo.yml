@@ -116,7 +116,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate Project
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d defaults=true -d std=true
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d defaults=true
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.target }}
