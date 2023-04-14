@@ -18,7 +18,7 @@ env:
 
 jobs:
   cmake-checks:
-    name: CMake Checks (target:${{ matrix.target.board }} std:${{ matrix.std-config.std }} esp-idf:${{ matrix.esp-idf.name }} hal:${{ matrix.std-config.hal }})
+    name: ${{ matrix.target.board }}-${{ matrix.esp-idf.name }} std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }}))
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
