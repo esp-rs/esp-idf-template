@@ -2,7 +2,11 @@ name: CI
 
 on:
   push:
+    paths:
+      - "cargo/**"
   pull_request:
+    paths:
+      - "cargo/**"
   schedule:
     - cron: "50 7 * * *"
 
@@ -85,88 +89,6 @@ jobs:
         run: cd test; cargo clippy --no-deps -- -Dwarnings
       - name: Build | Compile
         run: cd test; cargo build
-  cmake-checks:
-    name: CMake Checks (target:${{ matrix.target.board }} std:${{ matrix.std-config.std }} esp-idf:${{ matrix.esp-idf.name }} hal:${{ matrix.std-config.hal }})
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        target:
-          - board: "esp32"
-            toolchain: "esp"
-          - board: "esp32s2"
-            toolchain: "esp"
-          - board: "esp32s3"
-            toolchain: "esp"
-          - board: "esp32c3"
-            toolchain: "nightly"
-        std-config:
-          - std: false
-          - std: true
-            hal: "No"
-          - std: true
-            hal: "Yes (default features)"
-          - std: true
-            hal: "Yes (all features)"
-        esp-idf:
-          - version: release/v4.4
-            name: v4.4
-          - version: release/v5.0
-            name: v5.0
-          # - version: master
-          #   name: mainline
-    steps:
-      - name: Setup | Rust (RISC-V)
-        if: matrix.target.board != 'esp32' && matrix.target.board != 'esp32s2' && matrix.target.board != 'esp32s3'
-        uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: nightly
-          components: clippy, rustfmt, rust-src
-      - name: Setup | Rust (Xtensa)
-        if: matrix.target.board == 'esp32' || matrix.target.board == 'esp32s2' || matrix.target.board == 'esp32s3'
-        uses: esp-rs/xtensa-toolchain@v1.5.1
-        with:
-          default: true
-          buildtargets: ${{ matrix.target.board }}
-          ldproxy: false
-      - uses: Swatinem/rust-cache@v2
-      - name: Setup | cargo-generate (binary)
-        id: cargo-generate-binary
-        continue-on-error: true
-        run: |
-          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
-          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
-          chmod u+x /home/runner/.cargo/bin/cargo-generate
-      - name: Setup | cargo-generate (cargo)
-        if: steps.cargo-generate-binary.outcome != 'success'
-        run: cargo install cargo-generate
-      - name: Setup | ldproxy (binary)
-        id: ldproxy-binary
-        continue-on-error: true
-        run: |
-          sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
-          unzip "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
-          chmod u+x /home/runner/.cargo/bin/ldproxy
-      - name: Setup | ldproxy (cargo)
-        if: steps.ldproxy-binary.outcome != 'success'
-        run: cargo install ldproxy
-      - uses: actions/checkout@v3
-        with:
-          path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
-      - name: Generate (STD)
-        if: matrix.std-config.std == true
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent -d toolchain=${{ matrix.target.toolchain }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d hal="${{ matrix.std-config.hal }}"
-      - name: Generate (No STD)
-        if: matrix.std-config.std == false
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent -d toolchain=${{ matrix.target.toolchain }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }}
-      - name: ESP-IDF | Checkout
-        run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout ${{ matrix.esp-idf.version }}
-      - name: ESP-IDF | Install Tooling
-        run: esp-idf/install.sh
-      - name: Build | Set Target
-        run: . esp-idf/export.sh; cd test; idf.py set-target ${{ matrix.target.board }}
-      - name: Build | Compile
-        run: . esp-idf/export.sh; cd test; idf.py build
   container-check:
     name: Container Check (target:${{ matrix.target }} esp-idf:${{ matrix.esp-idf.name }})
     runs-on: ubuntu-latest
