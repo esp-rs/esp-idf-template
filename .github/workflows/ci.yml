@@ -42,7 +42,7 @@ jobs:
           components: clippy, rustfmt, rust-src
       - name: Setup | Rust (Xtensa)
         if: matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3'
-        uses: SergioGasquez/xtensa-toolchain@fix/ldproxy-condition
+        uses: esp-rs/xtensa-toolchain@v1.51
         with:
           default: true
           buildtargets: ${{ matrix.target }}
@@ -158,7 +158,7 @@ jobs:
         run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent -d toolchain=${{ matrix.target.toolchain }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d hal="${{ matrix.std-config.hal }}"
       - name: Generate (No STD)
         if: matrix.std-config.std == false
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent toolchain=${{ matrix.target.toolchain }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }}
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent -d toolchain=${{ matrix.target.toolchain }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }}
       - name: ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout ${{ matrix.esp-idf.version }}
       - name: ESP-IDF | Install Tooling
