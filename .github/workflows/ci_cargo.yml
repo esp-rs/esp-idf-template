@@ -18,7 +18,7 @@ env:
 
 jobs:
   cargo-checks:
-    name: Cargo:${{ matrix.target }}-${{ matrix.esp-idf.name }} std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})
+    name: "${{ matrix.target }} | ${{ matrix.esp-idf.name }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -93,7 +93,7 @@ jobs:
       - name: Build | Compile
         run: cd test; cargo build
   container-check:
-    name: Container Check:${{ matrix.target }}
+    name: "Container Check: ${{ matrix.target }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
