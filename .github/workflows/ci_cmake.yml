@@ -1,12 +1,14 @@
-name: CI
+name: CMake CI
 
 on:
   push:
     paths:
       - "cmake/**"
+      - ".github/workflows/ci_cmake.yml"
   pull_request:
     paths:
       - "cmake/**"
+      - ".github/workflows/ci_cmake.yml"
   schedule:
     - cron: "50 7 * * *"
 
