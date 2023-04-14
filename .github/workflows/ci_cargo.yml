@@ -1,12 +1,14 @@
-name: CI
+name: Cargo CI
 
 on:
   push:
     paths:
       - "cargo/**"
+      - ".github/workflows/ci_cargo.yml"
   pull_request:
     paths:
       - "cargo/**"
+      - ".github/workflows/ci_cargo.yml"
   schedule:
     - cron: "50 7 * * *"
 
