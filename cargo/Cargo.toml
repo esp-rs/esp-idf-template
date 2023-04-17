@@ -9,19 +9,19 @@ resolver = "2"
 opt-level = "s"
 
 [profile.dev]
-debug = true # Symbols are nice and they don't increase the size on Flash
+debug = true    # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
 
 [features]
 pio = ["esp-idf-sys/pio"]
 
 [dependencies]
-{% if std %}esp-idf-sys = { version = "0.32.1", features = ["binstart"] }
-{% if hal == "Yes (default features)" %}
+{% if std -%}
+esp-idf-sys = { version = "0.32.1", features = ["binstart"] }
+{% if hal == "Yes (default features)" -%}
 esp-idf-hal = { version = "0.40.1"}
 esp-idf-svc = { version = "0.45.0"}
-{% endif %} 
-{% if hal == "Yes (all features)" %}
+{%- elsif hal == "Yes (all features)" -%}
 esp-idf-hal = { version = "0.40.1", features = [
     "default",
     "embassy-sync",
@@ -36,10 +36,12 @@ esp-idf-svc = { version = "0.45.0", features = [
     "embassy-time-isr-queue",
     "alloc"
 ]}
-{% endif %} 
-{% else %}log = { version = "0.4.17", default-features = false }
+{%- endif %}
+{%- else -%}
+log = { version = "0.4.17", default-features = false }
 esp-idf-sys = { version = "0.32.1", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
-esp-idf-svc = { version = "0.45.0", default-features = false, features = ["alloc"] }{% endif %}
+esp-idf-svc = { version = "0.45.0", default-features = false, features = ["alloc"] }
+{%- endif %}
 
 [build-dependencies]
 embuild = "0.31.1"

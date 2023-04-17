@@ -1,6 +1,7 @@
 [toolchain]
-{% if mcu == "esp32c3" -%}
+{% if arch == "riscv" -%}
 channel = "nightly"
-{%- else -%}
+components = ["rust-src"]
+{% else -%}
 channel = "esp"
-{%- endif %}
+{% endif %}

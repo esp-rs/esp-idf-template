@@ -1,0 +1,41 @@
+{
+    "version": 1,
+    "editor": "wokwi",
+    "author": "{{authors}}",
+    "parts": [
+        {
+            "type": "{{ wokwi_board }}",
+            "id": "esp",
+            "top": 0.59,
+            "left": 0.67,
+            "attrs": {
+                "flashSize": "16"
+            }
+        }
+    ],
+    "connections": [
+        [
+            {% if mcu == "esp32" -%}
+            "esp:TX0",
+            {% else -%}
+            "esp:TX",
+            {% endif -%}
+            "$serialMonitor:RX",
+            "",
+            []
+        ],
+        [
+            {% if mcu == "esp32" -%}
+            "esp:RX0",
+            {% else -%}
+            "esp:RX",
+            {% endif -%}
+            "$serialMonitor:TX",
+            "",
+            []
+        ]
+    ],
+    "serialMonitor": {
+        "display": "terminal"
+    }
+}

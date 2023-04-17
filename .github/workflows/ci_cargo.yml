@@ -1,0 +1,140 @@
+name: Cargo CI
+
+on:
+  push:
+    paths:
+      - "cargo/**"
+      - ".github/workflows/ci_cargo.yml"
+  pull_request:
+    paths:
+      - "cargo/**"
+      - ".github/workflows/ci_cargo.yml"
+  schedule:
+    - cron: "50 7 * * *"
+
+env:
+  CARGO_TERM_COLOR: always
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  cargo-checks:
+    name: "${{ matrix.target }} | ${{ matrix.esp-idf.name }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ["esp32", "esp32s2", "esp32s3", "esp32c3"]
+        std-config:
+          - std: false
+          - std: true
+            hal: "No"
+          - std: true
+            hal: "Yes (default features)"
+          - std: true
+            hal: "Yes (all features)"
+        esp-idf:
+          - version: release/v4.4
+            name: v4.4
+        # v5.0 and master are failing due to https://github.com/esp-rs/esp-idf-template/issues/91#issuecomment-1508241327
+        #   - version: release/v5.0
+        #     name: v5.0
+        #   - version: master
+        #     name: mainline
+    steps:
+      - name: Setup | Rust (RISC-V)
+        if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
+        uses: dtolnay/rust-toolchain@v1
+        with:
+          toolchain: nightly
+          components: clippy, rustfmt, rust-src
+      - name: Setup | Rust (Xtensa)
+        if: matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3'
+        uses: esp-rs/xtensa-toolchain@v1.5.1
+        with:
+          default: true
+          buildtargets: ${{ matrix.target }}
+          ldproxy: false
+      - uses: Swatinem/rust-cache@v2
+      - name: Setup | cargo-generate (binary)
+        id: cargo-generate-binary
+        continue-on-error: true
+        run: |
+          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
+          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
+          chmod u+x /home/runner/.cargo/bin/cargo-generate
+      - name: Setup | cargo-generate (cargo)
+        if: steps.cargo-generate-binary.outcome != 'success'
+        run: cargo install cargo-generate
+      - name: Setup | ldproxy (binary)
+        id: ldproxy-binary
+        continue-on-error: true
+        run: |
+          sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
+          unzip "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
+          chmod u+x /home/runner/.cargo/bin/ldproxy
+      - name: Setup | ldproxy (cargo)
+        if: steps.ldproxy-binary.outcome != 'success'
+        run: cargo install ldproxy
+      - uses: actions/checkout@v3
+        with:
+          path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
+      - name: Generate (STD)
+        if: matrix.std-config.std == true
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d defaults=false -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false
+      - name: Generate (No STD)
+        if: matrix.std-config.std == false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d defaults=false -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.name }} -d devcontainer=false -d wokwi=false
+      - name: Build | Fmt Check (RISC-V)
+        if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
+        run: cd test; cargo fmt -- --check
+      - name: Build | Clippy (RISC-V)
+        if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
+        run: cd test; cargo clippy --no-deps -- -Dwarnings
+      - name: Build | Compile
+        run: cd test; cargo build
+  container-check:
+    name: "Container Check: ${{ matrix.target }}"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ["esp32", "esp32s2", "esp32s3", "esp32c3"]
+    steps:
+      - run: rustup toolchain install stable --profile minimal
+      - uses: Swatinem/rust-cache@v2
+      - name: Setup | cargo-generate (binary)
+        id: binaries
+        continue-on-error: true
+        run: |
+          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
+          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
+          chmod u+x /home/runner/.cargo/bin/cargo-generate
+      - name: Setup | cargo-generate (cargo)
+        if: steps.binaries.outcome != 'success'
+        run: cargo install cargo-generate
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/checkout@v3
+        with:
+          path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
+      - name: Generate Project
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d defaults=true
+      - name: Update ownership
+        run: |
+          sudo chown 1000:1000 -R test-${{ matrix.target }}
+      - uses: docker/build-push-action@v4
+        with:
+          context: .
+          tags: test-${{ matrix.target }}:latest
+          build-args: |
+            ESP_BOARD=${{ matrix.target }}
+            GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          file: test-${{ matrix.target }}/.devcontainer/Dockerfile
+          push: false
+      - name: Build project inside the container
+        uses: addnab/docker-run-action@v3
+        with:
+          image: test-${{ matrix.target }}:latest
+          options: -u esp -v ${{ github.workspace }}/test-${{ matrix.target }}:/home/esp/test-${{ matrix.target }}
+          run: |
+            cd /home/esp/test-${{ matrix.target }}
+            bash -c 'source /home/esp/export-esp.sh && cargo build'

@@ -1,44 +1,31 @@
 [build]
-# Uncomment the relevant target for your chip here (ESP32, ESP32-S2, ESP32-S3 or ESP32-C3)
-{% if mcu != "esp32" %}#{% endif %}target = "xtensa-esp32-espidf"
-{% if mcu != "esp32s2" %}#{% endif %}target = "xtensa-esp32s2-espidf"
-{% if mcu != "esp32s3" %}#{% endif %}target = "xtensa-esp32s3-espidf"
-{% if mcu != "esp32c3" %}#{% endif %}target = "riscv32imc-esp-espidf"
+target = "{{ rust_target }}"
 
-[target.xtensa-esp32-espidf]
+[target.{{ rust_target }}]
 linker = "ldproxy"
-runner = "espflash --monitor" # Select this runner for espflash v1.x.x
-#runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
-{% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
-
-[target.xtensa-esp32s2-espidf]
-linker = "ldproxy"
-runner = "espflash --monitor" # Select this runner for espflash v1.x.x
-#runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
-{% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
-
-[target.xtensa-esp32s3-espidf]
-linker = "ldproxy"
-runner = "espflash --monitor" # Select this runner for espflash v1.x.x
-#runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
-{% if espidfver != "mainline" %}#{% endif %}rustflags = ["--cfg", "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
-
-[target.riscv32imc-esp-espidf]
-linker = "ldproxy"
-runner = "espflash --monitor" # Select this runner for espflash v1.x.x
-#runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
-# Future - necessary for the experimental "native build" of esp-idf-sys with ESP32C3. See also https://github.com/ivmarkov/embuild/issues/16
-# For ESP-IDF 5 add `espidf_time64` and for earlier versions - remove this flag: https://github.com/esp-rs/rust/issues/110
-{% if espidfver != "mainline" %}rustflags = ["-C", "default-linker-libraries"]{% else %}rustflags = ["--cfg", "espidf_time64", "-C", "default-linker-libraries"]{% endif %}
+# runner = "espflash --monitor" # Select this runner for espflash v1.x.x
+runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
+{% if espidfver != "v4.4" and arch == "xtensa" -%}
+rustflags = [ "--cfg",  "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
+{%- elsif espidfver != "v4.4" and arch == "riscv" -%}
+rustflags = ["--cfg", "espidf_time64", "-C", "default-linker-libraries"]
+{%- elsif espidfver == "v4.4" and arch == "riscv" -%}
+rustflags = ["-C", "default-linker-libraries"]
+{%- endif %}
 
 [unstable]
-{% if std %}
-build-std = ["std", "panic_abort"]{% else %}build-std = ["core", "alloc", "panic_abort"]{% endif %}
-{% if espidfver != "v4.3.2" %}#{% endif %}build-std-features = ["panic_immediate_abort"] # Required for older ESP-IDF versions without a realpath implementation
+{% if std -%}
+build-std = ["std", "panic_abort"]
+{%- else -%}
+build-std = ["core", "alloc", "panic_abort"]
+{%- endif %}
 
 [env]
 # Note: these variables are not used when using pio builder (`cargo build --features pio`)
-# Builds against ESP-IDF stable (v4.4)
-{% if espidfver != "v4.4" %}#{% endif %}ESP_IDF_VERSION = "release/v4.4"
-# Builds against ESP-IDF master (mainline)
-{% if espidfver != "mainline" %}#{% endif %}ESP_IDF_VERSION = "master"
+{%- if espidfver == "v4.4" %}
+ESP_IDF_VERSION = "release/v4.4"
+{% elsif espidfver == "v5.0" %}
+ESP_IDF_VERSION = "release/v5.0"
+{% elsif espidfver == "mainline" %}
+ESP_IDF_VERSION = "master"
+{% endif %}
