@@ -159,6 +159,8 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
    ```sh
    rustup toolchain install nightly --component rust-src
    ```
+3. Run any Cargo command [overriding](https://rust-lang.github.io/rustup/overrides.html#overrides) the `nightly` toolchain.
+
 ### Install Python3
 
 You need a Python 3.7 or later installed on your machine.
