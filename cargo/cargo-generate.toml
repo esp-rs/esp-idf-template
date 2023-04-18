@@ -46,11 +46,22 @@ default = "Yes (default features)"
 [conditional.'devcontainer == false']
 ignore = [
     ".devcontainer/",
-    ".dockerignore",
     ".vscode/tasks.json",
+    ".dockerignore",
     "docs/",
     "scripts/",
 ]
 
 [conditional.'wokwi == false']
 ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]
+
+[conditional.'defaults == true']
+ignore = [
+    ".devcontainer/",
+    ".vscode/",
+    "docs/",
+    "scripts/",
+    ".dockerignore",
+    "diagram.json",
+    "wokwi.toml",
+]
