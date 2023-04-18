@@ -32,7 +32,6 @@ for key in target_properties.keys() {
 }
 
 let defaults = variable::get("defaults");
-print("defaults: " + defaults);
 if defaults {
     variable::set("std", true);
     variable::set("espidfver", "v4.4");
