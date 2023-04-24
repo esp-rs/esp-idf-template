@@ -1,5 +1,8 @@
 # Rust on ESP-IDF "Hello, World" template
-![CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci.yml/badge.svg)
+[![Cargo CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cargo.yml/badge.svg)](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cargo.yml)
+[![CMake CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cmake.yml/badge.svg)](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cmake.yml)
+[![Matrix](https://img.shields.io/matrix/esp-rs:matrix.org?label=join%20matrix&color=BEC5C9&logo=matrix)](https://matrix.to/#/#esp-rs:matrix.org)
+[![Wokwi](https://img.shields.io/endpoint?url=https%3A%2F%2Fwokwi.com%2Fbadge%2Fclick-to-simulate.json)](https://wokwi.com/projects/332188235906155092)
 
 
 A "Hello, world!" template, to use with [cargo-generate](https://github.com/cargo-generate/cargo-generate), of a Rust binary crate for the ESP-IDF framework.
