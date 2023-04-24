@@ -37,8 +37,8 @@ jobs:
             name: v4.4
           - version: release/v5.0
             name: v5.0
-          - version: master
-            name: mainline
+          # - version: master
+          #   name: mainline
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
