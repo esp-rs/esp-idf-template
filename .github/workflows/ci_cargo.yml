@@ -35,11 +35,10 @@ jobs:
         esp-idf:
           - version: release/v4.4
             name: v4.4
-        # v5.0 and master are failing due to https://github.com/esp-rs/esp-idf-template/issues/91#issuecomment-1508241327
-        #   - version: release/v5.0
-        #     name: v5.0
-        #   - version: master
-        #     name: mainline
+          - version: release/v5.0
+            name: v5.0
+          - version: master
+            name: mainline
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
