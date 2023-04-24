@@ -15,7 +15,7 @@ Or if you rather
 **Please make sure you have installed all [prerequisites](#prerequisites) first!**
 
 ```sh
-cargo generate https://github.com/esp-rs/esp-idf-template cargo
+cargo generate esp-rs/esp-idf-template cargo
 ```
 
 The command will display a few prompts:
