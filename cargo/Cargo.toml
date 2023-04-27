@@ -46,9 +46,12 @@ esp-idf-svc = { version = "0.45.0", default-features = false, features = ["alloc
 [build-dependencies]
 embuild = "0.31.1"
 
-{% if espidfver != "v4.4" -%}
+{% if espidfver != "v4.4" or hal == "Yes (all features)" -%}
 # v5.0 and master require patches due to https://github.com/esp-rs/esp-idf-template/issues/91#issuecomment-1508241327
 [patch.crates-io]
 esp-idf-hal = { git="https://github.com/esp-rs/esp-idf-hal"}
 esp-idf-svc = { git="https://github.com/esp-rs/esp-idf-svc"}
+{%- endif %}
+{% if hal == "Yes (all features)" -%}
+embedded-svc = { git = "https://github.com/esp-rs/embedded-svc" }
 {%- endif %}
