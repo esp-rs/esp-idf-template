@@ -23,8 +23,8 @@ default = true
 
 [conditional.'defaults == false'.placeholders.espidfver]
 type = "string"
-prompt = "ESP-IDF version (mainline = UNSTABLE)"
-choices = ["v4.4", "v5.0", "mainline"]
+prompt = "ESP-IDF version (master = UNSTABLE)"
+choices = ["v4.4", "v5.0", "master"]
 default = "v4.4"
 
 [conditional.'defaults == false'.placeholders.devcontainer]

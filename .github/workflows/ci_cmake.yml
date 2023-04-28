@@ -46,7 +46,7 @@ jobs:
           - version: release/v5.0
             name: v5.0
           # - version: master
-          #   name: mainline
+          #   name: master
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target.board != 'esp32' && matrix.target.board != 'esp32s2' && matrix.target.board != 'esp32s3'

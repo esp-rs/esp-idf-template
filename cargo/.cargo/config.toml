@@ -26,6 +26,6 @@ build-std = ["core", "alloc", "panic_abort"]
 ESP_IDF_VERSION = "release/v4.4"
 {% elsif espidfver == "v5.0" %}
 ESP_IDF_VERSION = "release/v5.0"
-{% elsif espidfver == "mainline" %}
+{% elsif espidfver == "master" %}
 ESP_IDF_VERSION = "master"
 {% endif %}
