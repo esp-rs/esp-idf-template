@@ -29,7 +29,7 @@ The command will display a few prompts:
   - `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
     - [`v4.4`](https://github.com/espressif/esp-idf/tree/release/v4.4): Stable
     - [`v5.0`](https://github.com/espressif/esp-idf/tree/release/v5.0): Stable
-    - [`mainline`](https://github.com/espressif/esp-idf/tree/master): **Unstable**
+    - [`master`](https://github.com/espressif/esp-idf/tree/master): **Unstable**
    - `Configure project to support Wokwi simulation with Wokwi VS Code extension?`: Adds support for Wokwi simulation using [VS Code Wokwi extension](https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode).
   - `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
       -  [VS Code Dev Containers](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)
