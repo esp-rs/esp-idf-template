@@ -13,45 +13,40 @@ debug = true    # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
 
 [features]
+{% if std and hal == "Yes (default features)" %}
+default = ["std", "hal"]
+{% elsif std and hal == "Yes (all features)" %}
+default = ["all", "hal"]
+{% elsif std %}
+default = ["std"]
+{% else %}
+default = ["esp-idf-sys/panic_handler", "esp-idf-sys/alloc_handler", "esp-idf-sys/libstart"]
+{% endif %}
+
 pio = ["esp-idf-sys/pio"]
+all = ["std", "nightly", "experimental", "embassy"]
+hal = ["esp-idf-hal", "embedded-svc", "esp-idf-svc"]
+std = ["alloc", "esp-idf-sys/std", "esp-idf-sys/binstart", "embedded-svc?/std", "esp-idf-hal?/std", "esp-idf-svc?/std"]
+alloc = ["embedded-svc?/alloc", "esp-idf-hal?/alloc", "esp-idf-svc?/alloc"]
+nightly = ["embedded-svc?/nightly", "esp-idf-svc?/nightly"] # Future: "esp-idf-hal?/nightly"
+experimental = ["embedded-svc?/experimental", "esp-idf-svc?/experimental"]
+embassy = ["esp-idf-hal?/embassy-sync", "esp-idf-hal?/critical-section", "esp-idf-hal?/edge-executor", "esp-idf-svc?/embassy-time-driver", "esp-idf-svc?/embassy-time-isr-queue"]
 
 [dependencies]
-{% if std -%}
-esp-idf-sys = { version = "0.32.1", features = ["binstart"] }
-{% if hal == "Yes (default features)" -%}
-esp-idf-hal = { version = "0.40.1"}
-esp-idf-svc = { version = "0.45.0"}
-{%- elsif hal == "Yes (all features)" -%}
-esp-idf-hal = { version = "0.40.1", features = [
-    "default",
-    "embassy-sync",
-    "critical-section",
-    "edge-executor"
-]}
-esp-idf-svc = { version = "0.45.0", features = [
-    "std",
-    "nightly",
-    "experimental",
-    "embassy-time-driver",
-    "embassy-time-isr-queue",
-    "alloc"
-]}
-{%- endif %}
-{%- else -%}
 log = { version = "0.4.17", default-features = false }
-esp-idf-sys = { version = "0.32.1", default-features = false, features = ["binstart", "panic_handler", "alloc_handler"] }
-esp-idf-svc = { version = "0.45.0", default-features = false, features = ["alloc"] }
-{%- endif %}
+esp-idf-sys = { version = "0.32.1", default-features = false }
+esp-idf-hal = { version = "0.40.1", optional = true, default-features = false }
+esp-idf-svc = { version = "0.45.0", optional = true, default-features = false }
+embedded-svc = { version = "0.24", optional = true, default-features = false }
 
 [build-dependencies]
-embuild = "0.31.1"
+embuild = "0.31.2"
 
-{% if espidfver != "v4.4" or hal == "Yes (all features)" -%}
+{% if espidfver != "v4.4" or hal == "Yes (all features)" %}
 # v5.0 and master require patches due to https://github.com/esp-rs/esp-idf-template/issues/91#issuecomment-1508241327
 [patch.crates-io]
+esp-idf-sys = { git="https://github.com/esp-rs/esp-idf-sys"}
 esp-idf-hal = { git="https://github.com/esp-rs/esp-idf-hal"}
 esp-idf-svc = { git="https://github.com/esp-rs/esp-idf-svc"}
-{%- endif %}
-{% if hal == "Yes (all features)" -%}
 embedded-svc = { git = "https://github.com/esp-rs/embedded-svc" }
-{%- endif %}
+{% endif %}
