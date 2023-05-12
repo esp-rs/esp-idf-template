@@ -2,8 +2,9 @@
 name = "rust-{{project-name}}"
 version = "0.1.0"
 authors = ["{{authors}}"]
-edition = "2018"
+edition = "2021"
 resolver = "2"
+rust-version = "1.66"
 
 [lib]
 crate-type = ["staticlib"]
