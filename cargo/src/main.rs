@@ -14,7 +14,7 @@ fn main() {
     esp_idf_sys::link_patches();
 {%- if std %}
     println!("Hello, world!");
-{%- else %}
+{% elsif hal == "Yes (default features)" or hal == "Yes (all features)" %}
     // Bind the log crate to the ESP Logging facilities
     esp_idf_svc::log::EspLogger::initialize_default();
 

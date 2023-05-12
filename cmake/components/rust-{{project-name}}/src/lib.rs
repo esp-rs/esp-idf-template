@@ -10,7 +10,7 @@ extern "C" fn rust_main() -> i32 {
     // or else some patches to the runtime implemented by esp-idf-sys might not link properly.
     esp_idf_sys::link_patches();
 {% if std %}
-    println!("Hello world from Rust!");{% else %}
+    println!("Hello world from Rust!");{% elsif hal == "Yes (default features)" or hal == "Yes (all features)" %}
     // Bind the log crate to the ESP Logging facilities
     esp_idf_svc::log::EspLogger::initialize_default();
 
