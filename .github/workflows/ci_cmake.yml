@@ -11,6 +11,7 @@ on:
       - ".github/workflows/ci_cmake.yml"
   schedule:
     - cron: "50 7 * * *"
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
