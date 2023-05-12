@@ -15,13 +15,13 @@ opt-level = "z"
 
 [features]
 {% if std and hal == "Yes (default features)" %}
-default = ["std", "hal"]
+default = ["std", "hal", "esp-idf-sys/native"]
 {% elsif std and hal == "Yes (all features)" %}
-default = ["all", "hal"]
+default = ["all", "hal", "esp-idf-sys/native"]
 {% elsif std %}
-default = ["std"]
+default = ["std", "esp-idf-sys/native"]
 {% else %}
-default = ["esp-idf-sys/panic_handler", "esp-idf-sys/alloc_handler", "esp-idf-sys/libstart"]
+default = ["esp-idf-sys/native", "esp-idf-sys/panic_handler", "esp-idf-sys/alloc_handler", "esp-idf-sys/libstart"]
 {% endif %}
 
 pio = ["esp-idf-sys/pio"]
