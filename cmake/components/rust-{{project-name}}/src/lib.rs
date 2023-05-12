@@ -1,10 +1,11 @@
 {% unless std %}#![no_std]
 
 {% endunless %}use esp_idf_sys as _; // If using the `libstart` feature of `esp-idf-sys`, always keep this module imported
+{% if not std and (hal == "Yes (default features)" or hal == "Yes (all features)") %}
+use log::*;
+{% endif %}
 
-{% unless std %}use log::*;
-
-{% endunless %}#[no_mangle]
+#[no_mangle]
 extern "C" fn rust_main() -> i32 {
     // Temporary. Will disappear once ESP-IDF 4.4 is released, but for now it is necessary to call this function once,
     // or else some patches to the runtime implemented by esp-idf-sys might not link properly.

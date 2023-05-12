@@ -3,9 +3,11 @@
 #![no_main]
 {% endunless -%}
 use esp_idf_sys as _; // If using the `binstart` feature of `esp-idf-sys`, always keep this module imported
-{% unless std -%}
+{% if not std and (hal == "Yes (default features)" or hal == "Yes (all features)") %}
 use log::*;
+{% endif %}
 
+{% unless std -%}
 #[no_mangle]
 {%- endunless %}
 fn main() {
