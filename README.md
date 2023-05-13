@@ -5,7 +5,8 @@
 [![Wokwi](https://img.shields.io/endpoint?url=https%3A%2F%2Fwokwi.com%2Fbadge%2Fclick-to-simulate.json)](https://wokwi.com/projects/332188235906155092)
 
 
-A "Hello, world!" template, to use with [cargo-generate](https://github.com/cargo-generate/cargo-generate), of a Rust binary crate for the ESP-IDF framework.
+A template for a "Hello, world!" Rust binary crate for the ESP-IDF framework.
+Based on [cargo-generate](https://github.com/cargo-generate/cargo-generate).
 
 This is the crate you get when running `cargo new`, but augmented with extra configuration so that it does build for the ESP32[XX] with ESP-IDF and (by default) with STD support.
 
