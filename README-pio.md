@@ -1,6 +1,6 @@
 # Rust on ESP-IDF "Hello, World" with PlatformIO
 
-A "Hello, world!" template generation of a mixed Rust/C project for PlatformIO.
+A "Hello, world!" template of a mixed Rust/C project for PlatformIO.
 
 ## Generate the project
 
