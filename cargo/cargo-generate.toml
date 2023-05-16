@@ -8,7 +8,7 @@ pre = ["pre-script.rhai"]
 [placeholders.mcu]
 type = "string"
 prompt = "Which MCU to target?"
-choices = ["esp32", "esp32c3", "esp32s2", "esp32s3"]
+choices = ["esp32", "esp32c3", "esp32s2", "esp32s3", "esp32c6"]
 default = "esp32"
 
 [placeholders.defaults]
