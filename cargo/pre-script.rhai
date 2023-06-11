@@ -25,8 +25,8 @@ let targets = #{
     },
     esp32c6: #{
         arch: "riscv",
-        rust_target: "riscv32imc-esp-espidf",
-        gcc_target: "risvc32-esp-elf",
+        rust_target: "riscv32imac-esp-espidf",
+        gcc_target: "riscv32-esp-elf",
         wokwi_board: "board-esp32-c6-devkitm-1",
     },
     esp32c2: #{
