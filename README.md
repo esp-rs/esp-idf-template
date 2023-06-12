@@ -29,7 +29,7 @@ The command will display a few prompts:
   - `Enable STD support?`: When `true` (default), adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, a `no_std` [Rust Core Library](https://doc.rust-lang.org/core/index.html) crate would be created.
   - `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
     - [`v4.4`](https://github.com/espressif/esp-idf/tree/release/v4.4): Stable
-    - [`v5.0`](https://github.com/espressif/esp-idf/tree/release/v5.0): Stable
+    - [`v5.1`](https://github.com/espressif/esp-idf/tree/release/v5.1): Stable
     - [`master`](https://github.com/espressif/esp-idf/tree/master): **Unstable**
    - `Configure project to support Wokwi simulation with Wokwi VS Code extension?`: Adds support for Wokwi simulation using [VS Code Wokwi extension](https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode).
   - `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
