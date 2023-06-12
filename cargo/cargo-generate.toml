@@ -8,7 +8,7 @@ pre = ["pre-script.rhai"]
 [placeholders.mcu]
 type = "string"
 prompt = "Which MCU to target?"
-choices = ["esp32", "esp32c3", "esp32s2", "esp32s3", "esp32c6", "esp32c2", "esp32h2", "esp32p4"]
+choices = ["esp32", "esp32c2", "esp32c3", "esp32c6", "esp32h2", "esp32s2", "esp32s3"]
 default = "esp32"
 
 [placeholders.defaults]
@@ -16,46 +16,46 @@ type = "bool"
 prompt = "Use the default template values?"
 default = true
 
-[conditional.'defaults == false'.placeholders.std]
+[conditional.'!defaults'.placeholders.std]
 type = "bool"
 prompt = "Enable STD support?"
 default = true
 
-[conditional.'defaults == false && (mcu == "esp32c6" || mcu == "esp32p4" || mcu == "esp32h2")'.placeholders.espidfver]
+[conditional.'!defaults && (mcu == "esp32c6" || mcu == "esp32h2")'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
 choices = ["master"] # Supported as of v5.1
 default = "master"
 
-[conditional.'defaults == false && (mcu == "esp32c2")'.placeholders.espidfver]
+[conditional.'!defaults && (mcu == "esp32c2")'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
 choices = ["v5.0", "master"]
 default = "v5.0"
 
-[conditional.'defaults == false && (mcu == "esp32" || mcu == "esp32c3" || mcu == "esp32s2" || mcu == "esp32s3")'.placeholders.espidfver]
+[conditional.'!defaults && (mcu == "esp32" || mcu == "esp32c3" || mcu == "esp32s2" || mcu == "esp32s3")'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
 choices = ["v4.4", "v5.0", "master"]
 default = "v4.4"
 
-[conditional.'defaults == false'.placeholders.devcontainer]
+[conditional.'!defaults'.placeholders.devcontainer]
 type = "bool"
 prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"
 default = false
 
-[conditional.'defaults == false'.placeholders.wokwi]
+[conditional.'!defaults'.placeholders.wokwi]
 type = "bool"
 prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?"
 default = false
 
-[conditional.'std == true'.placeholders.hal]
+[conditional.'!std'.placeholders.hal]
 type = "string"
 prompt = "Include esp-idf-hal/esp-idf-svc?"
 choices = ["No", "Yes (default features)", "Yes (all features)"]
 default = "Yes (default features)"
 
-[conditional.'devcontainer == false']
+[conditional.'!devcontainer']
 ignore = [
     ".devcontainer/",
     ".vscode/tasks.json",
@@ -64,10 +64,10 @@ ignore = [
     "scripts/",
 ]
 
-[conditional.'wokwi == false']
+[conditional.'!wokwi']
 ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]
 
-[conditional.'defaults == true']
+[conditional.'defaults']
 ignore = [
     ".devcontainer/",
     ".vscode/",
