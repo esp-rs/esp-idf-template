@@ -44,8 +44,8 @@ jobs:
         esp-idf:
           - version: release/v4.4
             name: v4.4
-          - version: release/v5.0
-            name: v5.0
+          - version: release/v5.1
+            name: v5.1
           # - version: master
           #   name: master
     steps:

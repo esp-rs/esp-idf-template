@@ -24,8 +24,8 @@ build-std = ["core", "alloc", "panic_abort"]
 # Note: these variables are not used when using pio builder (`cargo build --features pio`)
 {%- if espidfver == "v4.4" %}
 ESP_IDF_VERSION = "release/v4.4"
-{% elsif espidfver == "v5.0" %}
-ESP_IDF_VERSION = "release/v5.0"
+{% elsif espidfver == "v5.1" %}
+ESP_IDF_VERSION = "release/v5.1"
 {% elsif espidfver == "master" %}
 ESP_IDF_VERSION = "master"
 {% endif %}
