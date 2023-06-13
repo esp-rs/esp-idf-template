@@ -9,7 +9,7 @@ let targets = #{
         arch: "riscv",
         rust_target: "riscv32imc-esp-espidf",
         gcc_target: "riscv32-esp-elf",
-        wokwi_board: "board-esp32-c6-devkitm-1",
+        wokwi_board: "",
     },
     esp32c3: #{
         arch: "riscv",
@@ -27,7 +27,7 @@ let targets = #{
         arch: "riscv",
         rust_target: "riscv32imac-esp-espidf",
         gcc_target: "riscv32-esp-elf",
-        wokwi_board: "board-esp32-c6-devkitm-1",
+        wokwi_board: "",
     },
     esp32s2: #{
         arch: "xtensa",
@@ -52,7 +52,12 @@ for key in target_properties.keys() {
 let defaults = variable::get("defaults");
 if defaults {
     variable::set("std", true);
-    variable::set("espidfver", "v4.4");
+    if target == "esp32" || target == "esp32s2" || target == "esp32s3" || target == "esp32c3" {
+        variable::set("espidfver", "v4.4");
+    }
+    else {
+        variable::set("espidfver", "v5.1");
+    }
     variable::set("devcontainer", false);
     variable::set("wokwi", false);
     variable::set("hal", "Yes (default features)");
