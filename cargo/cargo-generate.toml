@@ -21,13 +21,7 @@ type = "bool"
 prompt = "Enable STD support?"
 default = true
 
-[conditional.'!defaults && (mcu == "esp32c6" || mcu == "esp32h2")'.placeholders.espidfver]
-type = "string"
-prompt = "ESP-IDF version (master = UNSTABLE)"
-choices = ["master"] # Supported as of v5.1
-default = "master"
-
-[conditional.'!defaults && (mcu == "esp32c2")'.placeholders.espidfver]
+[conditional.'!defaults && (mcu == "esp32c6" || mcu == "esp32h2" || mcu == "esp32c2")'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
 choices = ["v5.1", "master"]
