@@ -90,7 +90,7 @@ jobs:
         run: cd test; cargo clippy --no-deps -- -Dwarnings
       - name: Build | Compile
         run: cd test; cargo build
-cargo-checks-v4:
+  cargo-checks-v4:
     name: "${{ matrix.target }} | ${{ matrix.esp-idf.name }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
     runs-on: ubuntu-latest
     strategy:
