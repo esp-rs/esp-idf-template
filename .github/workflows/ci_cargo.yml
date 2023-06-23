@@ -52,6 +52,7 @@ jobs:
           default: true
           buildtargets: ${{ matrix.target }}
           ldproxy: false
+          version: "1.69.0"
       - uses: Swatinem/rust-cache@v2
       - name: Setup | cargo-generate (binary)
         id: cargo-generate-binary
