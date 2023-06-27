@@ -11,34 +11,34 @@ prompt = "Which MCU to target?"
 choices = ["esp32", "esp32c2", "esp32c3", "esp32c6", "esp32h2", "esp32s2", "esp32s3"]
 default = "esp32"
 
-[placeholders.defaults]
+[placeholders.advanced]
 type = "bool"
-prompt = "Use the default template values?"
-default = true
+prompt = "Configure advanced template options?"
+default = false
 
-[conditional.'!defaults'.placeholders.std]
+[conditional.'advanced'.placeholders.std]
 type = "bool"
 prompt = "Enable STD support?"
 default = true
 
-[conditional.'!defaults && (mcu == "esp32c6" || mcu == "esp32h2" || mcu == "esp32c2")'.placeholders.espidfver]
+[conditional.'advanced && (mcu == "esp32c6" || mcu == "esp32h2" || mcu == "esp32c2")'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
 choices = ["v5.1", "master"]
 default = "v5.1"
 
-[conditional.'!defaults && (mcu == "esp32" || mcu == "esp32c3" || mcu == "esp32s2" || mcu == "esp32s3")'.placeholders.espidfver]
+[conditional.'advanced && (mcu == "esp32" || mcu == "esp32c3" || mcu == "esp32s2" || mcu == "esp32s3")'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
 choices = ["v4.4", "v5.1", "master"]
 default = "v4.4"
 
-[conditional.'!defaults'.placeholders.devcontainer]
+[conditional.'advanced'.placeholders.devcontainer]
 type = "bool"
 prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"
 default = false
 
-[conditional.'!defaults'.placeholders.wokwi]
+[conditional.'advanced'.placeholders.wokwi]
 type = "bool"
 prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?"
 default = false
@@ -61,7 +61,7 @@ ignore = [
 [conditional.'!wokwi']
 ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]
 
-[conditional.'defaults']
+[conditional.'!advanced']
 ignore = [
     ".devcontainer/",
     ".vscode/",

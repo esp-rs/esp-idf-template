@@ -49,8 +49,8 @@ for key in target_properties.keys() {
     variable::set(key, target_properties.get(key));
 }
 
-let defaults = variable::get("defaults");
-if defaults {
+let advanced = variable::get("advanced");
+if !advanced {
     variable::set("std", true);
     if target == "esp32" || target == "esp32s2" || target == "esp32s3" || target == "esp32c3" {
         variable::set("espidfver", "v4.4");
