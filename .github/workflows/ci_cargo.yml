@@ -34,10 +34,12 @@ jobs:
           - std: true
             hal: "Yes (all features)"
         esp-idf:
+          - version: release/v4.4
+            name: v4.4
           - version: release/v5.1
             name: v5.1
-          - version: master
-            name: master
+          # - version: master
+          #   name: master
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
