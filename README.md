@@ -154,16 +154,16 @@ espup install
 
 See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/book/installation/installation.html) for more details.
 
-### Alternative (for RISC-V Espressif SOCs **only**): install & use upstream Rust & Clang
+### Alternative (for RISC-V Espressif SOCs **only**): install & use upstream nightly Rust and upstream stable Clang
 
 While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`) with the `espup` installer just fine, SOCs with this architecture are also [supported by the nightly Rust compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v) and by recent, stock Clang compilers (as in Clang 11+):
 
-1. Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion. Recent Linux distros come with suitable Clang already.
-2. Install the `nightly` Rust toolchain with the `rust-src` component included:
+* Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion. Recent Linux distros come with suitable Clang already.
+* Install the `nightly` Rust toolchain with the `rust-src` component included:
    ```sh
    rustup toolchain install nightly --component rust-src
    ```
-3. Run any Cargo command [overriding](https://rust-lang.github.io/rustup/overrides.html#overrides) the `nightly` toolchain.
+* Run any Cargo command with the `nightly` [toolchain override](https://rust-lang.github.io/rustup/overrides.html#overrides), i.e. `cargo +nightly ...`.
 
 ### Install Python3
 
