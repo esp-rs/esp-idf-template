@@ -1,6 +1,7 @@
 # Rust on ESP-IDF "Hello, World" template
 [![Cargo CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cargo.yml/badge.svg)](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cargo.yml)
 [![CMake CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cmake.yml/badge.svg)](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cmake.yml)
+[![Documentation](https://img.shields.io/badge/docs-esp--rs-brightgreen)](https://esp-rs.github.io/esp-idf-svc/esp_idf_svc/index.html)
 [![Matrix](https://img.shields.io/matrix/esp-rs:matrix.org?label=join%20matrix&color=BEC5C9&logo=matrix)](https://matrix.to/#/#esp-rs:matrix.org)
 [![Wokwi](https://img.shields.io/endpoint?url=https%3A%2F%2Fwokwi.com%2Fbadge%2Fclick-to-simulate.json)](https://wokwi.com/projects/332188235906155092)
 
@@ -170,3 +171,16 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
 You need a Python 3.7 or later installed on your machine.
 * Linux, Mac OS X: if not preinstalled already, just install it with your package manager
 * Windows: install it e.g. [from the official Python site](https://www.python.org/downloads/).
+
+### More information
+
+For more information, check out:
+* The [Rust on ESP Book](https://esp-rs.github.io/book/)
+* The [ESP STD Embedded Training](https://github.com/esp-rs/std-training)
+* The [esp-idf-hal](https://github.com/esp-rs/esp-idf-hal) project
+* The [embedded-hal](https://github.com/rust-embedded/embedded-hal) project
+* The [esp-idf-svc](https://github.com/esp-rs/esp-idf-svc) project
+* The [embedded-svc](https://github.com/esp-rs/embedded-svc) project
+* The [esp-idf-sys](https://github.com/esp-rs/esp-idf-sys) project
+* The [Rust for Xtensa toolchain](https://github.com/esp-rs/rust-build)
+* The [Rust-with-STD demo](https://github.com/ivmarkov/rust-esp32-std-demo) project
