@@ -15,6 +15,8 @@ Or if you rather
 * ... want to mix Rust and C/C++ in a traditional ESP-IDF `idf.py` CMake project - [follow these instructions](README-cmake.md)
 * ... want to mix Rust and C/C++ with PlatformIO - [follow these instructions](README-pio.md)
 
+For more check out the links in the additional [information seciton](#additional-information)
+
 ## Generate the project
 
 **Please make sure you have installed all [prerequisites](#prerequisites) first!**
@@ -111,6 +113,19 @@ I (0) cpu_start: Starting scheduler on APP CPU.
 Hello, world!
 ```
 
+## Additional information
+
+For more information, check out:
+* The [Rust on ESP Book](https://esp-rs.github.io/book/)
+* The [ESP STD Embedded Training](https://github.com/esp-rs/std-training)
+* The [esp-idf-hal](https://github.com/esp-rs/esp-idf-hal) project
+* The [embedded-hal](https://github.com/rust-embedded/embedded-hal) project
+* The [esp-idf-svc](https://github.com/esp-rs/esp-idf-svc) project
+* The [embedded-svc](https://github.com/esp-rs/embedded-svc) project
+* The [esp-idf-sys](https://github.com/esp-rs/esp-idf-sys) project
+* The [Rust for Xtensa toolchain](https://github.com/esp-rs/rust-build)
+* The [Rust-with-STD demo](https://github.com/ivmarkov/rust-esp32-std-demo) project
+
 ## Prerequisites
 
 ### Install Rust (with `rustup`)
@@ -172,15 +187,3 @@ You need a Python 3.7 or later installed on your machine.
 * Linux, Mac OS X: if not preinstalled already, just install it with your package manager
 * Windows: install it e.g. [from the official Python site](https://www.python.org/downloads/).
 
-## More information
-
-For more information, check out:
-* The [Rust on ESP Book](https://esp-rs.github.io/book/)
-* The [ESP STD Embedded Training](https://github.com/esp-rs/std-training)
-* The [esp-idf-hal](https://github.com/esp-rs/esp-idf-hal) project
-* The [embedded-hal](https://github.com/rust-embedded/embedded-hal) project
-* The [esp-idf-svc](https://github.com/esp-rs/esp-idf-svc) project
-* The [embedded-svc](https://github.com/esp-rs/embedded-svc) project
-* The [esp-idf-sys](https://github.com/esp-rs/esp-idf-sys) project
-* The [Rust for Xtensa toolchain](https://github.com/esp-rs/rust-build)
-* The [Rust-with-STD demo](https://github.com/ivmarkov/rust-esp32-std-demo) project
