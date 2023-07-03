@@ -172,7 +172,7 @@ You need a Python 3.7 or later installed on your machine.
 * Linux, Mac OS X: if not preinstalled already, just install it with your package manager
 * Windows: install it e.g. [from the official Python site](https://www.python.org/downloads/).
 
-### More information
+## More information
 
 For more information, check out:
 * The [Rust on ESP Book](https://esp-rs.github.io/book/)
