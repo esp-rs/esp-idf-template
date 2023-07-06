@@ -28,7 +28,7 @@ cargo generate esp-rs/esp-idf-template cargo
 The command will display a few prompts:
 - `Project Name`: Name of the crate.
 - `Which MCU to target?`: SoC model, e.g. `esp32`, `esp32s2`, `esp32c3` etc.
-- `Use the default template values?`: Skips the rest of the prompts and uses their default value. If false, you will be prompted with:
+- `Configure advanced template options?`: If `false`, skips the rest of the prompts and uses their default value. If `true`, you will be prompted with:
   - `Enable STD support?`: When `true` (default), adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, a `no_std` [Rust Core Library](https://doc.rust-lang.org/core/index.html) crate would be created.
   - `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
     - [`v4.4`](https://github.com/espressif/esp-idf/tree/release/v4.4): Stable
