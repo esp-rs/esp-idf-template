@@ -1,6 +1,6 @@
 [template]
 cargo_generate_version = ">=0.17.4"
-ignore = [".git", ".github", "README.md", "cmake"]
+ignore = [".git", "README.md", "cmake"]
 
 [hooks]
 pre = ["pre-script.rhai"]
@@ -49,6 +49,11 @@ prompt = "Include esp-idf-hal/esp-idf-svc?"
 choices = ["No", "Yes (default features)", "Yes (all features)"]
 default = "Yes (default features)"
 
+[conditional.'advanced'.placeholders.ci]
+type = "bool"
+prompt = "Add CI files for GitHub Action?"
+default = false
+
 [conditional.'!devcontainer']
 ignore = [
     ".devcontainer/",
@@ -57,6 +62,9 @@ ignore = [
     "docs/",
     "scripts/",
 ]
+
+[conditional.'!ci']
+ignore = [".github"]
 
 [conditional.'!wokwi']
 ignore = [".vscode/launch.json", "diagram.json", "wokwi.toml"]

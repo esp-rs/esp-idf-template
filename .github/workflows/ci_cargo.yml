@@ -79,10 +79,10 @@ jobs:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate (STD)
         if: matrix.std-config.std == true
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false -d ci=false
       - name: Generate (No STD)
         if: matrix.std-config.std == false
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
       - name: Build | Fmt Check (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
         run: cd test; cargo fmt -- --check
@@ -149,10 +149,10 @@ jobs:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate (STD)
         if: matrix.std-config.std == true
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false -d ci=false
       - name: Generate (No STD)
         if: matrix.std-config.std == false
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
       - name: Build | Fmt Check (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
         run: cd test; cargo fmt -- --check
@@ -186,7 +186,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate Project
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d espidfver=v4.4 -d advanced=true -d std=true  -d hal="Yes (default features)" -d devcontainer=true -d wokwi=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d espidfver=v4.4 -d advanced=true -d std=true  -d hal="Yes (default features)" -d devcontainer=true -d wokwi=false -d ci=false
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.target }}
