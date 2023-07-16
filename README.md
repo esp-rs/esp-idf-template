@@ -168,7 +168,7 @@ espup install
 >
 > Make sure you source the generated export file, as shown above, in every terminal before building any application as it contains the required environment variables.
 
-See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/book/installation/installation.html) for more details.
+See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/book/installation/index.html) for more details.
 
 ### Alternative (for RISC-V Espressif SOCs **only**): install & use upstream nightly Rust and upstream stable Clang
 
