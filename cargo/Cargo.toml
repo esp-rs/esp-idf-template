@@ -40,8 +40,5 @@ esp-idf-hal = { version = "0.41", optional = true, default-features = false }
 esp-idf-svc = { version = "0.46", optional = true, default-features = false }
 embedded-svc = { version = "0.25", optional = true, default-features = false }
 
-[patch.crates-io]
-esp-idf-svc = { git="https://github.com/esp-rs/esp-idf-svc"}
-
 [build-dependencies]
 embuild = "0.31.2"
