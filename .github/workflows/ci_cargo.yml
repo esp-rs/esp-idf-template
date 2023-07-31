@@ -34,7 +34,7 @@ jobs:
           - std: true
             hal: "Yes (all features)"
         esp-idf:
-          - version: release/v5.1
+          - version: v5.1
             name: v5.1
           # - version: master
           #   name: master
@@ -107,7 +107,7 @@ jobs:
           - std: true
             hal: "Yes (all features)"
         esp-idf:
-          - version: release/v4.4
+          - version: v4.4
             name: v4.4
     steps:
       - name: Setup | Rust (RISC-V)
