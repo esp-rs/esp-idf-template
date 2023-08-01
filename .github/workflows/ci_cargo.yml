@@ -19,7 +19,7 @@ env:
 
 jobs:
   cargo-checks-v5:
-    name: "${{ matrix.target }} | ${{ matrix.esp-idf.name }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
+    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -34,8 +34,7 @@ jobs:
           - std: true
             hal: "Yes (all features)"
         esp-idf:
-          - version: release/v5.1
-            name: v5.1
+          - version: v5.1
           # - version: master
           #   name: master
     steps:
@@ -79,10 +78,10 @@ jobs:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate (STD)
         if: matrix.std-config.std == true
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.version }} -d std=${{ matrix.std-config.std }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false -d ci=false
       - name: Generate (No STD)
         if: matrix.std-config.std == false
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.version }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
       - name: Build | Fmt Check (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
         run: cd test; cargo fmt -- --check
@@ -92,7 +91,7 @@ jobs:
       - name: Build | Compile
         run: cd test; cargo build
   cargo-checks-v4:
-    name: "${{ matrix.target }} | ${{ matrix.esp-idf.name }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
+    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -107,8 +106,7 @@ jobs:
           - std: true
             hal: "Yes (all features)"
         esp-idf:
-          - version: release/v4.4
-            name: v4.4
+          - version: v4.4
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
@@ -149,10 +147,10 @@ jobs:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate (STD)
         if: matrix.std-config.std == true
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.version }} -d std=${{ matrix.std-config.std }} -d hal="${{ matrix.std-config.hal }}" -d devcontainer=false -d wokwi=false -d ci=false
       - name: Generate (No STD)
         if: matrix.std-config.std == false
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.name }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.version }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
       - name: Build | Fmt Check (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
         run: cd test; cargo fmt -- --check
