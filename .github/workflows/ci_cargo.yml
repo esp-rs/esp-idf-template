@@ -19,7 +19,7 @@ env:
 
 jobs:
   cargo-checks-v5:
-    name: "${{ matrix.target }} | ${{ matrix.esp-idf.name }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
+    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -35,7 +35,6 @@ jobs:
             hal: "Yes (all features)"
         esp-idf:
           - version: v5.1
-            name: v5.1
           # - version: master
           #   name: master
     steps:
@@ -92,7 +91,7 @@ jobs:
       - name: Build | Compile
         run: cd test; cargo build
   cargo-checks-v4:
-    name: "${{ matrix.target }} | ${{ matrix.esp-idf.name }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
+    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -108,7 +107,6 @@ jobs:
             hal: "Yes (all features)"
         esp-idf:
           - version: v4.4
-            name: v4.4
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'

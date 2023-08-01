@@ -19,7 +19,7 @@ env:
 
 jobs:
   cmake-checks:
-    name: "${{ matrix.target.board }} | ${{ matrix.esp-idf.name }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }}))"
+    name: "${{ matrix.target.board }} | ${{ matrix.esp-idf.version }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }}))"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -43,9 +43,7 @@ jobs:
             hal: "Yes (all features)"
         esp-idf:
           - version: v4.4
-            name: v4.4
           - version: v5.1
-            name: v5.1
           # - version: master
           #   name: master
     steps:
