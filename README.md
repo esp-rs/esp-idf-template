@@ -31,8 +31,8 @@ The command will display a few prompts:
 - `Configure advanced template options?`: If `false`, skips the rest of the prompts and uses their default value. If `true`, you will be prompted with:
   - `Enable STD support?`: When `true` (default), adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, a `no_std` [Rust Core Library](https://doc.rust-lang.org/core/index.html) crate would be created.
   - `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
-    - [`v4.4`](https://github.com/espressif/esp-idf/tree/release/v4.4): Stable
-    - [`v5.1`](https://github.com/espressif/esp-idf/tree/release/v5.1): Stable
+    - [`v4.4`](https://github.com/espressif/esp-idf/releases/tag/v4.4.5): Stable
+    - [`v5.1`](https://github.com/espressif/esp-idf/releases/tag/v5.1): Stable
     - [`master`](https://github.com/espressif/esp-idf/tree/master): **Unstable**
    - `Configure project to support Wokwi simulation with Wokwi VS Code extension?`: Adds support for Wokwi simulation using [VS Code Wokwi extension](https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode).
   - `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
@@ -128,6 +128,8 @@ For more information, check out:
 
 ## Prerequisites
 
+For detailed instructions see [Setting Up a Development Environment](https://esp-rs.github.io/book/installation/index.html) chapter of The Rust on ESP Book.
+
 ### Install Rust (with `rustup`)
 
 If you don't have `rustup` installed yet, follow the instructions on the [rustup.rs site](https://rustup.rs)
@@ -172,7 +174,7 @@ See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/
 
 ### Alternative (for RISC-V Espressif SOCs **only**): install & use upstream nightly Rust and upstream stable Clang
 
-While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`) with the `espup` installer just fine, SOCs with this architecture are also [supported by the nightly Rust compiler](https://esp-rs.github.io/book/installation/index.html#risc-v) and by recent, stock Clang compilers (as in Clang 11+):
+While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`) with the `espup` installer just fine, SOCs with this architecture are also [supported by the nightly Rust compiler](https://esp-rs.github.io/book/installation/riscv.html) and by recent, stock Clang compilers (as in Clang 11+):
 
 * Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion. Recent Linux distros come with suitable Clang already.
 * Install the `nightly` Rust toolchain with the `rust-src` component included:
