@@ -29,7 +29,7 @@ jobs:
             args: --all-targets --all-features --workspace -- -D warnings
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Enable caching
         uses: Swatinem/rust-cache@v2
       - name: Setup Rust
