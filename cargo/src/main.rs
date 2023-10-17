@@ -2,24 +2,24 @@
 #![no_std]
 #![no_main]
 {% endunless -%}
-use esp_idf_sys as _; // If using the `binstart` feature of `esp-idf-sys`, always keep this module imported
-{%- if std and hal != "No" %}
-use log::*;
-{% endif %}
 
+{%- if hal %}
 {%- unless std %}
 #[no_mangle]
 {%- endunless %}
 fn main() {
     // It is necessary to call this function once. Otherwise some patches to the runtime
     // implemented by esp-idf-sys might not link properly. See https://github.com/esp-rs/esp-idf-template/issues/71
-    esp_idf_sys::link_patches();
-{%- if std and hal == "No" %}
-    println!("Hello, world!");
-{%- elsif std and hal != "No"  %}
+    esp_idf_svc::sys::link_patches();
+
     // Bind the log crate to the ESP Logging facilities
     esp_idf_svc::log::EspLogger::initialize_default();
 
-    info!("Hello, world!");
-{%- endif %}
+    log::info!("Hello, world!");
 }
+{%- else %}
+#[no_mangle]
+extern "C" fn app_main() -> i32 {
+    42
+}
+{%- endif %}
