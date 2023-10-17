@@ -19,7 +19,7 @@ env:
 
 jobs:
   cargo-checks-v5:
-    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | hal(std):${{ matrix.std-config.hal }}(${{ matrix.std-config.std }})"
+    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | hal=${{ matrix.std-config.hal }} | std=${{ matrix.std-config.std }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
