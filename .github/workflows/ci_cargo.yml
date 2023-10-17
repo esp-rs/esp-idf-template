@@ -86,7 +86,7 @@ jobs:
       - name: Build | Compile
         run: cd test; cargo build
   cargo-checks-v4:
-    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }})"
+    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | hal=${{ matrix.std-config.hal }} | std=${{ matrix.std-config.std }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
