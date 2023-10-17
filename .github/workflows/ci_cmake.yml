@@ -19,7 +19,7 @@ env:
 
 jobs:
   cmake-checks:
-    name: "${{ matrix.target.board }} | ${{ matrix.esp-idf.version }} | std(hal):${{ matrix.std-config.std }}(${{ matrix.std-config.hal }}))"
+    name: "${{ matrix.target.board }} | ${{ matrix.esp-idf.version }} | hal=${{ matrix.std-config.hal }} | std=${{ matrix.std-config.std }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -34,13 +34,12 @@ jobs:
           - board: "esp32c3"
             toolchain: "nightly"
         std-config:
-          - std: false
-          - std: true
-            hal: "No"
-          - std: true
-            hal: "Yes (default features)"
-          - std: true
-            hal: "Yes (all features)"
+          - hal: true
+            std: true
+          - hal: true
+            std: false
+          - hal: false
+            std: false
         esp-idf:
           - version: v5.1
           # - version: master
@@ -59,7 +58,7 @@ jobs:
           default: true
           buildtargets: ${{ matrix.target.board }}
           ldproxy: false
-          version: "1.69.0"
+          version: "1.71.0"
       - uses: Swatinem/rust-cache@v2
       - name: Setup | cargo-generate (binary)
         id: cargo-generate-binary
@@ -84,12 +83,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
-      - name: Generate (STD)
-        if: matrix.std-config.std == true
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent -d toolchain=${{ matrix.target.toolchain }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.version }} -d hal="${{ matrix.std-config.hal }}"
-      - name: Generate (No STD)
-        if: matrix.std-config.std == false
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent -d toolchain=${{ matrix.target.toolchain }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.version }}
+      - name: Generate
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent -d toolchain=${{ matrix.target.toolchain }} -d hal=${{ matrix.std-config.hal }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.version }}
       - name: ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout ${{ matrix.esp-idf.version }}
       - name: ESP-IDF | Install Tooling
@@ -98,4 +93,3 @@ jobs:
         run: . esp-idf/export.sh; cd test; idf.py set-target ${{ matrix.target.board }}
       - name: Build | Compile
         run: . esp-idf/export.sh; cd test; idf.py build
-
