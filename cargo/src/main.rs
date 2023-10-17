@@ -3,7 +3,6 @@
 #![no_main]
 {% endunless -%}
 
-{%- if hal %}
 {%- unless std %}
 #[no_mangle]
 {%- endunless %}
@@ -16,10 +15,5 @@ fn main() {
     esp_idf_svc::log::EspLogger::initialize_default();
 
     log::info!("Hello, world!");
-}
-{%- else %}
-#[no_mangle]
-extern "C" fn app_main() -> i32 {
-    42
 }
 {%- endif %}
