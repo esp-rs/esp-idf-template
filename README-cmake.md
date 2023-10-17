@@ -2,6 +2,8 @@
 
 A "Hello, world!" template of a mixed Rust/C ESP-IDF project driven by `idf.py` and CMake.
 
+If you would like to create this project from scratch - without `cargo-generate` - or to understand how it all works under the hood, follow [this article](README-cmake-from-scratch.md).
+
 ## Generate the project
 
 **Please make sure you have installed all [prerequisites](#prerequisites) first!**
