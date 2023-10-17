@@ -51,14 +51,8 @@ for key in target_properties.keys() {
 
 let advanced = variable::get("advanced");
 if !advanced {
-    variable::set("hal", true);
     variable::set("std", true);
-    if target == "esp32" || target == "esp32s2" || target == "esp32s3" || target == "esp32c3" {
-        variable::set("espidfver", "v4.4");
-    }
-    else {
-        variable::set("espidfver", "v5.1");
-    }
+    variable::set("espidfver", "v5.1");
     variable::set("devcontainer", false);
     variable::set("wokwi", false);
 }
