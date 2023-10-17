@@ -16,12 +16,7 @@ type = "bool"
 prompt = "Configure advanced template options?"
 default = false
 
-[conditional.'advanced'.placeholders.hal]
-type = "bool"
-prompt = "Enable HAL support?"
-default = true
-
-[conditional.'hal'.placeholders.std]
+[conditional.'advanced'.placeholders.std]
 type = "bool"
 prompt = "Enable STD support?"
 default = true
@@ -36,7 +31,7 @@ default = "v5.1"
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
 choices = ["v4.4", "v5.1", "master"]
-default = "v4.4"
+default = "v5.1"
 
 [conditional.'advanced'.placeholders.devcontainer]
 type = "bool"
