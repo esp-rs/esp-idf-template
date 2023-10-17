@@ -16,4 +16,3 @@ fn main() {
 
     log::info!("Hello, world!");
 }
-{%- endif %}
