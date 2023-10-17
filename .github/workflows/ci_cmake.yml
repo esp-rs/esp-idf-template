@@ -2,6 +2,8 @@ name: CMake CI
 
 on:
   push:
+    branches:
+      - master
     paths:
       - "cmake/**"
       - ".github/workflows/ci_cmake.yml"

@@ -2,6 +2,8 @@ name: Cargo CI
 
 on:
   push:
+    branches:
+      - master
     paths:
       - "cargo/**"
       - ".github/workflows/ci_cargo.yml"
