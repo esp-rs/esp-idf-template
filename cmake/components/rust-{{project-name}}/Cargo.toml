@@ -6,7 +6,6 @@ edition = "2021"
 rust-version = "1.71"
 
 [lib]
-path = "src/lib.rs"
 crate-type = ["staticlib"]
 
 [profile.release]
