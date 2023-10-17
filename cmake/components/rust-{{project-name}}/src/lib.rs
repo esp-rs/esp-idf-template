@@ -18,3 +18,11 @@ extern "C" fn rust_main() -> i32 {
 {%- endif %}
     42
 }
+
+{%- if not hal %}
+#[panic_handler]
+fn panic(_info: &PanicInfo) -> ! {
+    loop {
+    }
+}
+{%- endif %}
