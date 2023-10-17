@@ -34,10 +34,12 @@ else()
     set(CARGO_BUILD_ARG "--release")
 endif()
 
-{% if std %}
-set(CARGO_BUILD_STD_ARG -Zbuild-std=std,panic_abort -Zbuild-std-features=panic_immediate_abort)
+{% if hal and std %}
+set(CARGO_BUILD_STD_ARG -Zbuild-std=std,panic_abort)
+{% elsif hal %}
+set(CARGO_BUILD_STD_ARG -Zbuild-std=core,alloc,panic_abort)
 {% else %}
-set(CARGO_BUILD_STD_ARG -Zbuild-std=core,alloc,panic_abort -Zbuild-std-features=panic_immediate_abort)
+set(CARGO_BUILD_STD_ARG -Zbuild-std=core,panic_abort -Zbuild-std-features=panic_immediate_abort)
 {% endif %}
 
 if(IDF_VERSION_MAJOR GREATER "4")
