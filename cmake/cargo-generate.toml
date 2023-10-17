@@ -1,23 +1,6 @@
 [template]
-cargo_generate_version = ">=0.17.4"
+cargo_generate_version = ">=0.10.0"
 
-[placeholders.advanced]
-type = "bool"
-prompt = "Configure advanced template options?"
-default = false
-
-[conditional.'advanced'.placeholders.toolchain]
-type = "string"
-prompt = "Rust toolchain (beware: nightly works only for riscv MCUs!)"
-choices = ["esp", "nightly"]
-default = "esp"
-
-[conditional.'advanced'.placeholders.hal]
-type = "bool"
-prompt = "Enable HAL support?"
-default = true
-
-[conditional.'advanced'.placeholders.std]
-type = "bool"
-prompt = "Enable STD support?"
-default = true
+[placeholders]
+toolchain = { type = "string", prompt = "Rust toolchain (beware: nightly works only for esp32c3!)", choices = ["esp", "nightly"], default = "esp" }
+std = { type = "bool", prompt = "STD support", default = true }
