@@ -13,7 +13,7 @@ extern "C" fn rust_main() -> i32 {
     esp_idf_svc::log::EspLogger::initialize_default();
 
     log::info!("Hello, world!");
-{%- elif std %}
+{%- elsif std %}
     println!("Hello, world from Rust!");
 {%- endif %}
     42
