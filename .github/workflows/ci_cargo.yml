@@ -18,7 +18,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  cargo-checks-v5:
+  checks:
     name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | hal=${{ matrix.std-config.hal }} | std=${{ matrix.std-config.std }}"
     runs-on: ubuntu-latest
     strategy:
@@ -34,8 +34,8 @@ jobs:
             std: false
         esp-idf:
           - version: v5.1
+          - version: v4.4
           # - version: master
-          #   name: master
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
@@ -76,80 +76,18 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate
+        if: matrix.esp-idf != 'v4.4' || matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3' || matrix.target == 'esp32c3'
         run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.version }} -d hal=${{ matrix.std-config.hal }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
-      - name: Build | Fmt Check (RISC-V)
-        if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
+      - name: Build | Fmt Check
+        if: matrix.esp-idf == 'v5.1' && matrix.target == 'esp32c3'
         run: cd test; cargo fmt -- --check
-      - name: Build | Clippy (RISC-V)
-        if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
+      - name: Build | Clippy
+        if: matrix.esp-idf != 'v4.4' || matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3' || matrix.target == 'esp32c3'
         run: cd test; cargo clippy --no-deps -- -Dwarnings
       - name: Build | Compile
+        if: matrix.esp-idf != 'v4.4' || matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3' || matrix.target == 'esp32c3'
         run: cd test; cargo build
-  cargo-checks-v4:
-    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }} | hal=${{ matrix.std-config.hal }} | std=${{ matrix.std-config.std }}"
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        target: ["esp32", "esp32c3", "esp32s2", "esp32s3"]
-        std-config:
-          - hal: false
-            std: false
-          - hal: true
-            std: true
-          - hal: true
-            std: false
-        esp-idf:
-          - version: v4.4
-    steps:
-      - name: Setup | Rust (RISC-V)
-        if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
-        uses: dtolnay/rust-toolchain@v1
-        with:
-          toolchain: nightly
-          components: clippy, rustfmt, rust-src
-      - name: Setup | Rust (Xtensa)
-        if: matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3'
-        uses: esp-rs/xtensa-toolchain@v1.5.1
-        with:
-          default: true
-          buildtargets: ${{ matrix.target }}
-          ldproxy: false
-      - uses: Swatinem/rust-cache@v2
-      - name: Setup | cargo-generate (binary)
-        id: cargo-generate-binary
-        continue-on-error: true
-        run: |
-          sudo curl -L "https://github.com/cargo-generate/cargo-generate/releases/latest/download/cargo-generate-$(git ls-remote --refs --sort="version:refname" --tags "https://github.com/cargo-generate/cargo-generate" | cut -d/ -f3- | tail -n1)-x86_64-unknown-linux-gnu.tar.gz" -o "/home/runner/.cargo/bin/cargo-generate.tar.gz"
-          tar xf "/home/runner/.cargo/bin/cargo-generate.tar.gz" -C /home/runner/.cargo/bin
-          chmod u+x /home/runner/.cargo/bin/cargo-generate
-      - name: Setup | cargo-generate (cargo)
-        if: steps.cargo-generate-binary.outcome != 'success'
-        run: cargo install cargo-generate
-      - name: Setup | ldproxy (binary)
-        id: ldproxy-binary
-        continue-on-error: true
-        run: |
-          sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
-          unzip "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
-          chmod u+x /home/runner/.cargo/bin/ldproxy
-      - name: Setup | ldproxy (cargo)
-        if: steps.ldproxy-binary.outcome != 'success'
-        run: cargo install ldproxy
-      - uses: actions/checkout@v4
-        with:
-          path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
-      - name: Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.version }} -d hal=${{ matrix.std-config.hal }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
-      - name: Build | Fmt Check (RISC-V)
-        if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
-        run: cd test; cargo fmt -- --check
-      - name: Build | Clippy (RISC-V)
-        if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
-        run: cd test; cargo clippy --no-deps -- -Dwarnings
-      - name: Build | Compile
-        run: cd test; cargo build
-  container-check:
+  container-checks:
     name: "Container Check: ${{ matrix.target }}"
     runs-on: ubuntu-latest
     strategy:
