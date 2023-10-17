@@ -12,7 +12,6 @@ opt-level = "s"
 debug = true    # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
 
-{% if hal %}
 [features]
 {% if std %}
 default = ["std", "embassy", "esp-idf-svc/native"]
@@ -33,4 +32,3 @@ esp-idf-svc = { version = "0.47", default-features = false }
 
 [build-dependencies]
 embuild = "0.31.3"
-{% endif %}
