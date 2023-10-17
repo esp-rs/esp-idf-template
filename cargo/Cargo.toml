@@ -15,7 +15,7 @@ opt-level = "z"
 {% if hal %}
 [features]
 {% if std %}
-default = ["std", "embassy", "esp-idf-sys/native"]
+default = ["std", "embassy", "esp-idf-svc/native"]
 {% else %}
 default = ["alloc", "embassy", "esp-idf-svc/native", "esp-idf-svc/panic_handler", "esp-idf-svc/alloc_handler", "esp-idf-svc/libstart"]
 {% endif %}
