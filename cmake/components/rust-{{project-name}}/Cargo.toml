@@ -3,8 +3,7 @@ name = "rust-{{project-name}}"
 version = "0.1.0"
 authors = ["{{authors}}"]
 edition = "2021"
-resolver = "2"
-rust-version = "1.66"
+rust-version = "1.71"
 
 [lib]
 crate-type = ["staticlib"]
@@ -16,32 +15,25 @@ opt-level = "s"
 debug = true # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
 
+{% if hal %}
 [features]
-{% if std and hal == "Yes (default features)" %}
-default = ["std", "hal", "esp-idf-sys/native"]
-{% elsif std and hal == "Yes (all features)" %}
-default = ["all", "hal", "esp-idf-sys/native"]
-{% elsif std %}
-default = ["std", "esp-idf-sys/native"]
+{% if std %}
+default = ["std", "embassy", "esp-idf-sys/native"]
 {% else %}
-default = ["esp-idf-sys/native", "esp-idf-sys/panic_handler", "esp-idf-sys/alloc_handler"]
+default = ["alloc", "embassy", "esp-idf-svc/native", "esp-idf-svc/panic_handler", "esp-idf-svc/alloc_handler", "esp-idf-svc/libstart"]
 {% endif %}
 
-pio = ["esp-idf-sys/pio"]
-all = ["std", "nightly", "experimental", "embassy"]
-hal = ["esp-idf-hal", "embedded-svc", "esp-idf-svc"]
-std = ["alloc", "esp-idf-sys/std", "embedded-svc?/std", "esp-idf-hal?/std", "esp-idf-svc?/std"]
-alloc = ["embedded-svc?/alloc", "esp-idf-hal?/alloc", "esp-idf-svc?/alloc"]
-nightly = ["embedded-svc?/nightly", "esp-idf-svc?/nightly"] # Future: "esp-idf-hal?/nightly"
-experimental = ["embedded-svc?/experimental", "esp-idf-svc?/experimental"]
-embassy = ["esp-idf-hal?/embassy-sync", "esp-idf-hal?/critical-section", "esp-idf-hal?/edge-executor", "esp-idf-svc?/embassy-time-driver", "esp-idf-svc?/embassy-time-isr-queue"]
+pio = ["esp-idf-svc/pio"]
+std = ["alloc", "esp-idf-svc/binstart", "esp-idf-svc/std"]
+alloc = ["esp-idf-svc/alloc"]
+nightly = ["esp-idf-svc/nightly"]
+experimental = ["esp-idf-svc/experimental"]
+embassy = ["esp-idf-svc/embassy-sync", "esp-idf-svc/critical-section", "esp-idf-svc/embassy-time-driver"]
 
 [dependencies]
 log = { version = "0.4.17", default-features = false }
-esp-idf-sys = { version = "0.33", default-features = false }
-esp-idf-hal = { version = "0.41", optional = true, default-features = false }
-esp-idf-svc = { version = "0.46", optional = true, default-features = false }
-embedded-svc = { version = "0.25", optional = true, default-features = false }
+esp-idf-svc = { version = "0.47", default-features = false }
 
 [build-dependencies]
-embuild = "0.31.2"
+embuild = "0.31.3"
+{% endif %}
