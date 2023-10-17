@@ -33,6 +33,12 @@ jobs:
             toolchain: "esp"
           - board: "esp32c3"
             toolchain: "nightly"
+          - board: "esp32c2"
+            toolchain: "nightly"
+          - board: "esp32c6"
+            toolchain: "nightly"
+          - board: "esp32h2"
+            toolchain: "nightly"
         std-config:
           - hal: true
             std: true
