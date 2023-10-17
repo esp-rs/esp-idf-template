@@ -16,7 +16,12 @@ type = "bool"
 prompt = "Configure advanced template options?"
 default = false
 
-[conditional.'advanced'.placeholders.std]
+[conditional.'advanced'.placeholders.hal]
+type = "bool"
+prompt = "Enable HAL support?"
+default = true
+
+[conditional.'hal'.placeholders.std]
 type = "bool"
 prompt = "Enable STD support?"
 default = true
@@ -42,12 +47,6 @@ default = false
 type = "bool"
 prompt = "Configure project to support Wokwi simulation with Wokwi VS Code extension?"
 default = false
-
-[conditional.'std'.placeholders.hal]
-type = "string"
-prompt = "Include esp-idf-hal/esp-idf-svc?"
-choices = ["No", "Yes (default features)", "Yes (all features)"]
-default = "Yes (default features)"
 
 [conditional.'advanced'.placeholders.ci]
 type = "bool"
