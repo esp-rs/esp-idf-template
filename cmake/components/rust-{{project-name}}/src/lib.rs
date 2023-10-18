@@ -21,7 +21,7 @@ extern "C" fn rust_main() -> i32 {
 
 {% unless hal -%}
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(_info: &core::panic::PanicInfo) -> ! {
     loop {
     }
 }
