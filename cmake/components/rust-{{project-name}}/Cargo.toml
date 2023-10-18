@@ -15,6 +15,9 @@ opt-level = "s"
 debug = true # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
 
+[patch.crates-io]
+esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal" }
+
 {%- if hal %}
 [features]
 {%- if std %}
