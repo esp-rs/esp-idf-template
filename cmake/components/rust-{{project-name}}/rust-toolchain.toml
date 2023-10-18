@@ -1,5 +1,5 @@
 [toolchain]
-{% if arch == "riscv" -%}
+{% if toolchain == "nightly" -%}
 channel = "nightly"
 components = ["rust-src"]
 {% else -%}
