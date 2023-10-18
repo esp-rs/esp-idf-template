@@ -21,25 +21,25 @@ env:
 
 jobs:
   cmake-checks:
-    name: "${{ matrix.target.board }} | ${{ matrix.esp-idf.version }} | hal=${{ matrix.std-config.hal }} | std=${{ matrix.std-config.std }}"
+    name: "${{ matrix.target.mcu }} | ${{ matrix.esp-idf.version }} | hal=${{ matrix.std-config.hal }} | std=${{ matrix.std-config.std }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         target:
-          - board: "esp32"
+          - mcu: "esp32"
             toolchain: "esp"
-          - board: "esp32s2"
+          - mcu: "esp32s2"
             toolchain: "esp"
-          - board: "esp32s3"
+          - mcu: "esp32s3"
             toolchain: "esp"
-          - board: "esp32c3"
+          - mcu: "esp32c3"
             toolchain: "nightly"
-          - board: "esp32c2"
+          - mcu: "esp32c2"
             toolchain: "nightly"
-          - board: "esp32c6"
+          - mcu: "esp32c6"
             toolchain: "nightly"
-          - board: "esp32h2"
+          - mcu: "esp32h2"
             toolchain: "nightly"
         std-config:
           - hal: true
@@ -54,17 +54,17 @@ jobs:
           #   name: master
     steps:
       - name: Setup | Rust (RISC-V)
-        if: matrix.target.board != 'esp32' && matrix.target.board != 'esp32s2' && matrix.target.board != 'esp32s3'
+        if: matrix.target.mcu != 'esp32' && matrix.target.mcu != 'esp32s2' && matrix.target.mcu != 'esp32s3'
         uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: nightly
           components: clippy, rustfmt, rust-src
       - name: Setup | Rust (Xtensa)
-        if: matrix.target.board == 'esp32' || matrix.target.board == 'esp32s2' || matrix.target.board == 'esp32s3'
+        if: matrix.target.mcu == 'esp32' || matrix.target.mcu == 'esp32s2' || matrix.target.mcu == 'esp32s3'
         uses: esp-rs/xtensa-toolchain@v1.5.1
         with:
           default: true
-          buildtargets: ${{ matrix.target.board }}
+          buildtargets: ${{ matrix.target.mcu }}
           ldproxy: false
           version: "1.71.0"
       - uses: Swatinem/rust-cache@v2
@@ -98,6 +98,6 @@ jobs:
       - name: ESP-IDF | Install Tooling
         run: esp-idf/install.sh
       - name: Build | Set Target
-        run: . esp-idf/export.sh; cd test; idf.py set-target ${{ matrix.target.board }}
+        run: . esp-idf/export.sh; cd test; idf.py set-target ${{ matrix.target.mcu }}
       - name: Build | Compile
         run: . esp-idf/export.sh; cd test; idf.py build
