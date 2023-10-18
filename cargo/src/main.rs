@@ -1,8 +1,8 @@
 {% unless std -%}
 #![no_std]
 #![no_main]
-{% endunless -%}
 
+{% endunless -%}
 {%- unless std %}
 #[no_mangle]
 {%- endunless -%}
