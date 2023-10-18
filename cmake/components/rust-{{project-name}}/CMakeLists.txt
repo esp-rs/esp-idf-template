@@ -11,7 +11,7 @@ idf_component_register(
 )
 
 if(CONFIG_IDF_TARGET_ARCH_RISCV)
-    if (CONFIG_IDF_TARGET_ESP32C6)
+    if (CONFIG_IDF_TARGET_ESP32C6 OR CONFIG_IDF_TARGET_ESP32C5 OR CONFIG_IDF_TARGET_ESP32H2)
         set(RUST_TARGET "riscv32imac-esp-espidf")
     else ()
         set(RUST_TARGET "riscv32imc-esp-espidf")
