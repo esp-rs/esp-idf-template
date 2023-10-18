@@ -23,7 +23,7 @@ esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal" }
 {%- if std %}
 default = ["std", "embassy", "esp-idf-svc/native"]
 {%- else %}
-default = ["alloc", "embassy", "esp-idf-svc/native", "esp-idf-svc/panic_handler", "esp-idf-svc/alloc_handler", "esp-idf-svc/libstart"]
+default = ["alloc", "embassy", "esp-idf-svc/native", "esp-idf-svc/panic_handler", "esp-idf-svc/alloc_handler"]
 {%- endif %}
 
 pio = ["esp-idf-svc/pio"]
