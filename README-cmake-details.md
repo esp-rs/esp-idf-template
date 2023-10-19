@@ -42,7 +42,7 @@ test/
 
 The component can be uploaded later to [Component Manager](https://components.espressif.com/).
 
-## How the Build Process Works
+### How the Build Process Works
 
 The CMake build for your `rust-test` component would proceed as usual and will compile all C code in the component (which is not much - just an empty `placeholder.c` file which needs to be there for the approach to work).
 
@@ -103,7 +103,7 @@ Post-generation, you can add/remove additional dependencies on Rust crates here 
 
 #### `components/rust-test/rust-toolchain.toml`:
 
-This file instructs `cargo` what Rust compiler toolchain to use when building your component. It would list either the `esp` toolchain (a Rust toolchain provided by Espressif that has extra support for the esp32 xtensa MCUs), or the standard Rust `nightly` toolchain. The latter can only be used with Espressif RiscV MCUs.
+This file instructs `cargo` [what Rust compiler toolchain to use](https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file) when building your component. It would list either the `esp` toolchain (a Rust toolchain provided by Espressif that has extra support for the esp32 xtensa MCUs), or the standard Rust `nightly` toolchain. The latter can only be used with Espressif RiscV MCUs.
 
 #### `components/rust-test/src/lib.rs`:
 
@@ -134,7 +134,7 @@ elf = "build/test.elf"
 firmware = "build/test.bin"
 ```
 
-Create [`diagram.json`](./diagram.json). The file contains board selected for the simulation.
+Create [`diagram.json`](./diagram.json). The file contains board selected for the simulation. [Here](https://github.com/wokwi/wokwi-boards/tree/main/boards)'s the list of available boards.
 
 ```json
 {
