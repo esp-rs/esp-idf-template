@@ -3,10 +3,8 @@ name = "rust-{{project-name}}"
 version = "0.1.0"
 authors = ["{{authors}}"]
 edition = "2021"
+resolver = "2"
 rust-version = "1.71"
-
-[patch.crates-io]
-esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys" }
 
 [lib]
 crate-type = ["staticlib"]
