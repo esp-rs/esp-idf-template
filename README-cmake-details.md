@@ -106,6 +106,7 @@ Post-generation, you can add/remove additional dependencies on Rust crates here 
 This file instructs `cargo` what Rust compiler toolchain to use when building your component. It would list either the `esp` toolchain (a Rust toolchain provided by Espressif that has extra support for the esp32 xtensa MCUs), or the standard Rust `nightly` toolchain. The latter can only be used with Espressif RiscV MCUs.
 
 #### `components/rust-test/src/lib.rs`:
+
 The actual source code of your Rust library. You can extend here at will.
 
 ## Troubleshooting
