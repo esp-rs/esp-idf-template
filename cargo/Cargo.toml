@@ -12,10 +12,6 @@ opt-level = "s"
 debug = true    # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
 
-[patch.crates-io]
-embedded-svc = { git = "https://github.com/esp-rs/embedded-svc" }
-esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal" }
-
 [features]
 {%- if std %}
 default = ["std", "embassy", "esp-idf-svc/native"]
@@ -31,8 +27,8 @@ experimental = ["esp-idf-svc/experimental"]
 embassy = ["esp-idf-svc/embassy-sync", "esp-idf-svc/critical-section", "esp-idf-svc/embassy-time-driver"]
 
 [dependencies]
-log = { version = "0.4.17", default-features = false }
-esp-idf-svc = { version = "0.47", default-features = false }
+log = { version = "0.4", default-features = false }
+esp-idf-svc = { version = "0.47.1", default-features = false }
 
 [build-dependencies]
 embuild = "0.31.3"
