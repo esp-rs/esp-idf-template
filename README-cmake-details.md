@@ -76,7 +76,7 @@ We would be skipping over the project root (the `test/` top-level directory), as
 
 This file builds the `/components/rust-test` ESP-IDF component. It is however more complex than usual, as it needs to setup quite a few things so that calling into Rust `cargo` is running smoothly. The content of this file is the main boilerplate that the `esp-idf-template` automates.
 
-You can alter this file post-generation with `cargo generate`. The various variables and overall behavior of the file is documented with inline comments.
+You can of course modify this file post-generation. The various variables and overall behavior of the file is documented with inline comments.
 
 #### `components/rust-test/placeholder.c`:
 
@@ -88,7 +88,7 @@ As mentioned previously, this is an empty C file which is only there so as the C
 
 This file is a standard Rust [build scriptlet](https://doc.rust-lang.org/cargo/reference/build-scripts.html). It would be empty if you have not opted into the "HAL" option (note that by default "HAL" is enabled).
 
-If you have selected the "HAL" option, the `build.rs` file will contain a call into the `embuild` library that nakes sure that your component can properly link against and in general "talk" to the [Safe Rust bindings for ESP-IDF]() (the "HAL").
+If you have selected the "HAL" option, the `build.rs` file will contain a call into the `embuild` library that nakes sure that your component can properly link against - and in general - can "talk" to the [Safe Rust bindings for ESP-IDF](https://github.com/esp-rs/esp-idf-svc) (the "HAL").
 
 #### `components/rust-test/Cargo.toml`:
 
@@ -99,7 +99,7 @@ If you have selected the "HAL" option when generating the project, the manifest 
 * a built-time dependency to [`embuild`](https://github.com/esp-rs/embuild) which helps the build integration between ESP-IDF and Rust to run smoothly);
 * the popular Rust [`log`](https://github.com/rust-lang/log) crate.
 
-You can add/remove additional dependencies on Rust crates here as well as modify how Rust compiles your project (as in optimization level and others).
+Post-generation, you can add/remove additional dependencies on Rust crates here as well as modify how Rust compiles your project (as in optimization level and others).
 
 #### `components/rust-test/rust-toolchain.toml`:
 
@@ -220,4 +220,4 @@ Also, the CI file needs to be modified if used for other targets.
 
 ## Related Material
 
-[This repository](https://github.com/georgik/esp32-idf-no-std-rust-component) has a step-by-step guide, where you can create all project artefacts manually, without using `cargo generate`. That guide emphasises the creation of a Rust `no_std` and "no dependencies" component specifically, which is supported by `esp-idf-template` as well.
+[This repository](https://github.com/georgik/esp32-idf-no-std-rust-component) has a step-by-step guide, where you can create all project artefacts manually, without using `cargo generate`. It does emphasise specifically the creation of a Rust `no_std` and "no dependencies" ESP-IDF component, which is supported by the `esp-idf-template` generator as well, by selecting "advanced" options and then opting out of the "HAL" feature.
