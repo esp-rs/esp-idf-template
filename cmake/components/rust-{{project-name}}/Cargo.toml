@@ -25,7 +25,7 @@ default = ["alloc", "embassy", "esp-idf-svc/native", "esp-idf-svc/panic_handler"
 {%- endif %}
 
 pio = ["esp-idf-svc/pio"]
-std = ["alloc", "esp-idf-svc/binstart", "esp-idf-svc/std"]
+std = ["alloc", "esp-idf-svc/std"]
 alloc = ["esp-idf-svc/alloc"]
 nightly = ["esp-idf-svc/nightly"]
 experimental = ["esp-idf-svc/experimental"]
