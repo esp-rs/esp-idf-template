@@ -22,7 +22,7 @@ build-std = ["core", "alloc", "panic_abort"]
 
 [env]
 # Note: these variables are not used when using pio builder (`cargo build --features pio`)
-MCU={{ mcu }}
+MCU="{{ mcu }}"
 {%- if espidfver == "v4.4" %}
 ESP_IDF_VERSION = "v4.4.6"
 {% elsif espidfver == "v5.1" %}
