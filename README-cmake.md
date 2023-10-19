@@ -16,7 +16,7 @@ The command will display a few prompts:
   - `Project Name`: Name of the crate.
   - `Rust toolchain`: Selects the `channel` in the [toolchain file](https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file) to use. Select `esp` (the default). You can also select `nightly` if you are building for a RiscV ESP32 MCU
   - (Advanced setup only) `HAL support`: When `true`, adds support for [calling into ESP-IDF and its components](https://github.com/esp-rs/esp-idf-svc)
-  - `STD support`: When `true`, adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, we will use [Rust Core Library](https://doc.rust-lang.org/core/index.html).
+  - (Advanced setup only) `STD support`: When `true`, adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, we will use [Rust Core Library](https://doc.rust-lang.org/core/index.html).
 
 ## Enable ESP IDF components that you would like to use from Rust
 
@@ -26,7 +26,7 @@ Contrary to the [cargo-first](https://github.com/esp-rs/esp-idf-template/blob/ma
 
 ```sh
 cd <your-project-name>
-idf.py set-target [esp32|esp32s2|esp32s3|esp32c3]
+idf.py set-target [esp32|esp32s2|esp32s3|esp32c2|esp32c3|esp32c6|esp32h2]
 idf.py build
 ```
 
@@ -132,12 +132,12 @@ You need a Python 3.7 or later installed on your machine. Install it from the pa
 
 ### Install ESP-IDF SDK & Tooling
 
-When using `idf.py` and CMake driven ESP-IDF projects, you need to [install the ESP-IDF SDK and its tooling manually](https://docs.espressif.com/projects/esp-idf/en/v4.3.1/esp32/get-started/index.html).
+When using `idf.py` and CMake driven ESP-IDF projects, you need to [install the ESP-IDF SDK and its tooling manually](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/).
 
 Simple installation for Linux & MacOS:
 ```sh
 git clone https://github.com/espressif/esp-idf
-git -C esp-idf checkout release/v4.4
+git -C esp-idf checkout release/v5.1
 esp-idf/install.sh
 . esp-idf/export.sh
 ```
@@ -145,7 +145,7 @@ esp-idf/install.sh
 Simple installation for Windows:
 ```sh
 git clone https://github.com/espressif/esp-idf
-git -C esp-idf checkout release/v4.4
+git -C esp-idf checkout release/v5.1
 esp-idf\install
 esp-idf\export
 ```
