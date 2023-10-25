@@ -15,21 +15,12 @@
     ],
     "connections": [
         [
-            {% if mcu == "esp32" -%}
-            "esp:TX0",
-            {% else -%}
-            "esp:TX",
-            {% endif -%}
             "$serialMonitor:RX",
             "",
             []
         ],
         [
-            {% if mcu == "esp32" -%}
-            "esp:RX0",
-            {% else -%}
             "esp:RX",
-            {% endif -%}
             "$serialMonitor:TX",
             "",
             []
