@@ -1,13 +1,13 @@
 {
     "version": 1,
-    "editor": "wokwi",
     "author": "{{authors}}",
+    "editor": "wokwi",
     "parts": [
         {
-            "type": "{{ wokwi_board }}",
+            "type": "board-esp32-devkit-c-v4",
             "id": "esp",
-            "top": 0.59,
-            "left": 0.67,
+            "top": 0,
+            "left": 0,
             "attrs": {
                 "flashSize": "16"
             }
@@ -15,6 +15,7 @@
     ],
     "connections": [
         [
+            "esp:TX",
             "$serialMonitor:RX",
             "",
             []
@@ -29,5 +30,6 @@
     "serialMonitor": {
         "display": "terminal",
         "convertEol": true
-    }
+    },
+    "dependencies": {}
 }

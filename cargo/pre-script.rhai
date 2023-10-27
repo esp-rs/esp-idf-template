@@ -3,7 +3,7 @@ let targets = #{
         arch: "xtensa",
         rust_target: "xtensa-esp32-espidf",
         gcc_target: "xtensa-esp32-elf",
-        wokwi_board: "board-esp32-devkit-v1",
+        wokwi_board: "board-esp32-devkit-c-v4",
     },
     esp32c2: #{
         arch: "riscv",
@@ -27,7 +27,7 @@ let targets = #{
         arch: "riscv",
         rust_target: "riscv32imac-esp-espidf",
         gcc_target: "riscv32-esp-elf",
-        wokwi_board: "",
+        wokwi_board: "board-esp32-h2-devkitm-1",
     },
     esp32s2: #{
         arch: "xtensa",

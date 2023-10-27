@@ -88,6 +88,16 @@ I (0) cpu_start: Starting scheduler on APP CPU.
 Hello, world!
 ```
 
+## Simulate
+
+Wokwi for VS Code allows to simulte our application:
+0. `diagram.json` might need to be updated with the proper board. See, [available boards](https://docs.wokwi.com/diagram-format#parts).
+1. Press `F1`
+2. Run `Wokwi: Start Simulator`
+
+For more information and details on how to use the Wokwi extension, see [Getting Started](https://docs.wokwi.com/vscode/getting-started) and [Debugging your code](https://docs.wokwi.com/vscode/debugging
+) Chapter of the Wokwi documentation.
+
 ## Prerequisites
 
 ### Install Rust (with `rustup`)
@@ -125,7 +135,7 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
    ```sh
    rustup toolchain install nightly --component rust-src
    ```
-   
+
 ### Install Python3
 
 You need a Python 3.7 or later installed on your machine. Install it from the package distro of your OS, or download and install it [from the official Python site](https://www.python.org/downloads/).
