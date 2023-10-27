@@ -91,15 +91,12 @@ Hello, world!
 ## Simulate
 
 Wokwi for VS Code allows to simulte our application:
-0. `diagram.json` migth need to be updated with the proper board. See, [available boards](https://docs.wokwi.com/diagram-format#parts).
+0. `diagram.json` might need to be updated with the proper board. See, [available boards](https://docs.wokwi.com/diagram-format#parts).
 1. Press `F1`
 2. Run `Wokwi: Start Simulator`
 
-For more information and details on how to use the Wokwi extension, see [Getting Started] and [Debugging your code] Chapter of the Wokwi documentation.
-
-[Getting Started]: https://docs.wokwi.com/vscode/getting-started
-[Debugging your code]: https://docs.wokwi.com/vscode/debugging
-
+For more information and details on how to use the Wokwi extension, see [Getting Started](https://docs.wokwi.com/vscode/getting-started) and [Debugging your code](https://docs.wokwi.com/vscode/debugging
+) Chapter of the Wokwi documentation.
 
 ## Prerequisites
 
