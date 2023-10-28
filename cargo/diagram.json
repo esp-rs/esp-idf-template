@@ -15,6 +15,7 @@
     ],
     "connections": [
         [
+            "esp:TX",
             "$serialMonitor:RX",
             "",
             []
