@@ -128,7 +128,7 @@ For more information, check out:
 
 ## Prerequisites
 
-Linux/Mac users: Make sure you have the dependencies installed on your system, that are mentiond in the [esp-idf install guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-macos-setup.html#step-1-install-prerequisites). You **dont** need to manually install esp-idf just its dependencies.
+Linux/Mac users: Make sure you have the dependencies installed,that are mentiond in the [esp-idf install guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-macos-setup.html#step-1-install-prerequisites). You **dont** need to manually install esp-idf, just its dependencies.
 
 For detailed instructions see [Setting Up a Development Environment](https://esp-rs.github.io/book/installation/index.html) chapter of The Rust on ESP Book.
 
