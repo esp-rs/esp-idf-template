@@ -45,11 +45,6 @@ RUN ARCH=$($HOME/.cargo/bin/rustup show | grep "Default host" | sed -e 's/.* //'
     rm "${HOME}/.cargo/bin/web-flash.zip" && \
     chmod u+x "${HOME}/.cargo/bin/web-flash"
 
-# Run installation to fix docker "cargo-espflash" 
-# /lib/x86_64-linux-gnu/libc.so.6: version 
-# `GLIBC_2.32' not found error
-RUN cargo install espflash
-
 # Install Xtensa Rust
 RUN if [ -n "${GITHUB_TOKEN}" ]; then export GITHUB_TOKEN=${GITHUB_TOKEN}; fi  \
     && ${HOME}/.cargo/bin/espup install\
