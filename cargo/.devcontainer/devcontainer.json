@@ -10,6 +10,9 @@
       "ESP_BOARD": "{{ mcu }}"
     }
   },
+  "runArgs": [
+    "--userns=keep-id" // needed for podman compatibility
+  ],
   "containerUser": "esp",
   "customizations": {
     "vscode": {
