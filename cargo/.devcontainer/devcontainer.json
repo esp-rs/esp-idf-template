@@ -10,31 +10,36 @@
       "ESP_BOARD": "{{ mcu }}"
     }
   },
-  "settings": {
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "file",
-    "editor.formatOnType": true,
-    "lldb.executable": "/usr/bin/lldb",
-    "files.watcherExclude": {
-      "**/target/**": true
-    },
-    "rust-analyzer.checkOnSave.command": "clippy",
-    "rust-analyzer.checkOnSave.allTargets": false,
-    "[rust]": {
-      "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  "containerUser": "esp",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file",
+        "editor.formatOnType": true,
+        "lldb.executable": "/usr/bin/lldb",
+        "files.watcherExclude": {
+          "**/target/**": true
+        },
+        "rust-analyzer.checkOnSave.command": "clippy",
+        "rust-analyzer.checkOnSave.allTargets": false,
+        "[rust]": {
+          "editor.defaultFormatter": "rust-lang.rust-analyzer"
+        }
+      },
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "serayuzgur.crates",
+        "mutantdino.resourcemonitor",
+        "yzhang.markdown-all-in-one",
+        "ms-vscode.cpptools",
+        "actboy168.tasks",
+        "Wokwi.wokwi-vscode"
+      ]
     }
   },
-  "extensions": [
-    "rust-lang.rust-analyzer",
-    "tamasfe.even-better-toml",
-    "serayuzgur.crates",
-    "mutantdino.resourcemonitor",
-    "yzhang.markdown-all-in-one",
-    "ms-vscode.cpptools",
-    "actboy168.tasks",
-    "Wokwi.wokwi-vscode"
-  ],
   "forwardPorts": [
     3333,
     8000
