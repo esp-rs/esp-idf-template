@@ -1,6 +1,6 @@
 {
   "name": "{{ crate_name }}",
-  // Select between image and build propieties to pull or build the image.
+  // Select between image and build properties to pull or build the image.
   // "image": "docker.io/espressif/idf-rust:{{ mcu }}_latest",
   "build": {
     "dockerfile": "Dockerfile",

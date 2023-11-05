@@ -53,7 +53,9 @@ RUN rustup default nightly
 RUN rustup default esp
 {% endif %}
 
+{% if arch != "riscv" -%}
 # Activate ESP environment
 RUN echo "source /home/${CONTAINER_USER}/export-esp.sh" >> ~/.bashrc
+{% endif %}
 
 CMD [ "/bin/bash" ]
