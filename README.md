@@ -15,7 +15,7 @@ Or if you rather
 * ... want to mix Rust and C/C++ in a traditional ESP-IDF `idf.py` CMake project - [follow these instructions](README-cmake.md)
 * ... want to mix Rust and C/C++ with PlatformIO - [follow these instructions](README-pio.md)
 
-For more check out the links in the additional [information seciton](#additional-information)
+For more check out the links in the additional [information section](#additional-information)
 
 ## Generate the project
 
