@@ -28,22 +28,12 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- \
 # Update envs
 ENV PATH=${PATH}:/home/${CONTAINER_USER}/.cargo/bin
 
-# Install extra crates
-RUN ARCH=$($HOME/.cargo/bin/rustup show | grep "Default host" | sed -e 's/.* //') && \
-    curl -L "https://github.com/esp-rs/espup/releases/latest/download/espup-${ARCH}" -o "${HOME}/.cargo/bin/espup" && \
-    chmod u+x "${HOME}/.cargo/bin/espup" && \
-    curl -L "https://github.com/esp-rs/espflash/releases/latest/download/cargo-espflash-${ARCH}.zip" -o "${HOME}/.cargo/bin/cargo-espflash.zip" && \
-    unzip "${HOME}/.cargo/bin/cargo-espflash.zip" -d "${HOME}/.cargo/bin/" && \
-    rm "${HOME}/.cargo/bin/cargo-espflash.zip" && \
-    chmod u+x "${HOME}/.cargo/bin/cargo-espflash" && \
-    curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-${ARCH}.zip" -o "${HOME}/.cargo/bin/ldproxy.zip" && \
-    unzip "${HOME}/.cargo/bin/ldproxy.zip" -d "${HOME}/.cargo/bin/" && \
-    rm "${HOME}/.cargo/bin/ldproxy.zip" && \
-    chmod u+x "${HOME}/.cargo/bin/ldproxy" && \
-    curl -L "https://github.com/bjoernQ/esp-web-flash-server/releases/latest/download/web-flash-${ARCH}.zip" -o "${HOME}/.cargo/bin/web-flash.zip" && \
-    unzip "${HOME}/.cargo/bin/web-flash.zip" -d "${HOME}/.cargo/bin/" && \
-    rm "${HOME}/.cargo/bin/web-flash.zip" && \
-    chmod u+x "${HOME}/.cargo/bin/web-flash"
+# Compile binaries to avoid GLIBC missmatch error
+RUN rustup default stable \
+    && cargo install espup --version 0.10.0 \
+    && cargo install ldproxy --version 0.3.3 \
+    && cargo install espflash --version 2.1.0 \
+    && cargo install --git https://github.com/esp-rs/esp-web-flash-server --tag v0.2.1
 
 # Install Xtensa Rust
 RUN if [ -n "${GITHUB_TOKEN}" ]; then export GITHUB_TOKEN=${GITHUB_TOKEN}; fi  \
