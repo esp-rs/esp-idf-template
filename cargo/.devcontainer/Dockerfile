@@ -12,9 +12,13 @@ ARG GITHUB_TOKEN
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get install -y git curl gcc clang ninja-build libudev-dev unzip xz-utils\
-    python3 python3-pip python3-venv libusb-1.0-0 libssl-dev pkg-config libpython2.7 \
+    && apt-get install -y git curl gcc clang ninja-build libudev-dev unzip xz-utils \
+    python3 python3-pip python3-venv libusb-1.0-0 libssl-dev pkg-config libpython2.7 sudo \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
+
+# Add $CONTAINER_USER to sudo users
+RUN echo $CONTAINER_USER ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$CONTAINER_USER \
+    && chmod 0440 /etc/sudoers.d/$CONTAINER_USER
 
 # Set users
 RUN adduser --disabled-password --gecos "" ${CONTAINER_USER}
