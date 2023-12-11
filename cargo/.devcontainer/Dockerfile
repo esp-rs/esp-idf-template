@@ -1,4 +1,4 @@
-ARG VARIANT=bullseye
+ARG VARIANT=bookworm-slim
 FROM debian:${VARIANT}
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LC_ALL=C.UTF-8
@@ -12,8 +12,8 @@ ARG GITHUB_TOKEN
 
 # Install dependencies
 RUN apt-get update \
-    && apt-get install -y git curl gcc clang ninja-build libudev-dev unzip xz-utils\
-    python3 python3-pip python3-venv libusb-1.0-0 libssl-dev pkg-config libpython2.7 \
+    && apt-get install -y pkg-config curl gcc clang libudev-dev unzip xz-utils \
+    git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0 \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 
 # Set users
@@ -36,11 +36,15 @@ RUN ARCH=$($HOME/.cargo/bin/rustup show | grep "Default host" | sed -e 's/.* //'
     unzip "${HOME}/.cargo/bin/cargo-espflash.zip" -d "${HOME}/.cargo/bin/" && \
     rm "${HOME}/.cargo/bin/cargo-espflash.zip" && \
     chmod u+x "${HOME}/.cargo/bin/cargo-espflash" && \
+    curl -L "https://github.com/esp-rs/espflash/releases/latest/download/espflash-${ARCH}.zip" -o "${HOME}/.cargo/bin/espflash.zip" && \
+    unzip "${HOME}/.cargo/bin/espflash.zip" -d "${HOME}/.cargo/bin/" && \
+    rm "${HOME}/.cargo/bin/espflash.zip" && \
+    chmod u+x "${HOME}/.cargo/bin/espflash" && \
     curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-${ARCH}.zip" -o "${HOME}/.cargo/bin/ldproxy.zip" && \
     unzip "${HOME}/.cargo/bin/ldproxy.zip" -d "${HOME}/.cargo/bin/" && \
     rm "${HOME}/.cargo/bin/ldproxy.zip" && \
     chmod u+x "${HOME}/.cargo/bin/ldproxy" && \
-    curl -L "https://github.com/bjoernQ/esp-web-flash-server/releases/latest/download/web-flash-${ARCH}.zip" -o "${HOME}/.cargo/bin/web-flash.zip" && \
+    curl -L "https://github.com/esp-rs/esp-web-flash-server/releases/latest/download/web-flash-${ARCH}.zip" -o "${HOME}/.cargo/bin/web-flash.zip" && \
     unzip "${HOME}/.cargo/bin/web-flash.zip" -d "${HOME}/.cargo/bin/" && \
     rm "${HOME}/.cargo/bin/web-flash.zip" && \
     chmod u+x "${HOME}/.cargo/bin/web-flash"
