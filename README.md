@@ -188,6 +188,9 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
 ### Install Python3
 
 You need a Python 3.7 or later installed on your machine.
-* Linux, Mac OS X: if not preinstalled already, just install it with your package manager
+* Linux, Mac OS X: if not preinstalled already, just install it with your package manager, i.e. for Debian systems: `sudo apt install python3`
 * Windows: install it e.g. [from the official Python site](https://www.python.org/downloads/).
+
+You'll also need the Python PIP and Python VENV modules. On Debian systems, you can install with:
+* `sudo apt install python3-pip python3-venv`
 
