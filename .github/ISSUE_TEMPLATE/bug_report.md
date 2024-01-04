@@ -13,8 +13,8 @@ there might be an issue with your environment, please check that the prerequiste
 (https://github.com/esp-rs/esp-idf-template#prerequisites) are properly installed
 and that environment variables (LIBCLANG_PATH, PATH...) are properly updated.
 
-Have a look at our troubleshooting section
-(https://esp-rs.github.io/book/installation/troubleshooting.html)
+Have a look at our std troubleshooting section
+(https://esp-rs.github.io/book/troubleshooting/std.html)
 
 If you are still encountering the issue, feel free to ask for help in our
 matrix channel (https://matrix.to/#/#esp-rs:matrix.org) or open the issue-->
