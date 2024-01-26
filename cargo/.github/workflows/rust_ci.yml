@@ -39,7 +39,7 @@ jobs:
           toolchain: nightly
           components: rust-src
       {%- else %}
-        uses: esp-rs/xtensa-toolchain@v1.5
+        uses: esp-rs/xtensa-toolchain@v1.5.1
         with:
           default: true
           buildtargets: {{ mcu }}
