@@ -5,10 +5,8 @@ target = "{{ rust_target }}"
 linker = "ldproxy"
 # runner = "espflash --monitor" # Select this runner for espflash v1.x.x
 runner = "espflash flash --monitor" # Select this runner for espflash v2.x.x
-{% if espidfver != "v4.4" and arch == "xtensa" -%}
+{% if espidfver != "v4.4" -%}
 rustflags = [ "--cfg",  "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
-{%- elsif espidfver != "v4.4" and arch == "riscv" -%}
-rustflags = ["--cfg", "espidf_time64", "-C", "default-linker-libraries"]
 {%- elsif espidfver == "v4.4" and arch == "riscv" -%}
 rustflags = ["-C", "default-linker-libraries"]
 {%- endif %}
@@ -26,7 +24,7 @@ MCU="{{ mcu }}"
 {%- if espidfver == "v4.4" %}
 ESP_IDF_VERSION = "v4.4.6"
 {% elsif espidfver == "v5.1" %}
-ESP_IDF_VERSION = "v5.1.1"
+ESP_IDF_VERSION = "v5.1.2"
 {% elsif espidfver == "master" %}
 ESP_IDF_VERSION = "master"
 {% endif %}
