@@ -54,12 +54,22 @@ cargo build
 In the root of the generated project:
 
 ```sh
-espflash /dev/ttyUSB0 target/[xtensa-esp32-espidf|xtensa-esp32s2-espidf|xtensa-esp32s3-espidf|riscv32imc-esp-espidf]/debug/<your-project-name>
+espflash flash target/<mcu-target>/debug/<your-project-name>
 ```
 
-- Replace `dev/ttyUSB0` above with the USB port where you've connected the board. If you do not
-specify any USB port, `espflash` will print a list of the recognized USB ports for you to select
-the desired port.
+| MCU | Target |
+| --- | ------ |
+| ESP32 | `xtensa-esp32-espidf` |
+| ESP32-S2 | `xtensa-esp32s2-espidf` |
+| ESP32-S3 | `xtensa-esp32s3-espidf` |
+| ESP32-C2 | `riscv32imc-esp-espidf` |
+| ESP32-C3 | `riscv32imc-esp-espidf` |
+| ESP32-C6 | `riscv32imac-esp-espidf` |
+| ESP32-H2 | `riscv32imac-esp-espidf` |
+| ESP32-P4 | `riscv32imafc-esp-espidf` |
+
+- `espflash` will print a list of the recognized USB ports for you to select
+the desired port, if it detectes multiple boards.
 - Replace `<your-project-name>` with the name of the generated project
 - You can include the `--monitor` argument to the `espflash` command to open a serial monitor after flashing the device.
 - For more details on [`espflash` usage see the README](https://github.com/esp-rs/espflash/tree/main/espflash#usage)
