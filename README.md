@@ -57,15 +57,15 @@ In the root of the generated project:
 espflash flash target/<mcu-target>/debug/<your-project-name>
 ```
 
-| MCU | Target |
-| --- | ------ |
-| ESP32 | `xtensa-esp32-espidf` |
-| ESP32-S2 | `xtensa-esp32s2-espidf` |
-| ESP32-S3 | `xtensa-esp32s3-espidf` |
-| ESP32-C2 | `riscv32imc-esp-espidf` |
-| ESP32-C3 | `riscv32imc-esp-espidf` |
-| ESP32-C6 | `riscv32imac-esp-espidf` |
-| ESP32-H2 | `riscv32imac-esp-espidf` |
+| MCU      | Target                    |
+| -------- | ------------------------- |
+| ESP32    | `xtensa-esp32-espidf`     |
+| ESP32-S2 | `xtensa-esp32s2-espidf`   |
+| ESP32-S3 | `xtensa-esp32s3-espidf`   |
+| ESP32-C2 | `riscv32imc-esp-espidf`   |
+| ESP32-C3 | `riscv32imc-esp-espidf`   |
+| ESP32-C6 | `riscv32imac-esp-espidf`  |
+| ESP32-H2 | `riscv32imac-esp-espidf`  |
 | ESP32-P4 | `riscv32imafc-esp-espidf` |
 
 - `espflash` will print a list of the recognized USB ports for you to select
@@ -155,14 +155,13 @@ cargo install espup
 cargo install espflash
 cargo install cargo-espflash # Optional
 ```
-> **Note**
->
+> [!NOTE]
 > If you are running macOS or Linux then `libuv` must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
 > ```
 > # macOS
 > brew install libuv
 > # Debian/Ubuntu/etc.
-> apt-get install libuv-dev
+> apt-get install libudev-dev
 > # Fedora
 > dnf install systemd-devel
 > ```
@@ -175,11 +174,8 @@ cargo install cargo-espflash # Optional
 espup install
 # Unix
 . $HOME/export-esp.sh
-# Windows
-%USERPROFILE%\export-esp.ps1
 ```
-> **Warning**
->
+> [!WARNING]
 > Make sure you source the generated export file, as shown above, in every terminal before building any application as it contains the required environment variables.
 
 See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/book/installation/index.html) for more details.
