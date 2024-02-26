@@ -30,8 +30,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Enable caching
-        uses: Swatinem/rust-cache@v2
       - name: Setup Rust
       {%- if arch == "riscv" %}
         uses: dtolnay/rust-toolchain@v1
@@ -45,6 +43,8 @@ jobs:
           buildtargets: {{ mcu }}
           ldproxy: true
       {%- endif %}
+      - name: Enable caching
+        uses: Swatinem/rust-cache@v2
       - name: Run command
         {%- raw %}
         run: cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
