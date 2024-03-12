@@ -155,16 +155,17 @@ cargo install espup
 cargo install espflash
 cargo install cargo-espflash # Optional
 ```
+
 > [!NOTE]
-> If you are running macOS or Linux then `libuv` must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
+> If you are running Linux then `libudev` must also be installed for `espflash` and `cargo-espflash`; this is available via most popular package managers. If you are running Windows you can ignore this step.
+
 > ```
-> # macOS
-> brew install libuv
 > # Debian/Ubuntu/etc.
 > apt-get install libudev-dev
 > # Fedora
 > dnf install systemd-devel
 > ```
+
 > Also, the `espflash` and `cargo-espflash` commands shown below, assume that version `2.0` or
 > greater.
 
