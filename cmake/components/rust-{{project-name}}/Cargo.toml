@@ -36,5 +36,5 @@ log = { version = "0.4", default-features = false }
 esp-idf-svc = { version = "0.48", default-features = false }
 
 [build-dependencies]
-embuild = "0.31.3"
+embuild = "0.31.4"
 {%- endif %}
