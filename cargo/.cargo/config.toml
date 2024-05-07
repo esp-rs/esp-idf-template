@@ -28,3 +28,7 @@ ESP_IDF_VERSION = "v5.1.3"
 {% elsif espidfver == "master" %}
 ESP_IDF_VERSION = "master"
 {% endif %}
+# Workaround for https://github.com/esp-rs/esp-idf-template/issues/174 until
+# https://github.com/esp-rs/esp-idf-hal/pull/387 gets released and the template
+# updated.
+CRATE_CC_NO_DEFAULTS = "1"
