@@ -24,14 +24,14 @@ default = true
 [conditional.'advanced && (mcu == "esp32c6" || mcu == "esp32h2" || mcu == "esp32c2")'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
-choices = ["v5.1" ,"v5.2", "master"]
-default = "v5.1"
+choices = ["v5.2", "master"]
+default = "v5.2"
 
 [conditional.'advanced && (mcu == "esp32" || mcu == "esp32c3" || mcu == "esp32s2" || mcu == "esp32s3")'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
-choices = ["v4.4", "v5.1", "v5.2", "master"]
-default = "v5.1"
+choices = ["v4.4", "v5.2", "master"]
+default = "v5.2"
 
 [conditional.'advanced'.placeholders.devcontainer]
 type = "bool"

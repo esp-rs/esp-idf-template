@@ -49,7 +49,7 @@ jobs:
           - hal: false
             std: false
         esp-idf:
-          - version: v5.1
+          - version: v5.2
           # - version: master
           #   name: master
     steps:

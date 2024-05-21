@@ -31,7 +31,7 @@ jobs:
           - std: true
           - std: false
         esp-idf:
-          - version: v5.1
+          - version: v5.2
           - version: v4.4
           # - version: master
     steps:
@@ -109,7 +109,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=v5.1 -d std=true -d devcontainer=true -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=v5.2 -d std=true -d devcontainer=true -d wokwi=false -d ci=false
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.target }}
