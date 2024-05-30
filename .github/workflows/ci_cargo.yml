@@ -32,7 +32,8 @@ jobs:
           - std: false
         esp-idf:
           - version: v5.2
-          - version: v4.4
+          - version: v5.1 # only for compairson why no_std build fails on v5.2
+          # - version: v4.4
           # - version: master
     steps:
       - name: Setup | Rust (RISC-V)
