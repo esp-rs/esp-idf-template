@@ -23,6 +23,8 @@ MCU="{{ mcu }}"
 # Note: this variable is not used by the pio builder (`cargo build --features pio`)
 {%- if espidfver == "v4.4" %}
 ESP_IDF_VERSION = "v4.4.7"
+{% elsif espidfver == "v5.1" %}
+ESP_IDF_VERSION = "v5.1.3"
 {% elsif espidfver == "v5.2" %}
 ESP_IDF_VERSION = "v5.2.1"
 {% elsif espidfver == "master" %}
