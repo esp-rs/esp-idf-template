@@ -33,15 +33,11 @@ log = { version = "0.4", default-features = false }
 esp-idf-svc = { version = "0.48.1", default-features = false }
 
 [build-dependencies]
-# TODO: embuild = "0.32.0"
-embuild = "0.31.4"
+embuild = "0.32.0"
 
 
 # TODO: Remove before MERGE
 # Used for testing CI prerelease
 [patch.crates-io]
-embuild ={ git = "https://github.com/esp-rs/embuild"}
 esp-idf-svc ={ git = "https://github.com/esp-rs/esp-idf-svc"}
-esp-idf-hal ={ git = "https://github.com/esp-rs/esp-idf-hal"}
-esp-idf-sys ={ git = "https://github.com/esp-rs/esp-idf-sys"}
-embedded-svc ={ git = "https://github.com/esp-rs/embedded-svc"}
+embedded-svc ={ git = "https://github.com/esp-rs/embedded-svc", rev = "7cf5654d685830879656d5c7f987de659ba3e587"}
