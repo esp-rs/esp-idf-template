@@ -10,6 +10,10 @@ rust-version = "1.77"
 #name = "{{project-name}}"
 #harness = false # do not use the built in cargo test harness -> resolve rust-analyzer errors
 
+[[bin]]
+name = "{{project-name}}"
+harness = false # do not use the built in cargo test harness -> resolve rust-analyzer errors
+
 [profile.release]
 opt-level = "s"
 

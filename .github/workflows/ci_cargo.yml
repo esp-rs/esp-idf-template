@@ -113,7 +113,7 @@ jobs:
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.target }}
-      - uses: docker/build-push-action@v5
+      - uses: docker/build-push-action@v6
         with:
           context: .
           tags: test-${{ matrix.target }}:latest
