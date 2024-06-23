@@ -4,10 +4,11 @@ version = "0.1.0"
 authors = ["{{authors}}"]
 edition = "2021"
 resolver = "2"
-rust-version = "1.71"
+rust-version = "1.77"
 
 [lib]
 crate-type = ["staticlib"]
+harness = false # do not use the built in cargo test harness -> resolve rust-analyzer errors
 
 [profile.release]
 opt-level = "s"
@@ -33,8 +34,8 @@ embassy = ["esp-idf-svc/embassy-sync", "esp-idf-svc/critical-section", "esp-idf-
 
 [dependencies]
 log = { version = "0.4", default-features = false }
-esp-idf-svc = { version = "0.48", default-features = false }
+esp-idf-svc = { version = "0.49", default-features = false }
 
 [build-dependencies]
-embuild = "0.31.3"
+embuild = "0.32.0"
 {%- endif %}

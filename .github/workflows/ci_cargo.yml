@@ -31,8 +31,8 @@ jobs:
           - std: true
           - std: false
         esp-idf:
-          - version: v5.1
-          - version: v4.4
+          - version: v5.2
+          - version: v5.1 # only for compairson why no_std build fails on v5.2
           # - version: master
     steps:
       - name: Setup | Rust (RISC-V)
@@ -72,18 +72,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
-      - name: Generate
-        if: matrix.esp-idf.version != 'v4.4' || matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3' || matrix.target == 'esp32c3'
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.version }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
+      - name: Generate v5.2
+        if: matrix.esp-idf.version == 'v5.2' || matrix.esp-idf.version == 'v5.1'
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name ${{ matrix.target }}-${{ matrix.std-config.std }}  --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.version }} -d std=${{ matrix.std-config.std }} -d devcontainer=false -d wokwi=false -d ci=false
       - name: Build | Fmt Check
-        if: matrix.esp-idf.version == 'v4.4' && matrix.target == 'esp32c3'
-        run: cd test; cargo fmt -- --check
+        if: matrix.esp-idf.version == 'v5.2' && matrix.target == 'esp32c3'
+        run: cd ${{ matrix.target }}-${{ matrix.std-config.std }}; cargo fmt -- --check
       - name: Build | Clippy
-        if: matrix.esp-idf.version != 'v4.4' || matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3' || matrix.target == 'esp32c3'
-        run: cd test; cargo clippy --no-deps -- -Dwarnings
+        if: matrix.esp-idf.version == 'v5.2' || matrix.esp-idf.version == 'v5.1'
+        run: cd ${{ matrix.target }}-${{ matrix.std-config.std }}; cargo clippy --no-deps -- -Dwarnings
       - name: Build | Compile
-        if: matrix.esp-idf.version != 'v4.4' || matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3' || matrix.target == 'esp32c3'
-        run: cd test; cargo build
+        if: matrix.esp-idf.version == 'v5.2' || matrix.esp-idf.version == 'v5.1'
+        run: cd ${{ matrix.target }}-${{ matrix.std-config.std }}; cargo build
   container-checks:
     name: "Container Check: ${{ matrix.target }}"
     runs-on: ubuntu-latest
@@ -109,7 +109,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=v5.1 -d std=true -d devcontainer=true -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=v5.2 -d std=true -d devcontainer=true -d wokwi=false -d ci=false
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.target }}
