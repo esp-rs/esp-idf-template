@@ -4,11 +4,7 @@ target = "{{ rust_target }}"
 [target.{{ rust_target }}]
 linker = "ldproxy"
 runner = "espflash flash --monitor" # Select this runner for espflash v3.x.x
-{% if espidfver != "v4.4" -%}
 rustflags = [ "--cfg",  "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
-{%- elsif espidfver == "v4.4" and arch == "riscv" -%}
-rustflags = ["-C", "default-linker-libraries"]
-{%- endif %}
 
 [unstable]
 {% if std -%}
@@ -20,9 +16,7 @@ build-std = ["core", "alloc", "panic_abort"]
 [env]
 MCU="{{ mcu }}"
 # Note: this variable is not used by the pio builder (`cargo build --features pio`)
-{%- if espidfver == "v4.4" %}
-ESP_IDF_VERSION = "v4.4.7"
-{% elsif espidfver == "v5.1" %}
+{%- if espidfver == "v5.1" %}
 ESP_IDF_VERSION = "v5.1.4"
 {% elsif espidfver == "v5.2" %}
 ESP_IDF_VERSION = "v5.2.2"
