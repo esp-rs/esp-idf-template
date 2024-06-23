@@ -33,14 +33,8 @@ embassy = ["esp-idf-svc/embassy-sync", "esp-idf-svc/critical-section", "esp-idf-
 
 [dependencies]
 log = { version = "0.4", default-features = false }
-esp-idf-svc = { version = "0.48", default-features = false }
+esp-idf-svc = { version = "0.49", default-features = false }
 
 [build-dependencies]
 embuild = "0.32.0"
 {%- endif %}
-
-# TODO: Remove before MERGE
-# Used for testing CI prerelease
-[patch.crates-io]
-esp-idf-svc ={ git = "https://github.com/esp-rs/esp-idf-svc"}
-embedded-svc ={ git = "https://github.com/esp-rs/embedded-svc", rev = "7cf5654d685830879656d5c7f987de659ba3e587"}
