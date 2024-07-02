@@ -42,6 +42,17 @@ type = "bool"
 prompt = "Add CI files for GitHub Action?"
 default = false
 
+[conditional.'advanced'.placeholders.installdir]
+type = "string"
+prompt = "Set installation dir of managed ESP-IDF version"
+choices = ["workspace - per project (inside .embuild)", "global - per user (inside $HOME/.espressif)"]
+default = "workspace - per project (inside .embuild)"
+
+[conditional.'advanced'.placeholders.git]
+type = "bool"
+prompt = "Use latest git versions of esp-idf-* crates, instead of released crates.io versions"
+default = false
+
 [conditional.'!devcontainer']
 ignore = [
     ".devcontainer/",
