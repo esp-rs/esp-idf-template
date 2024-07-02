@@ -37,3 +37,11 @@ esp-idf-svc = { version = "0.49", default-features = false }
 
 [build-dependencies]
 embuild = "0.32.0"
+
+{%- if git %}
+
+[patch.crates-io]
+esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys"}
+esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal"}
+esp-idf-svc = { git = "https://github.com/esp-rs/esp-idf-svc"}
+{%- endif %}

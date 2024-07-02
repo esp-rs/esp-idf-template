@@ -25,3 +25,12 @@ ESP_IDF_VERSION = "master"
 {% endif %}
 # Workaround for https://github.com/esp-rs/esp-idf-template/issues/174 
 CRATE_CC_NO_DEFAULTS = "1"
+
+# Set the install location for the ESP-IDF framework tooling.
+{%- if installdir == "workspace - per project (inside .embuild)" %}
+ESP_IDF_TOOLS_INSTALL_DIR = "workspace"
+{% elsif installdir == "global - per user (inside $HOME/.espressif)" %}
+ESP_IDF_TOOLS_INSTALL_DIR = "global"
+{% endif %}
+
+# For more ESP-IDF specific build options check out https://github.com/esp-rs/esp-idf-sys/blob/master/BUILD-OPTIONS.md
