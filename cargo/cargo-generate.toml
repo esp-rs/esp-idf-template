@@ -8,7 +8,7 @@ pre = ["pre-script.rhai"]
 [placeholders.mcu]
 type = "string"
 prompt = "Which MCU to target?"
-choices = ["esp32", "esp32c2", "esp32c3", "esp32c6", "esp32h2", "esp32s2", "esp32s3"]
+choices = ["esp32", "esp32c2", "esp32c3", "esp32c6", "esp32h2","esp32p4", "esp32s2", "esp32s3"]
 default = "esp32"
 
 [placeholders.advanced]
@@ -21,11 +21,17 @@ type = "bool"
 prompt = "Enable STD support?"
 default = true
 
-[conditional.'advanced'.placeholders.espidfver]
+[conditional.'advanced && (mcu == "esp32p4")'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
-choices = ["v5.1", "v5.2", "master"]
-default = "v5.2"
+choices = ["v5.3", "master"]
+default = "v5.3"
+
+[conditional.'advanced && (mcu != "esp32p4")'.placeholders.espidfver]
+type = "string"
+prompt = "ESP-IDF version (master = UNSTABLE)"
+choices = ["v5.2", "v5.3", "master"]
+default = "v5.3"
 
 [conditional.'advanced'.placeholders.devcontainer]
 type = "bool"

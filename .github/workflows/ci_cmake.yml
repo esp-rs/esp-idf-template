@@ -41,6 +41,8 @@ jobs:
             toolchain: "nightly"
           - mcu: "esp32h2"
             toolchain: "nightly"
+          - mcu: "esp32p4"
+            toolchain: "nightly"
         std-config:
           - hal: true
             std: true
@@ -49,7 +51,7 @@ jobs:
           - hal: false
             std: false
         esp-idf:
-          - version: v5.2
+          - version: v5.3
           # - version: master
           #   name: master
     steps:

@@ -29,6 +29,12 @@ let targets = #{
         gcc_target: "riscv32-esp-elf",
         wokwi_board: "board-esp32-h2-devkitm-1",
     },
+    esp32p4: #{
+        arch: "riscv",
+        rust_target: "riscv32imafc-esp-espidf",
+        gcc_target: "riscv32-esp-elf",
+        wokwi_board: "board-esp32-h2-devkitm-1",
+    },
     esp32s2: #{
         arch: "xtensa",
         rust_target: "xtensa-esp32s2-espidf",
@@ -52,7 +58,7 @@ for key in target_properties.keys() {
 let advanced = variable::get("advanced");
 if !advanced {
     variable::set("std", true);
-    variable::set("espidfver", "v5.2");
+    variable::set("espidfver", "v5.3");
     variable::set("devcontainer", false);
     variable::set("wokwi", false);
 }
