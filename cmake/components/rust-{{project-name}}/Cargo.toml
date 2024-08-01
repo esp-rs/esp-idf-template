@@ -55,7 +55,6 @@ esp-idf-svc = { version = "0.49", default-features = false }
 embuild = "0.32.0"
 
 [patch.crates-io]
-[patch.crates-io]
-esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys" }
-esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal" }
-esp-idf-svc = { git = "https://github.com/esp-rs/esp-idf-svc" }
+esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys", branch = "p4-support" }
+esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal", branch = "p4-support" }
+esp-idf-svc = { git = "https://github.com/esp-rs/esp-idf-svc", branch = "p4-support" }
