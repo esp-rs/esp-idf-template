@@ -19,12 +19,8 @@ opt-level = "z"
 
 [features]
 {%- if std %}
-
-{%- else %}
-
-{%- endif %}
-
 default = ["std", "embassy", "esp-idf-svc/native"]
+{%- else %}
 default = [
     "alloc",
     "embassy",
@@ -33,6 +29,8 @@ default = [
     "esp-idf-svc/alloc_handler",
     "esp-idf-svc/libstart",
 ]
+{%- endif %}
+
 pio = ["esp-idf-svc/pio"]
 std = ["alloc", "esp-idf-svc/binstart", "esp-idf-svc/std"]
 alloc = ["esp-idf-svc/alloc"]

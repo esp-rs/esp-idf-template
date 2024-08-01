@@ -8,25 +8,20 @@ rust-version = "1.77"
 
 [lib]
 crate-type = ["staticlib"]
-harness = false            # do not use the built in cargo test harness -> resolve rust-analyzer errors
+harness = false  # do not use the built in cargo test harness -> resolve rust-analyzer errors
 
 [profile.release]
 opt-level = "s"
 
 [profile.dev]
-
-
-{%- if hal %}
 debug = true    # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
+
+{%- if hal %}
 [features]
 {%- if std %}
-
-{%- else %}
-
-{%- endif %}
-
 default = ["std", "embassy", "esp-idf-svc/native"]
+{%- else %}
 default = [
     "alloc",
     "embassy",
@@ -34,6 +29,10 @@ default = [
     "esp-idf-svc/panic_handler",
     "esp-idf-svc/alloc_handler",
 ]
+{%- endif %}
+
+
+
 pio = ["esp-idf-svc/pio"]
 std = ["alloc", "esp-idf-svc/std"]
 alloc = ["esp-idf-svc/alloc"]
@@ -50,11 +49,10 @@ log = { version = "0.4", default-features = false }
 esp-idf-svc = { version = "0.49", default-features = false }
 
 [build-dependencies]
-
-{%- endif %}
 embuild = "0.32.0"
 
 [patch.crates-io]
 esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys", branch = "p4-support" }
 esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal", branch = "p4-support" }
 esp-idf-svc = { git = "https://github.com/esp-rs/esp-idf-svc", branch = "p4-support" }
+{%- endif %}
