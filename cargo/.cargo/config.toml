@@ -16,12 +16,12 @@ build-std = ["core", "alloc", "panic_abort"]
 [env]
 MCU="{{ mcu }}"
 # Note: this variable is not used by the pio builder (`cargo build --features pio`)
-{%- if espidfver == "v5.1" %}
-ESP_IDF_VERSION = "v5.1.4"
-{% elsif espidfver == "v5.2" %}
+{%- if espidfver == "v5.2" %}
 ESP_IDF_VERSION = "v5.2.2"
+{% elsif espidfver == "v5.3" %}
+ESP_IDF_VERSION = "v5.3"
 {% elsif espidfver == "master" %}
 ESP_IDF_VERSION = "master"
 {% endif %}
-# Workaround for https://github.com/esp-rs/esp-idf-template/issues/174 
+# Workaround for https://github.com/esp-rs/esp-idf-template/issues/174
 CRATE_CC_NO_DEFAULTS = "1"

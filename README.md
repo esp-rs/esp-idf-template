@@ -31,8 +31,8 @@ The command will display a few prompts:
 - `Configure advanced template options?`: If `false`, skips the rest of the prompts and uses their default value. If `true`, you will be prompted with:
   - `Enable STD support?`: When `true` (default), adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, a `no_std` [Rust Core Library](https://doc.rust-lang.org/core/index.html) crate would be created.
   - `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
-    - [`v4.4`](https://github.com/espressif/esp-idf/releases/tag/v4.4.5): Stable
-    - [`v5.1`](https://github.com/espressif/esp-idf/releases/tag/v5.1): Stable
+    - [`v5.2`](https://github.com/espressif/esp-idf/releases/tag/v5.2.2): Stable
+    - [`v5.3`](https://github.com/espressif/esp-idf/releases/tag/v5.3): Stable
     - [`master`](https://github.com/espressif/esp-idf/tree/master): **Unstable**
    - `Configure project to support Wokwi simulation with Wokwi VS Code extension?`: Adds support for Wokwi simulation using [VS Code Wokwi extension](https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode).
   - `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
@@ -200,4 +200,3 @@ You need a Python 3.7 or later installed on your machine.
 
 You'll also need the Python PIP and Python VENV modules. On Debian systems, you can install with:
 * `sudo apt install python3-pip python3-venv`
-
