@@ -84,22 +84,26 @@ This method avoids [path length issues]([Error: Too long output directory · Iss
    ```
 
 4. Connect ESP32 Device
+   - [Link to windows doc](https://learn.microsoft.com/en-us/windows/wsl/connect-usb)
    - Plug in your ESP32 device
    - In PowerShell (as Administrator), run:
      ```powershell
-     usbipd wsl list
+     usbipd list
+     usbipd bind --busid <busid>
      ```
    - Note the bus ID of your ESP32 device, then attach it to WSL2:
      ```powershell
-     usbipd wsl attach --busid <busid>
+     usbipd attach --wsl --busid <busid>
      ```
 
-5. Flash the device:
+(cargo run OR > )
+6. Flash the device:
    ```bash
+   lsusb (check if device has attached)
    espflash flash target/xtensa-esp32-espidf/debug/<your-project-name>
    ```
 
-6. Monitor the device:
+7. Monitor the device:
    ```bash
    espflash monitor
    ```
