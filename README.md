@@ -14,6 +14,7 @@ This is the crate you get when running `cargo new`, but augmented with extra con
 Or if you rather
 * ... want to mix Rust and C/C++ in a traditional ESP-IDF `idf.py` CMake project - [follow these instructions](README-cmake.md)
 * ... want to mix Rust and C/C++ with PlatformIO - [follow these instructions](README-pio.md)
+* ... want to develop on Windows / WSL2 - [follow these instructions](#using-wsl2-on-windows)
 
 For more check out the links in the additional [information section](#additional-information)
 
@@ -201,3 +202,57 @@ You need a Python 3.7 or later installed on your machine.
 You'll also need the Python PIP and Python VENV modules. On Debian systems, you can install with:
 * `sudo apt install python3-pip python3-venv`
 
+## Using WSL2 on Windows
+
+Using WSL2 does not exhibit [path length issues](https://github.com/esp-rs/esp-idf-sys/issues/252); furthermore, using WSL2 reduces the waiting time between command line cargo invocations and Rust Analyzer operating on the same projects.
+
+### Setup
+
+1. Follow the [WSL2 setup guide](https://learn.microsoft.com/en-us/windows/wsl/install) and the [WSL2 development environment setup guide](https://learn.microsoft.com/en-gb/windows/wsl/setup/environment#file-storage).
+2. Install a Linux distro as per the guide or the Ubuntu App; set up and update the packages.
+3. Follow the [Prerequisites](#prerequisites) section for toolchain setup.
+4. Configure USB access in WSL2:
+    - Install [usbipd-win](https://github.com/dorssel/usbipd-win) on Windows.
+    - (Optional) In your WSL2 terminal, run:
+      ```bash
+      sudo apt install linux-tools-generic hwdata
+      sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*-generic/usbip 20
+      ```
+
+### Flashing an ESP32 Target from WSL2
+
+1. Launch WSL2 from PowerShell and run your Linux distro or launch the Ubuntu app as installed from the Microsoft Store.
+2. Create a new project folder in your `$HOME` directory.
+3. [Generate a new project](#generate-the-project) using Cargo Generate.
+4. Build the project by running `cargo build` or `cargo b`.
+5. Open a PowerShell terminal as an administrator and run the [usbipd commands](https://learn.microsoft.com/en-us/windows/wsl/connect-usb) to share the USB device with the Linux distro.
+6. Open the Linux terminal and check attached USB devices using `lsusb`.
+7. Check the attached target with `espflash board-info`.
+8. Flash the device:
+    ```bash
+    espflash flash target/xtensa-esp32-espidf/debug/<your-project-name>
+    ```
+    OR
+    ```bash
+    espflash board-info
+    cargo run
+    ```
+9. Monitor the device:
+    ```bash
+    espflash monitor
+    ```
+
+### Notes
+
+- Once a USB device is bound, it won't lose status until a disconnect command is run from Windows PowerShell:
+  ```powershell
+  usbipd detach --busid <busid>
+  ```
+  This remains effective even after a system restart.
+- The device will get detached from WSL2 after a few minutes of being idle, system resets, or exiting WSL2. You'll need to run:
+  ```powershell
+  usbipd attach --wsl --busid <busid>
+  ```
+  in such cases.
+- It is recommended to create the project in the WSL2-hosted environment only. Accessing projects from `C:\Users\<UserName>\Project` or `/mnt/c/Users/<UserName>/Project` can lead to performance issues.
+- Accessing projects from `C:\Users\<UserName>\Project` or `/mnt/c/Users/<UserName>/Project` may also cause ESP-IDF builds to fail with OS Error 2.
