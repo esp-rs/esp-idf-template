@@ -204,10 +204,12 @@ You'll also need the Python PIP and Python VENV modules. On Debian systems, you 
 
 ### Optionally Install GDB
 
-You'll only need the GDB utility for on-chip debugging, [or for decoding batraces in panics for RISCV Espressif SOCS](#install-esp-idf-monitor).
-* Manually download the GDB package matching your Espressif SOC from [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-tools.html#list-of-esp-idf-tools)
+You'll only need the GDB utility for on-chip debugging or [for decoding batraces in panics for RISCV Espressif SOCS](#install-esp-idf-monitor).
+
+To install it:
+* Manually download the GDB package matching your OS and Espressif SOC from [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-tools.html#list-of-esp-idf-tools)
 * Unpack (with `tar xvfz`) into a directory of your choice
-* Add the GDB debugger to your `PATH`, so that e.g. invoking `riscv32-esp-elf-gdb` (or `xtensa-esp-elf-gdb`) without any path prefixes is possible
+* Add the unpacked GDB debugger to your `PATH`, so that e.g. invoking `riscv32-esp-elf-gdb` (or `xtensa-esp-elf-gdb` for xtensa-based SOCs) without any path prefixes is possible, as `esp-idf-monitor` wants that
 
 ### Install `esp-idf-monitor`
 
@@ -225,10 +227,12 @@ Therefore, use [`esp-idf-monitor`](https://docs.espressif.com/projects/esp-idf/e
 pip install esp-idf-monitor
 ```
 
-To run `esp-idf-monitor` with panic backtrace decoding for e.g. ESP32-C6, do:
+To run `esp-idf-monitor` with panic backtrace decoding for e.g. ESP32-C3, do:
 ```sh
-python -m esp_idf_monitor --toolchain-prefix riscv32-esp-elf- --target esp32c6 --decode-panic backtrace <your-elf-file-than-you-just-flashed>
+python -m esp_idf_monitor --toolchain-prefix riscv32-esp-elf- --target esp32c3 --decode-panic backtrace <your-elf-file-than-you-just-flashed>
 ```
+
+For other RISCV SOCs like e.g. ESP32-C6 you only need to change the `--target` to `esp32c6`, but the toolchain prefix (and thus GDB itself) would remain the same.
 
 ## Using WSL2 on Windows
 
