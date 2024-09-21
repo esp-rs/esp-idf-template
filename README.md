@@ -221,7 +221,7 @@ Therefore, use [`esp-idf-monitor`](https://docs.espressif.com/projects/esp-idf/e
 - [Install Python itself first](#install-python3)
 - [Install GDB for your SOC](#optionally-install-gdb)
 
-... and finally - to install `esp-idf-monitor` itself, do:
+... and finally - to install `esp-idf-monitor` itself - do:
 
 ```sh
 pip install esp-idf-monitor
