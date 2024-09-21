@@ -204,7 +204,7 @@ You'll also need the Python PIP and Python VENV modules. On Debian systems, you 
 
 ### Optionally Install GDB
 
-You'll only need the GDB utility for on-chip debugging or [for decoding batraces in panics for RISCV Espressif SOCS](#install-esp-idf-monitor).
+You'll only need the GDB utility for on-chip debugging or [for decoding backraces in panics for RISCV Espressif SOCS](#install-esp-idf-monitor).
 
 To install it:
 * Manually download the GDB package matching your OS and Espressif SOC from [here](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-guides/tools/idf-tools.html#list-of-esp-idf-tools)
