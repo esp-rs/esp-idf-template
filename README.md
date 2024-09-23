@@ -229,7 +229,7 @@ pip install esp-idf-monitor
 
 To run `esp-idf-monitor` with panic backtrace decoding for e.g. ESP32-C3, do:
 ```sh
-python -m esp_idf_monitor --toolchain-prefix riscv32-esp-elf- --target esp32c3 --decode-panic backtrace <your-elf-file-than-you-just-flashed>
+python -m esp_idf_monitor [-p your-com-port-eg-`dev/ttyUSB0`] --toolchain-prefix riscv32-esp-elf- --target esp32c3 --decode-panic backtrace <your-elf-file-that-you-just-flashed>
 ```
 
 For other RISCV SOCs like e.g. ESP32-C6 you only need to change the `--target` to `esp32c6`, but the toolchain prefix (and thus GDB itself) would remain the same.
