@@ -10,6 +10,11 @@
       "ESP_BOARD": "{{ mcu }}"
     }
   },
+  // https://github.com/serialport/serialport-rs/issues/153
+  "runArgs": [
+    "--mount",
+    "type=bind,source=/run/udev,target=/run/udev,readonly"
+  ],
   "customizations": {
     "vscode": {
       "settings": {
