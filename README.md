@@ -139,9 +139,11 @@ For more information, check out:
 
 ## Prerequisites
 
-Linux/Mac users: Make sure you have the dependencies installed,that are mentiond in the [esp-idf install guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-macos-setup.html#step-1-install-prerequisites). You **dont** need to manually install esp-idf, just its dependencies.
-
-For detailed instructions see [Setting Up a Development Environment](https://esp-rs.github.io/book/installation/index.html) chapter of The Rust on ESP Book.
+Linux/Mac users: Install the OS dependencies mentioned in the [esp-idf install guide](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-macos-setup.html#step-1-install-prerequisites).
+(In other words, the equivalent of `sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0' command for your OS, if you are not on Ubuntu/Debian.)
+Please:
+- Do **NOT** do **anything else** from this page! Only the `sudo apt install` / `sudo yum` stuff for your OS
+- In particular, do **NOT** clone, install and activate the ESP-IDF which is mentioned further down this page, as it is _not necessary at all_ (though supported, but not for a beginner setup)
 
 ### Install Rust (with `rustup`)
 
