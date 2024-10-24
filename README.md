@@ -124,6 +124,12 @@ I (0) cpu_start: Starting scheduler on APP CPU.
 Hello, world!
 ```
 
+## License of the generated code
+
+While the `esp-idf-template` repository code itself is dual-licensed by [Apache](LICENSE-APACHE) OR [MIT](LICENSE-MIT), the code **generated** by the `esp-idf-template` generator can be considered in the Public Domain - or equivalently - as if licensed under the [MIT No Attribution License](https://en.wikipedia.org/wiki/MIT_License#MIT_No_Attribution_License).
+
+We are however explicitly not outputting any license file in the generated content, which allows the developers to add their own content on top of the generated one and the combined work would be assumed to be a proprietary work, until/if a license file is explicitly added by the developer.
+
 ## Additional information
 
 For more information, check out:
