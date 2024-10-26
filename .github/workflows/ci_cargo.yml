@@ -21,7 +21,7 @@ env:
 
 jobs:
   checks:
-    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }}
+    name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
