@@ -7,11 +7,7 @@ runner = "espflash flash --monitor" # Select this runner for espflash v3.x.x
 rustflags = [ "--cfg",  "espidf_time64"] # Extending time_t for ESP IDF 5: https://github.com/esp-rs/rust/issues/110
 
 [unstable]
-{% if std -%}
 build-std = ["std", "panic_abort"]
-{%- else -%}
-build-std = ["core", "alloc", "panic_abort"]
-{%- endif %}
 
 [env]
 MCU="{{ mcu }}"
