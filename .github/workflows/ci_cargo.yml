@@ -71,7 +71,7 @@ jobs:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate v5.2
         if: matrix.esp-idf.version == 'v5.2' || matrix.esp-idf.version == 'v5.1'
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name ${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d espidfver=${{ matrix.esp-idf.version }} -d devcontainer=false -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name ${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=${{ matrix.esp-idf.version }} -d devcontainer=false -d wokwi=false -d ci=false
       - name: Build | Fmt Check
         if: matrix.esp-idf.version == 'v5.2' && matrix.target == 'esp32c3'
         run: cd ${{ matrix.target }}; cargo fmt -- --check
@@ -106,7 +106,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d espidfver=v5.2 -d devcontainer=true -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=v5.2 -d devcontainer=true -d wokwi=false -d ci=false
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.target }}
