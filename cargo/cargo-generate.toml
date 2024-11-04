@@ -16,11 +16,6 @@ type = "bool"
 prompt = "Configure advanced template options?"
 default = false
 
-[conditional.'advanced'.placeholders.std]
-type = "bool"
-prompt = "Enable STD support?"
-default = true
-
 [conditional.'advanced'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"

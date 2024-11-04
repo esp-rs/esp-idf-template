@@ -30,11 +30,11 @@ The command will display a few prompts:
 - `Project Name`: Name of the crate.
 - `Which MCU to target?`: SoC model, e.g. `esp32`, `esp32s2`, `esp32c3` etc.
 - `Configure advanced template options?`: If `false`, skips the rest of the prompts and uses their default value. If `true`, you will be prompted with:
-  - `Enable STD support?`: When `true` (default), adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, a `no_std` [Rust Core Library](https://doc.rust-lang.org/core/index.html) crate would be created.
   - `ESP-IDF Version`: ESP-IDF branch/tag to use. Possible choices:
     - [`v4.4`](https://github.com/espressif/esp-idf/releases/tag/v4.4.5): Stable
     - [`v5.1`](https://github.com/espressif/esp-idf/releases/tag/v5.1): Stable
-    - [`master`](https://github.com/espressif/esp-idf/tree/master): **Unstable**
+    - [`master`](https://github.com/espressif/esp-idf/tree/master): **Unstable**. Please do NOT choose the `master` ESP IDF version, unless you
+      really have a very good reason to. Building against ESP IDF `master` is NOT officially supported, and can break any time.
    - `Configure project to support Wokwi simulation with Wokwi VS Code extension?`: Adds support for Wokwi simulation using [VS Code Wokwi extension](https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode).
   - `Configure project to use Dev Containers (VS Code and GitHub Codespaces)?`: Adds support for:
       -  [VS Code Dev Containers](https://code.visualstudio.com/docs/remote/containers#_quick-start-open-an-existing-folder-in-a-container)

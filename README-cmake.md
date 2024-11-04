@@ -12,11 +12,9 @@ If you would like to to understand how it works under the hood, read [this artic
 cargo generate --vcs none --git https://github.com/esp-rs/esp-idf-template cmake
 ```
 
-The command will display a few prompts:
+The command will display a couple of prompts:
   - `Project Name`: Name of the crate.
-  - `Rust toolchain`: Selects the `channel` in the [toolchain file](https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file) to use. Select `esp` (the default). You can also select `nightly` if you are building for a RiscV ESP32 MCU
-  - (Advanced setup only) `HAL support`: When `true`, adds support for [calling into ESP-IDF and its components](https://github.com/esp-rs/esp-idf-svc)
-  - (Advanced setup only) `STD support`: When `true`, adds support for the [Rust Standard Library](https://doc.rust-lang.org/std/). Otherwise, we will use [Rust Core Library](https://doc.rust-lang.org/core/index.html).
+  - `Rust toolchain`: Selects the `channel` in the [toolchain file](https://rust-lang.github.io/rustup/overrides.html#the-toolchain-file) to use. Select `esp` (the default). You can also select `nightly` if you are building for a RiscV ESP32 MCU, though `esp` is always a safe choice.
 
 ## Enable ESP IDF components that you would like to use from Rust
 
