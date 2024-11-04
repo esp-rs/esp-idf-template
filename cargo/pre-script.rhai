@@ -51,7 +51,6 @@ for key in target_properties.keys() {
 
 let advanced = variable::get("advanced");
 if !advanced {
-    variable::set("std", true);
     variable::set("espidfver", "v5.2");
     variable::set("devcontainer", false);
     variable::set("wokwi", false);

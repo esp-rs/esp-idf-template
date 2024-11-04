@@ -17,25 +17,13 @@ opt-level = "s"
 debug = true # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
 
-{%- if hal %}
 [features]
-{%- if std %}
-default = ["std", "embassy", "esp-idf-svc/native"]
-{%- else %}
-default = ["alloc", "embassy", "esp-idf-svc/native", "esp-idf-svc/panic_handler", "esp-idf-svc/alloc_handler"]
-{%- endif %}
-
-pio = ["esp-idf-svc/pio"]
-std = ["alloc", "esp-idf-svc/std"]
-alloc = ["esp-idf-svc/alloc"]
-nightly = ["esp-idf-svc/nightly"]
+default = []
 experimental = ["esp-idf-svc/experimental"]
-embassy = ["esp-idf-svc/embassy-sync", "esp-idf-svc/critical-section", "esp-idf-svc/embassy-time-driver"]
 
 [dependencies]
-log = { version = "0.4", default-features = false }
-esp-idf-svc = { version = "0.49", default-features = false }
+log = "0.4"
+esp-idf-svc = { version = "0.49", default-features = false, features = ["std", "native", "critical-section", "embassy-time-driver", "embassy-sync"] }
 
 [build-dependencies]
 embuild = "0.32.0"
-{%- endif %}

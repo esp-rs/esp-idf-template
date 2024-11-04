@@ -218,7 +218,3 @@ Its important to note that we need to set the `WOKWI_CLI_TOKEN` secret:
 * [Add it as a secret in your GitHub repository](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions).
 
 Also, the CI file needs to be modified if used for other targets.
-
-## Related Material
-
-[This repository](https://github.com/georgik/esp32-idf-no-std-rust-component) has a step-by-step guide, where you can create all project artefacts manually, without using `cargo generate`. It does emphasise specifically the creation of a Rust `no_std` and "no dependencies" ESP-IDF component, which is supported by the `esp-idf-template` generator as well, by selecting "advanced" options and then opting out of the "HAL" feature.

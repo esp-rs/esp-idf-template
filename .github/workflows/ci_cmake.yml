@@ -21,7 +21,7 @@ env:
 
 jobs:
   cmake-checks:
-    name: "${{ matrix.target.mcu }} | ${{ matrix.esp-idf.version }} | hal=${{ matrix.std-config.hal }} | std=${{ matrix.std-config.std }}"
+    name: "${{ matrix.target.mcu }} | ${{ matrix.esp-idf.version }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -41,13 +41,6 @@ jobs:
             toolchain: "nightly"
           - mcu: "esp32h2"
             toolchain: "nightly"
-        std-config:
-          - hal: true
-            std: true
-          - hal: true
-            std: false
-          - hal: false
-            std: false
         esp-idf:
           - version: v5.2
           # - version: master
@@ -91,7 +84,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent -d toolchain=${{ matrix.target.toolchain }} -d advanced=true -d hal=${{ matrix.std-config.hal }} -d std=${{ matrix.std-config.std }} -d espidfver=${{ matrix.esp-idf.version }}
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cmake --name test --vcs none --silent -d toolchain=${{ matrix.target.toolchain }} -d espidfver=${{ matrix.esp-idf.version }}
       - name: ESP-IDF | Checkout
         run: git clone https://github.com/espressif/esp-idf; git -C esp-idf checkout ${{ matrix.esp-idf.version }}
       - name: ESP-IDF | Install Tooling
