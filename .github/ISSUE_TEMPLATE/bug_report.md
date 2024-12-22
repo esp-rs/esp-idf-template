@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: bug
+labels: ["bug", "status:needs-attention"]
 assignees: ''
 
 ---
@@ -27,30 +27,19 @@ matrix channel (https://matrix.to/#/#esp-rs:matrix.org) or open the issue-->
 
 ## To Reproduce
 
-Steps to reproduce the behavior:
-
+<!-- Steps to reproduce the behavior. -->
 1. ...
 2. ...
-3. ...
-4. ...
 
-<!-- Make sure you are able to reproduce the bug in the main branch, too. -->
+<!-- Please share the minimal repro of the issue where the bug can be reproduced. -->
 
 ## Expected behavior
 
-<!-- A clear and concise description of what you expected to happen. -->
-
-## Screenshots
-
-<!-- If applicable, add screenshots to help explain your problem. -->
+<!-- A clear and concise description of what you expected to happen. Attach screenshots if needed. -->
 
 ## Environment
 
-<!-- Please fill the following information. -->
-
+- ESP-IDF branch or tag: [e.g. release/v5.2, v5.2.1, etc.] <!-- if you use the cargo-based build, you have the ESP-IDF version inside the `.cargo/config.toml` file of your binary crate, variable `ESP_IDF_VERSION` in section [env] . -->
+- Target device (MCU): [e.g. esp32s3] <!-- if you use the cargo-based build, you have the MCU inside the `.cargo/config.toml` file of your binary crate, variable `MCU` in section [env] . -->
 - OS: [e.g. Ubuntu 20.04]
 - How did you install the environment: [e.g. espup 0.3.2]
-
-## Additional context
-
-<!-- Add any other context about the problem here. -->
