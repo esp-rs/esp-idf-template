@@ -35,7 +35,7 @@ jobs:
         uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: nightly
-          components: rust-src
+          components: rust-src rustfmt clippy
       {%- else %}
         uses: esp-rs/xtensa-toolchain@v1.5
         with:
@@ -45,6 +45,10 @@ jobs:
       {%- endif %}
       - name: Enable caching
         uses: Swatinem/rust-cache@v2
+      {%- if arch == "riscv" %}
+      - name: Install ldproxy
+        run: cargo install ldproxy  
+      {%- endif %}
       - name: Run command
         {%- raw %}
         run: cargo ${{ matrix.action.command }} ${{ matrix.action.args }}
