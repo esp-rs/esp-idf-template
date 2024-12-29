@@ -14,3 +14,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Fixed
+- Fixed the generated GH CI by making sure `ldproxy`, `cargo fmt`, `cargo clippy` and rust src for `-Zbuild-std` are operational with the nightly toolchain (#253)
