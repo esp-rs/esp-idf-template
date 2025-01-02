@@ -145,7 +145,7 @@ When using `idf.py` and CMake driven ESP-IDF projects, you need to [install the 
 Simple installation for Linux & MacOS:
 ```sh
 git clone https://github.com/espressif/esp-idf
-git -C esp-idf checkout release/v5.1
+git -C esp-idf checkout release/v5.3
 esp-idf/install.sh
 . esp-idf/export.sh
 ```
@@ -153,7 +153,7 @@ esp-idf/install.sh
 Simple installation for Windows:
 ```sh
 git clone https://github.com/espressif/esp-idf
-git -C esp-idf checkout release/v5.1
+git -C esp-idf checkout release/v5.3
 esp-idf\install
 esp-idf\export
 ```

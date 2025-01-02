@@ -19,8 +19,8 @@ default = false
 [conditional.'advanced'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
-choices = ["v5.1", "v5.2", "master"]
-default = "v5.2"
+choices = ["v5.3", "v5.2", "master"]
+default = "v5.3"
 
 [conditional.'advanced'.placeholders.devcontainer]
 type = "bool"
