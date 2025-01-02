@@ -28,8 +28,8 @@ jobs:
       matrix:
         target: ["esp32", "esp32c3", "esp32c2", "esp32c6", "esp32h2", "esp32s2", "esp32s3"]
         esp-idf:
-          - version: v5.3.2
-          - version: v5.2.2
+          - version: v5.3
+          - version: v5.2
           # - version: master
     steps:
       - name: Setup | Rust (RISC-V)
