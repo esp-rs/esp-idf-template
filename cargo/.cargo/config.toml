@@ -19,5 +19,3 @@ ESP_IDF_VERSION = "v5.2.3"
 {% elsif espidfver == "master" %}
 ESP_IDF_VERSION = "master"
 {% endif %}
-# Workaround for https://github.com/esp-rs/esp-idf-template/issues/174 
-CRATE_CC_NO_DEFAULTS = "1"
