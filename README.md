@@ -24,6 +24,7 @@ For more check out the links in the additional [information section](#additional
 
 ```sh
 cargo generate esp-rs/esp-idf-template cargo
+cd <your-project-name>
 ```
 
 The command will display a few prompts:
@@ -41,16 +42,24 @@ The command will display a few prompts:
       -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
      Dev Containers also allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server) and have the [VS Code Wokwi extension](https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode) already installed.
 
-## Build
+## Run the Project
+### Option a)  All in one command
+```sh
+cargo run
+```
+This command picks up the `.cargo/config.toml` file and runs the `espflash` command with the correct arguments for your target.
+
+### Option b) Step by step
+
+#### Build
 
 ```sh
-cd <your-project-name>
 cargo build
 ```
 
-- Replace `<your-project-name>` with the name of the generated project
+This will build the elf file and place it in the `target/<mcu-target>/debug` directory.
 
-## Flash
+#### Flash
 
 In the root of the generated project:
 
@@ -75,14 +84,13 @@ the desired port, if it detectes multiple boards.
 - You can include the `--monitor` argument to the `espflash` command to open a serial monitor after flashing the device.
 - For more details on [`espflash` usage see the README](https://github.com/esp-rs/espflash/tree/main/espflash#usage)
 
-## Monitor
+#### Monitor
 ```sh
-espflash monitor /dev/ttyUSB0
+espflash monitor
 ```
 
-- Replace `dev/ttyUSB0` above with the USB port where you've connected the board. If you do not
-specify any USB port, `cargo-espflash`/`espflash` will print a list of the recognized USB ports for you to select
-the desired port.
+If you do not specify any USB port, `cargo-espflash`/`espflash` will print a list of the recognized USB ports for you to select
+the desired port. Otherwise you can optionally add it as an argument to the `espflash` command.
 
 The monitor should output more or less the following:
 ```
@@ -122,6 +130,12 @@ I (267) spi_flash: flash io: dio
 I (272) cpu_start: Starting scheduler on PRO CPU.
 I (0) cpu_start: Starting scheduler on APP CPU.
 Hello, world!
+```
+##### Backtrace 
+To decode a backtrace when using `espflash monitor` you can use the optional `--elf` argument to specify the path to the ELF file. This will allow `espflash` to decode the backtrace and display the file and line number of the panic. For example:
+
+```sh
+espflash monitor --elf target/xtensa-esp32-espidf/debug/<your-project-name>
 ```
 
 ## License of the generated code
