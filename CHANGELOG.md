@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Breaking
 
 ### Added
+- Update the template to the latest-released `esp-idf-svc`
+- Update the template to ESP-IDF V5.3 (latest stable)
 
 ### Fixed
 - Fixed the generated GH CI by making sure `ldproxy`, `cargo fmt`, `cargo clippy` and rust src for `-Zbuild-std` are operational with the nightly toolchain (#253)
