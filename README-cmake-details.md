@@ -169,7 +169,7 @@ env:
   CARGO_TERM_COLOR: always
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   ESP_TARGET: esp32
-  ESP_IDF_VERSION: v5.1
+  ESP_IDF_VERSION: v5.3.2
 
 
 jobs:

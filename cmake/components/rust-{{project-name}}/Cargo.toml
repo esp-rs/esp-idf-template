@@ -23,7 +23,7 @@ experimental = ["esp-idf-svc/experimental"]
 
 [dependencies]
 log = "0.4"
-esp-idf-svc = { version = "0.49", default-features = false, features = ["std", "native", "critical-section", "embassy-time-driver", "embassy-sync"] }
+esp-idf-svc = { version = "0.50", default-features = false, features = ["std", "native", "critical-section", "embassy-time-driver", "embassy-sync"] }
 
 [build-dependencies]
-embuild = "0.32.0"
+embuild = "0.33"
