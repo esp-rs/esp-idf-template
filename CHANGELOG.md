@@ -12,7 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Breaking
 
 ### Added
-- Update the template to the latest-released `esp-idf-svc`
+- Update the template to the latest-released `esp-idf-svc` (0.51)
+- Update the template to the latest-released `esp-idf-svc` (0.50)
 - Update the template to ESP-IDF V5.3 (latest stable)
 
 ### Fixed
