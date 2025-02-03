@@ -40,7 +40,7 @@ jobs:
           components: clippy, rustfmt, rust-src
       - name: Setup | Rust (Xtensa)
         if: matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3'
-        uses: esp-rs/xtensa-toolchain@v1.5.3
+        uses: esp-rs/xtensa-toolchain@v1.5.4
         with:
           default: true
           buildtargets: ${{ matrix.target }}
