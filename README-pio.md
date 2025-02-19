@@ -120,7 +120,7 @@ See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/
 
 While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`) with the `espup` installer just fine, SOCs with this architecture are also [supported by the nightly Rust compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v) and by recent, stock Clang compilers (as in Clang 11+):
 
-1. Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion. Recent Linux distros come with suitable Clang already.
+1. Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on installation. Recent Linux distros come with suitable Clang already.
 2. Install the `nightly` Rust toolchain with the `rust-src` component included:
    ```sh
    rustup toolchain install nightly --component rust-src
