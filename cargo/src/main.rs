@@ -1,3 +1,6 @@
+/// Embeds application metadata (project name, project version, build time, ESP-IDF version etc..) into the binary.
+esp_idf_svc::sys::esp_app_desc!(true);
+
 fn main() {
     // It is necessary to call this function once. Otherwise some patches to the runtime
     // implemented by esp-idf-sys might not link properly. See https://github.com/esp-rs/esp-idf-template/issues/71
