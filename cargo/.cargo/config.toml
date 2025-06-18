@@ -19,3 +19,7 @@ ESP_IDF_VERSION = "v5.2.3"
 {% elsif espidfver == "master" %}
 ESP_IDF_VERSION = "master"
 {% endif %}
+
+# Uncomment this if you have moved the target dir by setting CARGO_TARGET_DIR or similar.
+# Required for now due to embuild limitations.
+#CARGO_WORKSPACE_DIR = { value = "", relative = true }
