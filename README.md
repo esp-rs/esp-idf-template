@@ -188,7 +188,7 @@ cargo install cargo-espflash # Optional
 ### Install Rust & Clang toolchains for Espressif SoCs (with `espup`)
 
 ```sh
-espup install
+espup install -v 1.85.0
 # Unix
 . $HOME/export-esp.sh
 ```
