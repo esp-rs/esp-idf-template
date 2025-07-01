@@ -6,7 +6,7 @@ Note that this article assumes prior knolwedge in the ESP-IDF build system (CMak
 
 ## Prerequisites
 
-Follow all the steps in the [CMake tutorial](../README-cmake.md). With the steps outlined there, generate a project named `test`. I.e. 
+Follow all the steps in the [CMake tutorial](../README-cmake.md). With the steps outlined there, generate a project named `test`. I.e.
 
 ```sh
 cargo generate --vcs none --git https://github.com/esp-rs/esp-idf-template cmake --name test
@@ -92,7 +92,7 @@ If you have selected the "HAL" option, the `build.rs` file will contain a call i
 
 #### `components/rust-test/Cargo.toml`:
 
-This is a pretty standard and mostly empty `cargo` [build manifest file](https://doc.rust-lang.org/cargo/reference/manifest.html), which sets up your Rust crate to be built as a Rust static libray. 
+This is a pretty standard and mostly empty `cargo` [build manifest file](https://doc.rust-lang.org/cargo/reference/manifest.html), which sets up your Rust crate to be built as a Rust static libray.
 
 If you have selected the "HAL" option when generating the project, the manifest would also list:
 * a dependency to `esp-idf-svc` (i.e. [the safe Rust wrappers for ESP-IDF](https://github.com/esp-rs/esp-idf-svc));
@@ -187,7 +187,7 @@ jobs:
           components: rust-src
       - name: Setup | Rust (Xtensa)
         if: env.ESP_TARGET == 'esp32' && env.ESP_TARGET == 'esp32s2' && env.ESP_TARGET == 'esp32s3'
-        uses: esp-rs/xtensa-toolchain@v1.5
+        uses: esp-rs/xtensa-toolchain@v1.6
         with:
           default: true
           buildtargets: {{ env.ESP_TARGET }}

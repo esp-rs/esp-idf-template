@@ -39,7 +39,7 @@ jobs:
           toolchain: nightly
           components: rust-src rustfmt clippy
       {%- else %}
-        uses: esp-rs/xtensa-toolchain@v1.5
+        uses: esp-rs/xtensa-toolchain@v1.6
         with:
           default: true
           buildtargets: {{ mcu }}
@@ -49,7 +49,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
       {%- if arch == "riscv" %}
       - name: Install ldproxy
-        run: cargo install ldproxy  
+        run: cargo install ldproxy
       {%- endif %}
       - name: Run command
         {%- raw %}
