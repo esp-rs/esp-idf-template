@@ -80,7 +80,7 @@ jobs:
       - name: Setup | ldproxy (cargo)
         if: steps.ldproxy-binary.outcome != 'success'
         run: cargo install ldproxy
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate
