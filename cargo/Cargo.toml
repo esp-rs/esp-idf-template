@@ -8,13 +8,13 @@ rust-version = "1.77"
 
 [[bin]]
 name = "{{project-name}}"
-harness = false # do not use the built in cargo test harness -> resolve rust-analyzer errors
+harness = false # do not use the built-in cargo test harness -> resolve rust-analyzer errors
 
 [profile.release]
 opt-level = "s"
 
 [profile.dev]
-debug = true    # Symbols are nice and they don't increase the size on Flash
+debug = true    # Symbols are nice, and they don't increase the size on Flash
 opt-level = "z"
 
 [features]
@@ -31,7 +31,7 @@ esp-idf-svc = "0.51"
 
 # If you enable embassy-time-driver, you MUST also add one of:
 
-# a) Standalone Embassy libs ( embassy-time, embassy-sync etc) with a foreign async runtime:
+# a) Standalone Embassy libs ( embassy-time, embassy-sync etc.) with a foreign async runtime:
 # embassy-time = { version = "0.4.0", features = ["generic-queue-8"] } # NOTE: any generic-queue variant will work
 
 # b) With embassy-executor:
