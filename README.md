@@ -20,11 +20,10 @@ For more check out the links in the additional [information section](#additional
 
 ## Generate the project
 
-> NOTE: If you have set `IDF_PATH`, it will be used instead,
-> regard less what version you selected here.
+> NOTE: If you have set `IDF_PATH`, the specified ESP IDF SDK will be
+> used instead, regard less what version you selected here.
 >
 > Meanwhile, `esp-idf-sys` will just ignore `IDF_TOOLS_PATH`.
-
 
 **Please make sure you have installed all [prerequisites](#prerequisites) first!**
 
