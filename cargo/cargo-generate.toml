@@ -8,7 +8,7 @@ pre = ["pre-script.rhai"]
 [placeholders.mcu]
 type = "string"
 prompt = "Which MCU to target?"
-choices = ["esp32", "esp32c2", "esp32c3", "esp32c6", "esp32h2", "esp32s2", "esp32s3"]
+choices = ["esp32", "esp32c2", "esp32c3", "esp32c5", "esp32c6", "esp32c61", "esp32h2", "esp32p4", "esp32s2", "esp32s3"]
 default = "esp32"
 
 [placeholders.advanced]
@@ -19,8 +19,8 @@ default = false
 [conditional.'advanced'.placeholders.espidfver]
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
-choices = ["v5.3", "v5.2", "master"]
-default = "v5.3"
+choices = ["v5.5.3", "v5.4.3", "v5.3.4", "master"]
+default = "v5.5.3"
 
 [conditional.'advanced'.placeholders.devcontainer]
 type = "bool"

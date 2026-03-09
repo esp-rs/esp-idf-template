@@ -17,13 +17,15 @@ opt-level = "s"
 debug = true # Symbols are nice and they don't increase the size on Flash
 opt-level = "z"
 
-[features]
-default = []
-experimental = ["esp-idf-svc/experimental"]
+[patch.crates-io]
+esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal.git" }
+esp-idf-svc = { git = "https://github.com/esp-rs/esp-idf-svc.git" }
 
 [dependencies]
 log = "0.4"
-esp-idf-svc = { version = "0.51", default-features = false, features = ["std", "native", "critical-section", "embassy-time-driver", "embassy-sync"] }
+esp-idf-svc = { version = "0.52", default-features = false, features = ["std", "native", "critical-section", "embassy-time-driver", "embassy-sync"] }
+# Remove `generic-queue-8` if you plan to use `embassy-time` WITH `embassy-executor`
+embassy-time = { version = "0.5", features = ["generic-queue-8"] }
 
 [build-dependencies]
 embuild = "0.33"
