@@ -22,6 +22,17 @@ prompt = "ESP-IDF version (master = UNSTABLE)"
 choices = ["v5.5.3", "v5.4.3", "v5.3.4", "master"]
 default = "v5.5.3"
 
+[conditional.'advanced'.placeholders.git]
+type = "bool"
+prompt = "Use latest GIT versions of the esp-idf-* crates instead of released crates.io versions?"
+default = true
+
+[conditional.'advanced'.placeholders.installdir]
+type = "string"
+prompt = "Installation location of managed ESP-IDF"
+choices = ["workspace", "global"]
+default = "workspace"
+
 [conditional.'advanced'.placeholders.devcontainer]
 type = "bool"
 prompt = "Configure project to use Dev Containers (VS Code and GitHub Codespaces)?"

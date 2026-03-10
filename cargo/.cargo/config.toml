@@ -12,6 +12,7 @@ build-std = ["std", "panic_abort"]
 [env]
 MCU = "{{ mcu }}"
 ESP_IDF_VERSION = "{{ espidfver }}"
+ESP_IDF_TOOLS_INSTALL_DIR = "{{ installdir }}"
 
 # Uncomment this if you have moved the target dir by setting CARGO_TARGET_DIR or similar.
 # Required for now due to embuild limitations.
