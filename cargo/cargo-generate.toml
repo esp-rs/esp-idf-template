@@ -25,7 +25,7 @@ default = "v5.5.3"
 [conditional.'advanced'.placeholders.git]
 type = "bool"
 prompt = "Use latest GIT versions of the esp-idf-* crates instead of released crates.io versions?"
-default = false
+default = true
 
 [conditional.'advanced'.placeholders.installdir]
 type = "string"
