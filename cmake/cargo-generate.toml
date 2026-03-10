@@ -10,4 +10,4 @@ default = "esp"
 [placeholders.git]
 type = "bool"
 prompt = "Use latest GIT versions of the esp-idf-* crates instead of released crates.io versions?"
-default = true
+default = false
