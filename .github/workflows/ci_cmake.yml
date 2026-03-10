@@ -48,7 +48,7 @@ jobs:
           - mcu: "esp32h2"
             toolchain: "nightly"
         esp-idf:
-          - version: v5.5.3
+          - version: v5.5.3 # Can't test with earlier versions until we componentize the drivers
           # - version: master
           #   name: master
     steps:
