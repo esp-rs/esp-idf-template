@@ -6,3 +6,8 @@ type = "string"
 prompt = "Rust toolchain (beware: nightly works only for riscv MCUs!)"
 choices = ["esp", "nightly"]
 default = "esp"
+
+[placeholders.git]
+type = "bool"
+prompt = "Use latest GIT versions of the esp-idf-* crates instead of released crates.io versions?"
+default = false

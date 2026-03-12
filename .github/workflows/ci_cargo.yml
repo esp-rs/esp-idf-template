@@ -26,10 +26,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["esp32", "esp32c3", "esp32c2", "esp32c6", "esp32h2", "esp32s2", "esp32s3"]
+        # esp32c61 only builds with ESP-IDF V5.5.X
+        target: ["esp32", "esp32c3", "esp32c2", "esp32c6", "esp32h2", "esp32p4", "esp32s2", "esp32s3"]
         esp-idf:
-          - version: v5.3
-          - version: v5.2
+          - version: v5.5.3
+          - version: v5.4.3
+          - version: v5.3.4
           # - version: master
     steps:
       - name: Setup | Rust (RISC-V)
@@ -102,7 +104,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=v5.2 -d devcontainer=true -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=v5.5.3 -d devcontainer=true -d wokwi=false -d ci=false
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.target }}

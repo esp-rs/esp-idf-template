@@ -1,8 +1,12 @@
 # If this component depends on other components - be it ESP-IDF or project-specific ones - enumerate those in the double-quotes below, separated by spaces
 # Note that pthread should always be there, or else STD will not work
-set(RUST_DEPS "pthread" "driver" "vfs")
+#
+# HACK - FOR NOW: All drivers and sdmmc are included as a workaround for the fact that `esp-idf-hal` still lacks per-driver component cfgs
+#
+#set(RUST_DEPS "pthread" "driver" "sdmmc" "esp_driver_cam" "esp_driver_dac" "esp_driver_gpio" "esp_driver_gptimer" "esp_driver_i2c" "esp_driver_i2s" "esp_driver_ledc" "esp_driver_mcpwm" "esp_driver_parlio" "esp_driver_pcnt" "esp_driver_ppa" "esp_driver_rmt" "esp_driver_sdio" "esp_driver_sdm" "esp_driver_sdmmc" "esp_driver_sdspi" "esp_driver_spi" "esp_driver_touch_sens" "esp_driver_tsens" "esp_driver_twai" "esp_driver_uart" "esp_driver_usb_serial_jtag")
+
 # Here's a non-minimal, reasonable set of ESP-IDF components that one might want enabled for Rust:
-#set(RUST_DEPS "pthread" "esp_http_client" "esp_http_server" "espcoredump" "app_update" "esp_serial_slave_link" "nvs_flash" "spi_flash" "esp_adc_cal" "mqtt")
+set(RUST_DEPS "pthread" "driver" "vfs" "console" "fatfs" "spiffs" "esp_http_client" "esp_http_server" "espcoredump" "nvs_flash" "spi_flash" "mqtt" "sdmmc" "esp_driver_cam" "esp_driver_dac" "esp_driver_gpio" "esp_driver_gptimer" "esp_driver_i2c" "esp_driver_i2s" "esp_driver_ledc" "esp_driver_mcpwm" "esp_driver_parlio" "esp_driver_pcnt" "esp_driver_ppa" "esp_driver_rmt" "esp_driver_sdio" "esp_driver_sdm" "esp_driver_sdmmc" "esp_driver_sdspi" "esp_driver_spi" "esp_driver_touch_sens" "esp_driver_tsens" "esp_driver_twai" "esp_driver_uart" "esp_driver_usb_serial_jtag")
 
 idf_component_register(
     SRCS "placeholder.c"
@@ -11,10 +15,12 @@ idf_component_register(
 )
 
 if(CONFIG_IDF_TARGET_ARCH_RISCV)
-    if (CONFIG_IDF_TARGET_ESP32C6 OR CONFIG_IDF_TARGET_ESP32C5 OR CONFIG_IDF_TARGET_ESP32H2)
-        set(RUST_TARGET "riscv32imac-esp-espidf")
-    else ()
+    if (CONFIG_IDF_TARGET_ESP32C2 OR CONFIG_IDF_TARGET_ESP32C3)
         set(RUST_TARGET "riscv32imc-esp-espidf")
+    elseif (CONFIG_IDF_TARGET_ESP32P4)
+        set(RUST_TARGET "riscv32imafc-esp-espidf")
+    else()
+        set(RUST_TARGET "riscv32imac-esp-espidf")
     endif()
 elseif(CONFIG_IDF_TARGET_ESP32)
     set(RUST_TARGET "xtensa-esp32-espidf")

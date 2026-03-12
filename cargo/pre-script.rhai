@@ -17,17 +17,34 @@ let targets = #{
         gcc_target: "riscv32-esp-elf",
         wokwi_board: "board-esp32-c3-devkitm-1",
     },
+    esp32c5: #{
+        arch: "riscv",
+        rust_target: "riscv32imac-esp-espidf",
+        gcc_target: "riscv32-esp-elf",
+        wokwi_board: "board-esp32-c5-devkitc-1",
+    },
     esp32c6: #{
         arch: "riscv",
         rust_target: "riscv32imac-esp-espidf",
         gcc_target: "riscv32-esp-elf",
         wokwi_board: "board-esp32-c6-devkitc-1",
     },
+    esp32c61: #{
+        arch: "riscv",
+        rust_target: "riscv32imac-esp-espidf",
+        gcc_target: "riscv32-esp-elf",
+    },
     esp32h2: #{
         arch: "riscv",
         rust_target: "riscv32imac-esp-espidf",
         gcc_target: "riscv32-esp-elf",
         wokwi_board: "board-esp32-h2-devkitm-1",
+    },
+    esp32p4: #{
+        arch: "riscv",
+        rust_target: "riscv32imafc-esp-espidf",
+        gcc_target: "riscv32-esp-elf",
+        wokwi_board: "board-esp32-p4-preview",
     },
     esp32s2: #{
         arch: "xtensa",
@@ -51,7 +68,9 @@ for key in target_properties.keys() {
 
 let advanced = variable::get("advanced");
 if !advanced {
-    variable::set("espidfver", "v5.3");
+    variable::set("espidfver", "v5.5.3");
+    variable::set("git", "false");
+    variable::set("installdir", "workspace");
     variable::set("devcontainer", false);
     variable::set("wokwi", false);
 }

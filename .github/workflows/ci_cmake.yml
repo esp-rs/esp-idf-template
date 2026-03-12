@@ -33,16 +33,22 @@ jobs:
             toolchain: "esp"
           - mcu: "esp32s3"
             toolchain: "esp"
+          - mcu: "esp32p4"
+            toolchain: "nightly"
           - mcu: "esp32c3"
             toolchain: "nightly"
           - mcu: "esp32c2"
             toolchain: "nightly"
+          - mcu: "esp32c5"
+            toolchain: "nightly"
           - mcu: "esp32c6"
+            toolchain: "nightly"
+          - mcu: "esp32c61"
             toolchain: "nightly"
           - mcu: "esp32h2"
             toolchain: "nightly"
         esp-idf:
-          - version: v5.2
+          - version: v5.5.3 # Can't test with earlier versions until we componentize the drivers
           # - version: master
           #   name: master
     steps:

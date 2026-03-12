@@ -1,7 +1,7 @@
 [build]
 target = "{{ rust_target }}"
 
-[target.{{ rust_target }}]
+[target.'cfg(target_os = "espidf")']
 linker = "ldproxy"
 runner = "espflash flash --monitor"
 rustflags = [ "--cfg",  "espidf_time64"]
@@ -10,15 +10,9 @@ rustflags = [ "--cfg",  "espidf_time64"]
 build-std = ["std", "panic_abort"]
 
 [env]
-MCU="{{ mcu }}"
-# Note: this variable is not used by the pio builder (`cargo build --features pio`)
-{%- if espidfver == "v5.3" %}
-ESP_IDF_VERSION = "v5.3.3"
-{% elsif espidfver == "v5.2" %}
-ESP_IDF_VERSION = "v5.2.5"
-{% elsif espidfver == "master" %}
-ESP_IDF_VERSION = "master"
-{% endif %}
+MCU = "{{ mcu }}"
+ESP_IDF_VERSION = "{{ espidfver }}"
+ESP_IDF_TOOLS_INSTALL_DIR = "{{ installdir }}"
 
 # Uncomment this if you have moved the target dir by setting CARGO_TARGET_DIR or similar.
 # Required for now due to embuild limitations.
