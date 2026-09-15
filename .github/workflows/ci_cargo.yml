@@ -26,13 +26,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # esp32c61 only builds with ESP-IDF V5.5.X
-        target: ["esp32", "esp32c3", "esp32c2", "esp32c6", "esp32h2", "esp32p4", "esp32s2", "esp32s3"]
+        target: ["esp32", "esp32c3", "esp32c2", "esp32c5", "esp32c6", "esp32c61", "esp32h2", "esp32p4", "esp32s2", "esp32s3"]
         esp-idf:
-          - version: v5.5.3
-          - version: v5.4.3
-          - version: v5.3.4
+          - version: v6.1
+          - version: v6.0.3
+          - version: v5.5.5
+          - version: v5.4.4
+          - version: v5.3.6
           # - version: master
+        exclude:
+          # esp32c5 and esp32c61 only build with ESP-IDF V5.5.X+
+          - target: esp32c5
+            esp-idf: { version: v5.4.4 }
+          - target: esp32c5
+            esp-idf: { version: v5.3.6 }
+          - target: esp32c61
+            esp-idf: { version: v5.4.4 }
+          - target: esp32c61
+            esp-idf: { version: v5.3.6 }
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
@@ -62,12 +73,17 @@ jobs:
         id: ldproxy-binary
         continue-on-error: true
         run: |
-          sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
-          unzip "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
+          # rust-cache restores ~/.cargo/bin, so ldproxy may already be there: overwrite it
+          # without prompting (unzip -o), and fail the step on an HTTP error (curl -f) so
+          # that the cargo fallback below kicks in instead of unzipping an error page
+          curl -fL --retry 5 "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
+          unzip -o "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
+          rm "/home/runner/.cargo/bin/ldproxy.zip"
           chmod u+x /home/runner/.cargo/bin/ldproxy
       - name: Setup | ldproxy (cargo)
         if: steps.ldproxy-binary.outcome != 'success'
-        run: cargo install ldproxy
+        # --force: a cached or half-extracted ldproxy binary must not block the fallback
+        run: cargo install --force ldproxy
       - uses: actions/checkout@v7
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
@@ -104,7 +120,7 @@ jobs:
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
       - name: Generate
-        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=v5.5.3 -d devcontainer=true -d wokwi=false -d ci=false
+        run: cargo generate --path /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template cargo --name test-${{ matrix.target }} --vcs none --silent -d mcu=${{ matrix.target }} -d advanced=true -d espidfver=v5.5.5 -d devcontainer=true -d wokwi=false -d ci=false
       - name: Update ownership
         run: |
           sudo chown 1000:1000 -R test-${{ matrix.target }}

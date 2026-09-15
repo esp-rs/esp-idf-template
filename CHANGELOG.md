@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Breaking
 
 ### Added
+- Update the list of supported ESP-IDF versions (add 6.0.x and 6.1, bump 5.x patch levels)
+- Update the template to the latest-released `esp-idf-svc` (0.53)
 - Update the template to the latest-released `esp-idf-svc` (0.52)
 - Enable Embassy and `critical-section` support by default
 - Update the template to the latest-released `esp-idf-svc` (0.51)
