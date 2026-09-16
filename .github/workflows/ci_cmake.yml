@@ -48,9 +48,10 @@ jobs:
           - mcu: "esp32h2"
             toolchain: "nightly"
         esp-idf:
-          - version: v5.5.3 # Can't test with earlier versions until we componentize the drivers
+          - version: v6.1
+          - version: v6.0.3
+          - version: v5.5.5 # Can't test with earlier versions until we componentize the drivers
           # - version: master
-          #   name: master
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target.mcu != 'esp32' && matrix.target.mcu != 'esp32s2' && matrix.target.mcu != 'esp32s3'
@@ -80,12 +81,17 @@ jobs:
         id: ldproxy-binary
         continue-on-error: true
         run: |
-          sudo curl -L "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
-          unzip "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
+          # rust-cache restores ~/.cargo/bin, so ldproxy may already be there: overwrite it
+          # without prompting (unzip -o), and fail the step on an HTTP error (curl -f) so
+          # that the cargo fallback below kicks in instead of unzipping an error page
+          curl -fL --retry 5 "https://github.com/esp-rs/embuild/releases/latest/download/ldproxy-x86_64-unknown-linux-gnu.zip" -o "/home/runner/.cargo/bin/ldproxy.zip"
+          unzip -o "/home/runner/.cargo/bin/ldproxy.zip" -d "/home/runner/.cargo/bin/"
+          rm "/home/runner/.cargo/bin/ldproxy.zip"
           chmod u+x /home/runner/.cargo/bin/ldproxy
       - name: Setup | ldproxy (cargo)
         if: steps.ldproxy-binary.outcome != 'success'
-        run: cargo install ldproxy
+        # --force: a cached or half-extracted ldproxy binary must not block the fallback
+        run: cargo install --force ldproxy
       - uses: actions/checkout@v7
         with:
           path: /home/runner/work/esp-idf-template/esp-idf-template/github-esp-idf-template
