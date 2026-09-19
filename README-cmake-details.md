@@ -88,14 +88,14 @@ As mentioned previously, this is an empty C file which is only there so as the C
 
 This file is a standard Rust [build scriptlet](https://doc.rust-lang.org/cargo/reference/build-scripts.html). It would be empty if you have not opted into the "HAL" option (note that by default "HAL" is enabled).
 
-If you have selected the "HAL" option, the `build.rs` file will contain a call into the `embuild` library that nakes sure that your component can properly link against - and in general - can "talk" to the [Safe Rust bindings for ESP-IDF](https://github.com/esp-rs/esp-idf-svc) (the "HAL").
+If you have selected the "HAL" option, the `build.rs` file will contain a call into the `embuild` library that makes sure that your component can properly link against - and in general - can "talk" to the [Safe Rust bindings for ESP-IDF](https://github.com/esp-rs/esp-idf/tree/master/esp-idf-svc) (the "HAL").
 
 #### `components/rust-test/Cargo.toml`:
 
 This is a pretty standard and mostly empty `cargo` [build manifest file](https://doc.rust-lang.org/cargo/reference/manifest.html), which sets up your Rust crate to be built as a Rust static libray.
 
 If you have selected the "HAL" option when generating the project, the manifest would also list:
-* a dependency to `esp-idf-svc` (i.e. [the safe Rust wrappers for ESP-IDF](https://github.com/esp-rs/esp-idf-svc));
+* a dependency to `esp-idf-svc` (i.e. [the safe Rust wrappers for ESP-IDF](https://github.com/esp-rs/esp-idf/tree/master/esp-idf-svc));
 * a built-time dependency to [`embuild`](https://github.com/esp-rs/embuild) which helps the build integration between ESP-IDF and Rust to run smoothly);
 * the popular Rust [`log`](https://github.com/rust-lang/log) crate.
 
