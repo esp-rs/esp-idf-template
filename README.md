@@ -1,7 +1,7 @@
 # Rust on ESP-IDF "Hello, World" template
 [![Cargo CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cargo.yml/badge.svg)](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cargo.yml)
 [![CMake CI](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cmake.yml/badge.svg)](https://github.com/esp-rs/esp-idf-template/actions/workflows/ci_cmake.yml)
-[![Documentation](https://img.shields.io/badge/docs-esp--rs-brightgreen)](https://esp-rs.github.io/esp-idf-svc/esp_idf_svc/index.html)
+[![Documentation](https://img.shields.io/badge/docs-esp--rs-brightgreen)](https://esp-rs.github.io/esp-idf/esp-idf-svc/esp_idf_svc/index.html)
 [![Matrix](https://img.shields.io/matrix/esp-rs:matrix.org?label=join%20matrix&color=BEC5C9&logo=matrix)](https://matrix.to/#/#esp-rs:matrix.org)
 [![Wokwi](https://img.shields.io/endpoint?url=https%3A%2F%2Fwokwi.com%2Fbadge%2Fclick-to-simulate.json)](https://wokwi.com/projects/332188235906155092)
 
@@ -17,6 +17,14 @@ Or if you rather
 * ... want to develop on Windows / WSL2 - [follow these instructions](#using-wsl2-on-windows)
 
 For more check out the links in the additional [information section](#additional-information)
+
+## Community Effort
+
+Please note that **all `esp-idf-*` crates are a community effort**, in that Espressif puts little to no paid developer time in these.
+So while ESP-IDF itself is very popular and well tested, the `esp-idf-*` crates:
+- Might be a bit lagging behind the latest stable ESP-IDF version
+- Are (currently) missing HIL tests
+- Need more documentation
 
 ## Generate the project
 
@@ -142,15 +150,12 @@ We are however explicitly not outputting any license file in the generated conte
 ## Additional information
 
 For more information, check out:
-* The [Rust on ESP Book](https://esp-rs.github.io/book/)
-* The [ESP STD Embedded Training](https://github.com/esp-rs/std-training)
-* The [esp-idf-hal](https://github.com/esp-rs/esp-idf-hal) project
+* The [esp-idf-hal](https://github.com/esp-rs/esp-idf/tree/master/esp-idf-hal) crate
 * The [embedded-hal](https://github.com/rust-embedded/embedded-hal) project
-* The [esp-idf-svc](https://github.com/esp-rs/esp-idf-svc) project
+* The [esp-idf-svc](https://github.com/esp-rs/esp-idf/tree/master/esp-idf-svc) crate
 * The [embedded-svc](https://github.com/esp-rs/embedded-svc) project
-* The [esp-idf-sys](https://github.com/esp-rs/esp-idf-sys) project
+* The [esp-idf-sys](https://github.com/esp-rs/esp-idf/tree/master/esp-idf-sys) crate
 * The [Rust for Xtensa toolchain](https://github.com/esp-rs/rust-build)
-* The [Rust-with-STD demo](https://github.com/ivmarkov/rust-esp32-std-demo) project
 
 ## Prerequisites
 
