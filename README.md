@@ -221,6 +221,8 @@ While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`)
    rustup toolchain install nightly --component rust-src
    ```
 * Run any Cargo command with the `nightly` [toolchain override](https://rust-lang.github.io/rustup/overrides.html#overrides), i.e. `cargo +nightly ...`.
+>[!WARNING]
+>During the first build, using LLVM/LibClang 22 may cause compilation errors such as `spi_transaction_t__bindgen_ty_1 not found`. If you encounter this error, try cloning `embuild` locally and updating its `bindgen` dependency to `0.72.1` or later.
 
 ### Install Python3
 
