@@ -1,5 +1,10 @@
 name: Cargo CI
 
+# The esp-rs organization shares a small pool of GitHub-hosted runners between all of its
+# repositories, so every job of this workflow and of `ci_cmake.yml` waits for one of six runner
+# slots (`concurrency` with `queue: max`). All the runs of the two workflows, of any branch or PR,
+# together take at most six runners at a time; the other jobs wait in the queue of their slot
+
 on:
   push:
     branches:
@@ -28,6 +33,10 @@ jobs:
   checks:
     name: "${{ matrix.target }} | ${{ matrix.esp-idf.version }}"
     runs-on: ubuntu-latest
+    # The slot follows from the position of the job in its matrix; the list covers matrices of up to 60 jobs
+    concurrency: &runner-slot
+      group: esp-idf-template-runner-slot-${{ fromJSON('[0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5]')[strategy.job-index] }}
+      queue: max
     strategy:
       fail-fast: false
       matrix:
@@ -112,6 +121,7 @@ jobs:
   container-checks:
     name: "Container Check: ${{ matrix.target }}"
     runs-on: ubuntu-latest
+    concurrency: *runner-slot
     strategy:
       fail-fast: false
       matrix:

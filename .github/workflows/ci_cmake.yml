@@ -1,5 +1,8 @@
 name: CMake CI
 
+# Every job waits for one of the six runner slots this workflow shares with `ci_cargo.yml`
+# (see there), so that the CI takes at most six of the runners the esp-rs organization shares
+
 on:
   push:
     branches:
@@ -28,6 +31,10 @@ jobs:
   cmake-checks:
     name: "${{ matrix.target.mcu }} | ${{ matrix.esp-idf.version }}"
     runs-on: ubuntu-latest
+    # The slot follows from the position of the job in its matrix; the list covers matrices of up to 60 jobs
+    concurrency:
+      group: esp-idf-template-runner-slot-${{ fromJSON('[0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5]')[strategy.job-index] }}
+      queue: max
     strategy:
       fail-fast: false
       matrix:
