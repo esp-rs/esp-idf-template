@@ -58,7 +58,10 @@ RUN if [ -n "${GITHUB_TOKEN}" ]; then export GITHUB_TOKEN=${GITHUB_TOKEN}; fi  \
 
 # Set default toolchain
 {% if arch == "riscv" -%}
-RUN rustup default nightly
+# `espup` installs stable Rust for RISC-V, while `std` needs nightly. Newer nightlies cannot build
+# `std` for ESP-IDF yet (rust-lang/rust#164555). `esp-idf-sys` formats its bindings with `rustfmt`
+RUN rustup toolchain install nightly-2026-10-19 --component rust-src,rustfmt \
+    && rustup default nightly-2026-10-19
 {% else -%}
 RUN rustup default esp
 {% endif %}

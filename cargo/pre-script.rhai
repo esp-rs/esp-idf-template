@@ -68,7 +68,8 @@ for key in target_properties.keys() {
 
 let advanced = variable::get("advanced");
 if !advanced {
-    variable::set("espidfver", "v5.5.3");
+    // The default of the `espidfver` placeholder in `cargo-generate.toml`
+    variable::set("espidfver", "v5.5.5");
     variable::set("git", "false");
     variable::set("installdir", "workspace");
     variable::set("devcontainer", false);
