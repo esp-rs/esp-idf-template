@@ -53,12 +53,14 @@ RUN ARCH=$($HOME/.cargo/bin/rustup show | grep "Default host" | sed -e 's/.* //'
 RUN if [ -n "${GITHUB_TOKEN}" ]; then export GITHUB_TOKEN=${GITHUB_TOKEN}; fi  \
     && ${HOME}/.cargo/bin/espup install\
     --targets "${ESP_BOARD}" \
+    --nightly-version nightly-2026-10-19 \
     --log-level debug \
     --export-file /home/${CONTAINER_USER}/export-esp.sh
 
 # Set default toolchain
 {% if arch == "riscv" -%}
-RUN rustup default nightly
+# Newer nightlies cannot build `std` for ESP-IDF yet (rust-lang/rust#164555)
+RUN rustup default nightly-2026-10-19
 {% else -%}
 RUN rustup default esp
 {% endif %}

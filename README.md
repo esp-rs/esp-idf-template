@@ -58,6 +58,13 @@ The command will display a few prompts:
       -  [GitHub Codespaces](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace)
      Dev Containers also allow flashing from the container using [web flash](https://github.com/bjoernQ/esp-web-flash-server) and have the [VS Code Wokwi extension](https://marketplace.visualstudio.com/items?itemName=wokwi.wokwi-vscode) already installed.
 
+> [!NOTE]
+> The clang toolchain of ESP-IDF v5.3 (and v5.1, v5.2) needs `libxml2.so.2`, which newer Linux distros (e.g. Ubuntu 26.04) no longer have,
+> so the build fails while installing ESP-IDF with "error while loading shared libraries: libxml2.so.2".
+> On such a distro, set `ESP_IDF_INSTALL_CLANG = "off"` in the `[env]` section of the project's `.cargo/config.toml`.
+> The bindings are then generated with the libclang of `espup`, or with the one in `LIBCLANG_PATH`
+> (e.g. the `lib` directory of the system Clang, when building for a RISC-V MCU with upstream nightly Rust and without `espup`).
+
 ## Build
 
 ```sh
@@ -216,11 +223,11 @@ See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/
 While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`) with the `espup` installer just fine, SOCs with this architecture are also [supported by the nightly Rust compiler](https://esp-rs.github.io/book/installation/riscv.html) and by recent, stock Clang compilers (as in Clang 11+):
 
 * Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on installation. Recent Linux distros come with suitable Clang already.
-* Install the `nightly` Rust toolchain with the `rust-src` component included:
+* Install the `nightly-2026-10-19` Rust toolchain with the `rust-src` component included (newer nightlies cannot build `std` for ESP-IDF yet, see [rust-lang/rust#164555](https://github.com/rust-lang/rust/issues/164555)):
    ```sh
-   rustup toolchain install nightly --component rust-src
+   rustup toolchain install nightly-2026-10-19 --component rust-src
    ```
-* Run any Cargo command with the `nightly` [toolchain override](https://rust-lang.github.io/rustup/overrides.html#overrides), i.e. `cargo +nightly ...`.
+* The `rust-toolchain.toml` file of the generated project selects this toolchain, so plain `cargo ...` commands use it.
 
 ### Install Python3
 

@@ -36,7 +36,8 @@ jobs:
       {%- if arch == "riscv" %}
         uses: dtolnay/rust-toolchain@v1
         with:
-          toolchain: nightly
+          # Newer nightlies cannot build `std` for ESP-IDF yet (rust-lang/rust#164555)
+          toolchain: nightly-2026-10-19
           components: rust-src rustfmt clippy
       {%- else %}
         uses: esp-rs/xtensa-toolchain@v1.6

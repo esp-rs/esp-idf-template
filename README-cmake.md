@@ -129,9 +129,9 @@ See the [Installation chapter of The Rust on ESP Book](https://esp-rs.github.io/
 While you **can** target the RISC-V Espressif SOCs (`esp32-cXX` and `esp32-hXX`) with the `espup` installer just fine, SOCs with this architecture are also [supported by the nightly Rust compiler](https://esp-rs.github.io/book/installation/installation.html#risc-v) and by recent, stock Clang compilers (as in Clang 11+):
 
 1. Install a recent Clang. See [Clang Getting Started page](https://clang.llvm.org/get_started.html) as it contains useful guidelines on instalaltion. Recent Linux distros come with suitable Clang already.
-2. Install the `nightly` Rust toolchain with the `rust-src` component included:
+2. Install the `nightly-2026-10-19` Rust toolchain with the `rust-src` component included (newer nightlies cannot build `std` for ESP-IDF yet, see [rust-lang/rust#164555](https://github.com/rust-lang/rust/issues/164555)):
    ```sh
-   rustup toolchain install nightly --component rust-src
+   rustup toolchain install nightly-2026-10-19 --component rust-src
    ```
 
 ### Install Python3
@@ -145,7 +145,7 @@ When using `idf.py` and CMake driven ESP-IDF projects, you need to [install the 
 Simple installation for Linux & MacOS:
 ```sh
 git clone https://github.com/espressif/esp-idf
-git -C esp-idf checkout v5.5.3
+git -C esp-idf checkout v5.5.5
 esp-idf/install.sh
 . esp-idf/export.sh
 ```
@@ -153,7 +153,7 @@ esp-idf/install.sh
 Simple installation for Windows:
 ```sh
 git clone https://github.com/espressif/esp-idf
-git -C esp-idf checkout v5.5.3
+git -C esp-idf checkout v5.5.5
 esp-idf\install
 esp-idf\export
 ```

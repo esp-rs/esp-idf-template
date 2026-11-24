@@ -4,7 +4,12 @@ target = "{{ rust_target }}"
 [target.'cfg(target_os = "espidf")']
 linker = "ldproxy"
 runner = "espflash flash --monitor"
+{%- if espidfver == "master" or espidfver contains "v6." %}
+# `espidf_picolibc`: ESP-IDF v6.0 and later use picolibc by default; remove it if you switch to newlib
+rustflags = [ "--cfg",  "espidf_time64", "--cfg", "espidf_picolibc"]
+{%- else %}
 rustflags = [ "--cfg",  "espidf_time64"]
+{%- endif %}
 
 [unstable]
 build-std = ["std", "panic_abort"]

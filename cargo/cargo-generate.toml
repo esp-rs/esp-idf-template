@@ -20,6 +20,7 @@ default = false
 type = "string"
 prompt = "ESP-IDF version (master = UNSTABLE)"
 choices = ["v6.1", "v6.0.3", "v5.5.5", "v5.4.4", "v5.3.6", "master"]
+# Also the version of `pre-script.rhai` without the advanced options
 default = "v5.5.5"
 
 [conditional.'advanced'.placeholders.git]

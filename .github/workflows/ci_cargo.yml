@@ -49,12 +49,16 @@ jobs:
             esp-idf: { version: v5.4.4 }
           - target: esp32c61
             esp-idf: { version: v5.3.6 }
+    env:
+      # The clang toolchain of ESP-IDF v5.1 - v5.3 needs `libxml2.so.2`, which Ubuntu 26.04 does not have
+      ESP_IDF_INSTALL_CLANG: ${{ (startsWith(matrix.esp-idf.version, 'v5.1.') || startsWith(matrix.esp-idf.version, 'v5.2.') || startsWith(matrix.esp-idf.version, 'v5.3.')) && 'off' || 'on' }}
     steps:
       - name: Setup | Rust (RISC-V)
         if: matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
         uses: dtolnay/rust-toolchain@v1
         with:
-          toolchain: nightly
+          # Newer nightlies cannot build `std` for ESP-IDF yet (rust-lang/rust#164555)
+          toolchain: nightly-2026-10-19
           components: clippy, rustfmt, rust-src
       - name: Setup | Rust (Xtensa)
         if: matrix.target == 'esp32' || matrix.target == 'esp32s2' || matrix.target == 'esp32s3'
@@ -63,6 +67,11 @@ jobs:
           default: true
           buildtargets: ${{ matrix.target }}
           ldproxy: false
+      # Without the clang toolchain of the ESP-IDF, the RISC-V bindings use the clang of the runner, and
+      # the Xtensa ones the clang installed by `espup`
+      - name: Setup | libclang (RISC-V)
+        if: env.ESP_IDF_INSTALL_CLANG == 'off' && matrix.target != 'esp32' && matrix.target != 'esp32s2' && matrix.target != 'esp32s3'
+        run: echo "LIBCLANG_PATH=$(dirname "$(readlink -f "$(command -v clang)")")/../lib" >> "$GITHUB_ENV"
       - uses: Swatinem/rust-cache@v2
       - name: Setup | cargo-generate (binary)
         id: cargo-generate-binary
